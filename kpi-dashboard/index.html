@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPI Dashboard — Department of Urology | Michigan Medicine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --um-blue: #00274C;
+  --um-maize: #FFCB05;
+  --navy: #0B1D3A;
+  --navy-mid: #132D54;
+  --navy-light: #1A3A6B;
+  --gold: #C4943D;
+  --gold-light: #D4A84F;
+  --gold-dim: rgba(196, 148, 61, 0.08);
+  --gold-border: rgba(196, 148, 61, 0.18);
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --surface-muted: #F3F4F6;
+  --text-1: #111827;
+  --text-2: #4B5563;
+  --text-3: #9CA3AF;
+  --text-inv: #FFFFFF;
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+  --emerald: #059669;
+  --blue: #2563EB;
+  --amber: #D97706;
+  --rose: #E11D48;
+  --violet: #7C3AED;
+  --teal: #0D9488;
+  --sh-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --sh-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.04);
+  --r: 10px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-full: 999px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 0.15s;
+  --t: 0.25s;
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ═══════ NAV ═══════ */
+.cc-nav {
+  background: #111E30;
+  padding: 0.4rem 2.5rem;
+  display: flex;
+  align-items: center;
+}
+.cc-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.15s ease;
+}
+.cc-nav a:hover { color: rgba(255,255,255,0.7); }
+
+/* ═══════ HERO ═══════ */
+.hero {
+  background: linear-gradient(180deg, var(--navy) 0%, #0E2344 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 1.5rem 2.5rem 1.2rem;
+}
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.hero-logo {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+.hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-inv);
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+  margin-top: 0.05rem;
+}
+
+/* ═══════ TOGGLE CONTROLS ═══════ */
+.controls {
+  padding: 1rem 2.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.toggle-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.toggle-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.toggle-group {
+  display: inline-flex;
+  position: relative;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 3px;
+  gap: 2px;
+}
+.toggle-btn {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease);
+  white-space: nowrap;
+}
+.toggle-btn:hover { color: var(--text-2); }
+.toggle-btn.active { color: var(--text-1); }
+.toggle-indicator {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 6px);
+  border-radius: 7px;
+  background: var(--surface);
+  box-shadow: var(--sh-sm);
+  transition: transform var(--t) var(--ease), width var(--t) var(--ease);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════ KPI GRID ═══════ */
+.kpi-section {
+  padding: 1rem 2.5rem 0.5rem;
+}
+.kpi-section-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin: 1.2rem 0 0.5rem;
+  padding-left: 0.15rem;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 0.85rem 1rem;
+  box-shadow: var(--sh-xs);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--t-fast) var(--ease);
+}
+.kpi-card:hover { box-shadow: var(--sh-md); }
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+}
+.kpi-card--emerald::before { background: var(--emerald); }
+.kpi-card--blue::before { background: var(--blue); }
+.kpi-card--teal::before { background: var(--teal); }
+.kpi-card--gold::before { background: var(--gold); }
+.kpi-card--amber::before { background: var(--amber); }
+.kpi-card--violet::before { background: var(--violet); }
+
+.kpi-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+.kpi-value {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.25;
+  margin-top: 0.2rem;
+}
+.kpi-trend {
+  font-size: 0.6rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.kpi-trend--up { color: var(--emerald); }
+.kpi-trend--down { color: var(--rose); }
+.kpi-trend--neutral { color: var(--text-3); }
+
+.kpi-note {
+  font-size: 0.55rem;
+  color: var(--text-3);
+  margin-top: 0.1rem;
+}
+.kpi-effort-note {
+  font-size: 0.55rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 0.1rem;
+  display: none;
+}
+.spark-wrap {
+  position: relative;
+  margin-top: 0.35rem;
+}
+
+/* ═══════ FOOTER ═══════ */
+.footer {
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.footer-m {
+  width: 24px; height: 24px;
+  border-radius: 5px;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.footer-text {
+  font-size: 0.6rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+.footer-right {
+  font-size: 0.6rem;
+  color: var(--text-3);
+}
+
+/* ═══════ RESPONSIVE ═══════ */
+@media (max-width: 768px) {
+  .hero { padding: 1.2rem 1.2rem 1rem; }
+  .controls { padding: 0.8rem 1.2rem 0; }
+  .kpi-section { padding: 0.8rem 1.2rem 0.5rem; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .footer { padding: 1rem 1.2rem; }
+  .cc-nav { padding: 0.35rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="cc-nav">
+  <a href="../">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    Command Center
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-row">
+    <div class="hero-logo">M</div>
+    <div>
+      <div class="hero-title">KPI Dashboard</div>
+      <div class="hero-sub">Department of Urology &middot; Michigan Medicine</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ TOGGLE CONTROLS ═══════ -->
+<div class="controls">
+  <div class="toggle-bar">
+    <span class="toggle-label">View:</span>
+    <div class="toggle-group" id="viewGroup">
+      <button class="toggle-btn active" data-view="all">All</button>
+      <button class="toggle-btn" data-view="faculty">Faculty</button>
+      <button class="toggle-btn" data-view="fellow">Fellow</button>
+      <button class="toggle-btn" data-view="app">APP</button>
+      <button class="toggle-btn" data-view="other">Other</button>
+      <div class="toggle-indicator" id="viewIndicator"></div>
+    </div>
+  </div>
+  <div class="toggle-bar">
+    <span class="toggle-label">Normalize:</span>
+    <div class="toggle-group" id="normGroup">
+      <button class="toggle-btn active" data-norm="total">Total</button>
+      <button class="toggle-btn" data-norm="hc">Per Faculty HC</button>
+      <button class="toggle-btn" data-norm="fte">Per Clinical FTE</button>
+      <div class="toggle-indicator" id="normIndicator"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ACTIVITY KPIs ═══════ -->
+<div class="kpi-section">
+  <div class="kpi-section-label">Activity Metrics &middot; Jan 2026 (2-month billing lag)</div>
+  <div class="kpi-grid" id="activityGrid">
+    <!-- Cards rendered by JS -->
+  </div>
+
+  <div class="kpi-section-label">Financial Performance &middot; Clinical &amp; SAF Funds &middot; Feb 2026 YTD</div>
+  <div class="kpi-grid" id="financeGrid">
+    <!-- Cards rendered by JS -->
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <div class="footer-m">M</div>
+    <div class="footer-text">
+      <strong>Department of Urology</strong><br>
+      University of Michigan &middot; Michigan Medicine
+    </div>
+  </div>
+  <div class="footer-right" id="footerYear"></div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Footer ──
+  document.getElementById('footerYear').textContent = '\u00A9 ' + new Date().getFullYear();
+
+  // ═══════ SVG HELPERS ═══════
+  var UP = '<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 2L8 6H2z" fill="currentColor"/></svg>';
+  var DN = '<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 8L2 4H8z" fill="currentColor"/></svg>';
+
+  // ═══════ DATA ═══════
+  var EFFORT = {
+    activity:  { month: 'Jan 2026', hc: 99, fte: 45.625 },
+    financial: { month: 'Feb 2026', hc: 99, fte: 45.539 }
+  };
+
+  var ACTIVITY = [
+    {
+      key: 'rvu', label: 'RVUs', accent: 'emerald', color: '#059669',
+      all: { raw: 29462, headline: '29,462', trend: UP + ' +0.9% YoY', trendDir: 'up',
+        spark: [25247,27169,29269,29923,27469,28870,27054,29372,31630,28171,27662,29462] },
+      faculty: null, fellow: null, app: null, other: null
+    },
+    {
+      key: 'or', label: 'OR Cases', accent: 'blue', color: '#2563EB',
+      all: { raw: 867, headline: '867', trend: UP + ' +2.8% YoY', trendDir: 'up',
+        spark: [812,872,903,904,878,895,834,861,927,826,853,867] },
+      faculty: { raw: 851, headline: '851', trend: UP + ' +7.6% YoY', trendDir: 'up',
+        spark: [781,849,867,864,842,875,809,849,907,797,830,851] },
+      fellow: { raw: 16, headline: '16', trend: UP + ' +77.8% YoY', trendDir: 'up',
+        spark: [0,0,0,12,6,20,25,12,20,29,23,16] },
+      app: { raw: 0, headline: '0', trend: '&mdash; No OR cases', trendDir: 'neutral',
+        spark: [0,0,0,0,0,0,0,0,0,0,0,0] },
+      other: { raw: 0, headline: '0', trend: DN + ' -100% YoY', trendDir: 'down',
+        spark: [31,23,36,28,30,0,0,0,0,0,0,0] }
+    },
+    {
+      key: 'visit', label: 'Clinic Visits', accent: 'teal', color: '#0D9488',
+      all: { raw: 9387, headline: '9,387', trend: UP + ' +2.7% YoY', trendDir: 'up',
+        spark: [7853,8377,9217,8812,8357,8711,8699,9398,10364,8780,8927,9387] },
+      faculty: null, fellow: null, app: null, other: null
+    }
+  ];
+
+  var FINANCIAL = [
+    {
+      key: 'netIncome', label: 'YTD Net Income', accent: 'gold', color: '#C4943D',
+      raw: 548757, fy25: -998242,
+      trendHtml: UP + ' +$1.55M vs FY25',
+      note: 'FY25 same period: -$998.2K',
+      sparkType: 'bars',
+      spark: [
+        { v: -300659, fy: 25 }, { v: -449607, fy: 25 }, { v: 194543, fy: 25 },
+        { v: -283086, fy: 25 }, { v: 41327, fy: 25 }, { v: 135032, fy: 25 },
+        { v: -114652, fy: 25 }, { v: -221139, fy: 25 }, { v: 226767, fy: 25 },
+        { v: 83409, fy: 25 }, { v: -192986, fy: 25 }, { v: 535093, fy: 25 },
+        { v: -83938, fy: 26 }, { v: 284616, fy: 26 }, { v: 367720, fy: 26 },
+        { v: -477177, fy: 26 }, { v: 276319, fy: 26 }, { v: 592282, fy: 26 },
+        { v: -15176, fy: 26 }, { v: -395888, fy: 26 }
+      ],
+      sparkMonths: ['Jul 24','Aug 24','Sep 24','Oct 24','Nov 24','Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26']
+    },
+    {
+      key: 'revenue', label: 'Patient Care Revenue (YTD)', accent: 'amber', color: '#D97706',
+      raw: 15015578,
+      trendHtml: UP + ' +$2.6M vs FY25 (+17.6%)',
+      note: 'RVU growth + rate increases driving gains',
+      sparkType: 'line',
+      spark: [1783706,1955539,1781067,1765263,2009231,2072545,2129135,1519092],
+      sparkMonths: ['Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26']
+    },
+    {
+      key: 'margin', label: 'Cumulative Margin', accent: 'violet', color: '#7C3AED',
+      raw: 548757,
+      trendHtml: UP + ' 6 of 8 months improved YoY',
+      note: 'FY25 finished at -$346.0K',
+      sparkType: 'dual',
+      sparkFY26: [-83938,200677,568397,91220,367539,959821,944645,548757],
+      sparkFY25: [-300659,-750266,-555723,-838810,-797483,-662451,-777103,-998242],
+      sparkMonths: ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb']
+    }
+  ];
+
+  // ═══════ STATE ═══════
+  var currentView = 'all';
+  var currentNorm = 'total';
+
+  // ═══════ FORMAT HELPERS ═══════
+  function fmtNum(v) {
+    if (currentNorm === 'total') return Math.round(v).toLocaleString();
+    return v.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  function fmtDollar(v) {
+    var abs = Math.abs(v);
+    var p = v < 0 ? '-$' : '$';
+    if (abs >= 1e6) return p + (abs / 1e6).toFixed(1) + 'M';
+    if (abs >= 1e3) return p + (abs / 1e3).toFixed(1) + 'K';
+    return p + abs.toFixed(0);
+  }
+  function normSuffix() {
+    if (currentNorm === 'hc') return '/HC';
+    if (currentNorm === 'fte') return '/FTE';
+    return '';
+  }
+  function getDivisor(type) {
+    if (currentNorm === 'total') return 1;
+    var e = EFFORT[type];
+    return currentNorm === 'hc' ? e.hc : e.fte;
+  }
+  function effortNote(type) {
+    var e = EFFORT[type];
+    if (currentNorm === 'hc') return 'HC=' + e.hc + ' faculty';
+    if (currentNorm === 'fte') return 'FTE=' + e.fte.toFixed(1) + ' clinical (non-PSA)';
+    return '';
+  }
+
+  // ═══════ SPARKLINE BUILDER ═══════
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function buildSparkline(wrap, values, color) {
+    wrap.innerHTML = '';
+    var W = wrap.offsetWidth || 220, H = 50;
+    var pad = 4;
+    var mn = Math.min.apply(null, values);
+    var mx = Math.max.apply(null, values);
+    var range = mx - mn || 1;
+    function xp(i) { return pad + (i / (values.length - 1)) * (W - 2 * pad); }
+    function yp(v) { return pad + (H - 2 * pad) - ((v - mn) / range) * (H - 2 * pad); }
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    svg.style.display = 'block';
+
+    // Gradient fill
+    var gradId = 'g' + Math.random().toString(36).substr(2, 5);
+    var defs = document.createElementNS(NS, 'defs');
+    var grad = document.createElementNS(NS, 'linearGradient');
+    grad.id = gradId;
+    grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+    grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+    var s1 = document.createElementNS(NS, 'stop');
+    s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', color); s1.setAttribute('stop-opacity', '0.18');
+    var s2 = document.createElementNS(NS, 'stop');
+    s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', color); s2.setAttribute('stop-opacity', '0');
+    grad.appendChild(s1); grad.appendChild(s2);
+    defs.appendChild(grad); svg.appendChild(defs);
+
+    // Area
+    var areaD = 'M' + values.map(function(v, i) { return xp(i).toFixed(1) + ',' + yp(v).toFixed(1); }).join(' L') +
+      ' L' + (W - pad) + ',' + H + ' L' + pad + ',' + H + ' Z';
+    var area = document.createElementNS(NS, 'path');
+    area.setAttribute('d', areaD);
+    area.setAttribute('fill', 'url(#' + gradId + ')');
+    svg.appendChild(area);
+
+    // Line
+    var pts = values.map(function(v, i) { return xp(i).toFixed(1) + ',' + yp(v).toFixed(1); }).join(' ');
+    var line = document.createElementNS(NS, 'polyline');
+    line.setAttribute('points', pts);
+    line.setAttribute('fill', 'none');
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('stroke-linecap', 'round');
+    line.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(line);
+
+    // End dot
+    var last = values[values.length - 1];
+    var dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', xp(values.length - 1).toFixed(1));
+    dot.setAttribute('cy', yp(last).toFixed(1));
+    dot.setAttribute('r', '3');
+    dot.setAttribute('fill', color);
+    svg.appendChild(dot);
+
+    wrap.appendChild(svg);
+  }
+
+  function buildBarChart(wrap, items, color, months) {
+    wrap.innerHTML = '';
+    var W = wrap.offsetWidth || 260, H = 42;
+    var pad = 2;
+    var vals = items.map(function(d) { return d.v; });
+    var mn = Math.min.apply(null, vals);
+    var mx = Math.max.apply(null, vals);
+    var range = mx - mn || 1;
+    var hasNeg = mn < 0, hasPos = mx > 0;
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.style.display = 'block';
+
+    // Zero line
+    if (hasNeg && hasPos) {
+      var zeroY = H - pad - ((0 - mn) / range) * (H - 2 * pad);
+      var zl = document.createElementNS(NS, 'line');
+      zl.setAttribute('x1', 0); zl.setAttribute('y1', zeroY);
+      zl.setAttribute('x2', W); zl.setAttribute('y2', zeroY);
+      zl.setAttribute('stroke', '#E5E7EB'); zl.setAttribute('stroke-width', '0.5');
+      zl.setAttribute('stroke-dasharray', '3,3');
+      svg.appendChild(zl);
+    }
+
+    var zY = hasNeg && hasPos ? (H - pad - ((0 - mn) / range) * (H - 2 * pad)) : (hasNeg ? pad : H - pad);
+    var barW = (W - 2 * pad) / items.length - 1;
+
+    items.forEach(function(d, i) {
+      var x = pad + i * ((W - 2 * pad) / items.length) + 0.5;
+      var yVal = H - pad - ((d.v - mn) / range) * (H - 2 * pad);
+      var barH = Math.abs(yVal - zY);
+      var barY = d.v >= 0 ? yVal : zY;
+      var rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', x); rect.setAttribute('y', barY);
+      rect.setAttribute('width', Math.max(barW, 2));
+      rect.setAttribute('height', Math.max(barH, 1));
+      rect.setAttribute('rx', '1');
+      rect.setAttribute('fill', d.v >= 0 ? '#059669' : '#E11D48');
+      rect.setAttribute('opacity', d.fy === 26 || !d.fy ? '0.85' : '0.3');
+      svg.appendChild(rect);
+    });
+
+    wrap.appendChild(svg);
+
+    // Tooltip
+    var tip = document.createElement('div');
+    tip.style.cssText = 'position:absolute;display:none;background:#111827;color:#fff;font-size:0.6rem;padding:0.2rem 0.4rem;border-radius:4px;pointer-events:none;white-space:nowrap;z-index:5;';
+    wrap.appendChild(tip);
+    svg.addEventListener('mousemove', function(e) {
+      var r = svg.getBoundingClientRect();
+      var mx2 = e.clientX - r.left;
+      var idx = Math.floor((mx2 - pad) / ((W - 2 * pad) / items.length));
+      idx = Math.max(0, Math.min(idx, items.length - 1));
+      var fv = items[idx].v >= 0 ? '$' : '-$';
+      fv += Math.abs(Math.round(items[idx].v / 1000)).toLocaleString() + 'K';
+      tip.textContent = (months ? months[idx] + ': ' : '') + fv;
+      tip.style.display = 'block';
+      tip.style.left = Math.min(mx2, W - 80) + 'px';
+      tip.style.top = '-20px';
+    });
+    svg.addEventListener('mouseleave', function() { tip.style.display = 'none'; });
+  }
+
+  function buildDualLine(wrap, fy26, fy25, color, months) {
+    wrap.innerHTML = '';
+    var W = wrap.offsetWidth || 260, H = 42;
+    var pad = 2;
+    var all = fy26.concat(fy25);
+    var mn = Math.min.apply(null, all);
+    var mx = Math.max.apply(null, all);
+    var range = mx - mn || 1;
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.style.display = 'block';
+
+    // Zero line
+    if (mn < 0 && mx > 0) {
+      var zy = H - pad - ((0 - mn) / range) * (H - 2 * pad);
+      var zl = document.createElementNS(NS, 'line');
+      zl.setAttribute('x1', 0); zl.setAttribute('y1', zy);
+      zl.setAttribute('x2', W); zl.setAttribute('y2', zy);
+      zl.setAttribute('stroke', '#E5E7EB'); zl.setAttribute('stroke-width', '0.5');
+      zl.setAttribute('stroke-dasharray', '3,3');
+      svg.appendChild(zl);
+    }
+
+    function xp(i) { return pad + (i / (fy26.length - 1)) * (W - 2 * pad); }
+    function yp(v) { return H - pad - ((v - mn) / range) * (H - 2 * pad); }
+
+    // FY25 dashed
+    var p25 = fy25.map(function(v, i) { return xp(i).toFixed(1) + ',' + yp(v).toFixed(1); }).join(' ');
+    var l25 = document.createElementNS(NS, 'polyline');
+    l25.setAttribute('points', p25); l25.setAttribute('fill', 'none');
+    l25.setAttribute('stroke', '#D1D5DB'); l25.setAttribute('stroke-width', '1.5');
+    l25.setAttribute('stroke-dasharray', '4,3');
+    svg.appendChild(l25);
+
+    // FY26 solid
+    var p26 = fy26.map(function(v, i) { return xp(i).toFixed(1) + ',' + yp(v).toFixed(1); }).join(' ');
+    var l26 = document.createElementNS(NS, 'polyline');
+    l26.setAttribute('points', p26); l26.setAttribute('fill', 'none');
+    l26.setAttribute('stroke', color); l26.setAttribute('stroke-width', '2');
+    svg.appendChild(l26);
+
+    // End dot
+    var lv = fy26[fy26.length - 1];
+    var dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', xp(fy26.length - 1).toFixed(1));
+    dot.setAttribute('cy', yp(lv).toFixed(1));
+    dot.setAttribute('r', '3'); dot.setAttribute('fill', color);
+    svg.appendChild(dot);
+
+    wrap.appendChild(svg);
+
+    // Legend
+    var legend = document.createElement('div');
+    legend.style.cssText = 'display:flex;gap:0.6rem;margin-top:0.15rem;font-size:0.5rem;color:#9CA3AF;';
+    legend.innerHTML = '<span style="display:inline-flex;align-items:center;gap:0.2rem;"><span style="display:inline-block;width:10px;height:2px;background:#D1D5DB;border-top:1px dashed #D1D5DB;"></span>FY25</span>' +
+      '<span style="display:inline-flex;align-items:center;gap:0.2rem;"><span style="display:inline-block;width:10px;height:2px;background:' + color + ';"></span>FY26</span>';
+    wrap.appendChild(legend);
+
+    // Tooltip
+    var tip = document.createElement('div');
+    tip.style.cssText = 'position:absolute;display:none;background:#111827;color:#fff;font-size:0.6rem;padding:0.2rem 0.4rem;border-radius:4px;pointer-events:none;white-space:nowrap;z-index:5;';
+    wrap.appendChild(tip);
+    svg.addEventListener('mousemove', function(e) {
+      var r = svg.getBoundingClientRect();
+      var mx2 = e.clientX - r.left;
+      var idx = Math.round((mx2 - pad) / (W - 2 * pad) * (fy26.length - 1));
+      idx = Math.max(0, Math.min(idx, fy26.length - 1));
+      var fmt = function(v) { return (v >= 0 ? '$' : '-$') + Math.abs(Math.round(v / 1000)).toLocaleString() + 'K'; };
+      tip.innerHTML = (months ? months[idx] : '') + '<br>FY26: ' + fmt(fy26[idx]) + ' | FY25: ' + fmt(fy25[idx]);
+      tip.style.display = 'block';
+      tip.style.left = Math.min(mx2, W - 120) + 'px';
+      tip.style.top = '-28px';
+    });
+    svg.addEventListener('mouseleave', function() { tip.style.display = 'none'; });
+  }
+
+  // ═══════ RENDER ACTIVITY KPIs ═══════
+  function renderActivity() {
+    var grid = document.getElementById('activityGrid');
+    grid.innerHTML = '';
+    var div = getDivisor('activity');
+    var ns = normSuffix();
+
+    ACTIVITY.forEach(function(metric) {
+      var d = metric[currentView];
+      var usingAll = false;
+
+      if (!d) {
+        d = metric.all;
+        usingAll = true;
+      }
+
+      var card = document.createElement('div');
+      card.className = 'kpi-card kpi-card--' + metric.accent;
+
+      var normVal = d.raw / div;
+      var displayVal = fmtNum(normVal) + ns;
+      if (usingAll && currentView !== 'all') {
+        displayVal += '<sup style="font-size:0.45em;color:var(--text-3);margin-left:2px;">\u2020</sup>';
+      }
+
+      var trendClass = 'kpi-trend kpi-trend--' + d.trendDir;
+      var trendContent = d.trend + ' &middot; Jan 2026';
+      if (usingAll && currentView !== 'all') {
+        trendClass = 'kpi-trend kpi-trend--neutral';
+        trendContent = '<span style="font-size:0.55rem;">\u2020 Breakdown not available</span>';
+      }
+
+      card.innerHTML =
+        '<div class="kpi-label">' + metric.label + '</div>' +
+        '<div class="kpi-value">' + displayVal + '</div>' +
+        '<div class="' + trendClass + '">' + trendContent + '</div>' +
+        '<div class="kpi-note">2-month billing lag applied</div>' +
+        '<div class="kpi-effort-note"' + (currentNorm !== 'total' ? ' style="display:block"' : '') + '>' + effortNote('activity') + '</div>' +
+        '<div class="spark-wrap"></div>';
+
+      grid.appendChild(card);
+
+      // Build sparkline after card is in DOM
+      var sparkWrap = card.querySelector('.spark-wrap');
+      buildSparkline(sparkWrap, d.spark, metric.color);
+    });
+  }
+
+  // ═══════ RENDER FINANCIAL KPIs ═══════
+  function renderFinancial() {
+    var grid = document.getElementById('financeGrid');
+    grid.innerHTML = '';
+    var div = getDivisor('financial');
+    var ns = normSuffix();
+
+    FINANCIAL.forEach(function(metric) {
+      var card = document.createElement('div');
+      card.className = 'kpi-card kpi-card--' + metric.accent;
+
+      var normVal = metric.raw / div;
+      var displayVal = fmtDollar(normVal) + ns;
+
+      // Compute trend for net income (shows improvement vs FY25)
+      var trendHtml = metric.trendHtml;
+      if (metric.key === 'netIncome') {
+        var niFY25 = metric.fy25 / div;
+        var improve = normVal - niFY25;
+        trendHtml = UP + ' +' + fmtDollar(improve) + ' vs FY25';
+      }
+
+      // Compute note
+      var noteText = metric.note;
+      if (metric.key === 'netIncome' && currentNorm !== 'total') {
+        noteText = 'FY25 same period: ' + fmtDollar(metric.fy25 / div) + ns;
+      }
+      if (metric.key === 'margin' && currentNorm !== 'total') {
+        noteText = 'FY25 finished at ' + fmtDollar(-345958 / div) + ns;
+      }
+
+      card.innerHTML =
+        '<div class="kpi-label">' + metric.label + '</div>' +
+        '<div class="kpi-value">' + displayVal + '</div>' +
+        '<div class="kpi-trend kpi-trend--up">' + trendHtml + ' &middot; Feb 2026</div>' +
+        '<div class="kpi-note">' + noteText + '</div>' +
+        '<div class="kpi-effort-note"' + (currentNorm !== 'total' ? ' style="display:block"' : '') + '>' + effortNote('financial') + '</div>' +
+        '<div class="spark-wrap"></div>';
+
+      grid.appendChild(card);
+
+      // Build sparkline after card is in DOM
+      var sparkWrap = card.querySelector('.spark-wrap');
+      if (metric.sparkType === 'bars') {
+        buildBarChart(sparkWrap, metric.spark, metric.color, metric.sparkMonths);
+      } else if (metric.sparkType === 'dual') {
+        buildDualLine(sparkWrap, metric.sparkFY26, metric.sparkFY25, metric.color, metric.sparkMonths);
+      } else {
+        buildSparkline(sparkWrap, metric.spark, metric.color);
+      }
+    });
+  }
+
+  // ═══════ RENDER ALL ═══════
+  function renderAll() {
+    renderActivity();
+    renderFinancial();
+  }
+
+  // ═══════ TOGGLE WIRING ═══════
+  function setupToggle(groupId, indicatorId, dataAttr, onChange) {
+    var group = document.getElementById(groupId);
+    var indicator = document.getElementById(indicatorId);
+    var btns = group.querySelectorAll('.toggle-btn');
+
+    function position(btn) {
+      indicator.style.width = btn.offsetWidth + 'px';
+      indicator.style.transform = 'translateX(' + (btn.offsetLeft - 3) + 'px)';
+    }
+
+    // Initial position
+    btns.forEach(function(btn) {
+      if (btn.classList.contains('active')) position(btn);
+    });
+
+    // Click handlers
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btns.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        position(btn);
+        onChange(btn.getAttribute(dataAttr));
+      });
+    });
+
+    // Resize reposition
+    window.addEventListener('resize', function() {
+      btns.forEach(function(btn) {
+        if (btn.classList.contains('active')) position(btn);
+      });
+    });
+  }
+
+  setupToggle('viewGroup', 'viewIndicator', 'data-view', function(view) {
+    currentView = view;
+    renderAll();
+  });
+
+  setupToggle('normGroup', 'normIndicator', 'data-norm', function(norm) {
+    currentNorm = norm;
+    renderAll();
+  });
+
+  // ═══════ INITIAL RENDER ═══════
+  renderAll();
+
+})();
+</script>
+
+</body>
+</html>

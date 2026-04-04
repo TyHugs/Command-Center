@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surgical Yield Tracker | UM Urology Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+:root {
+  --um-blue: #00274C;
+  --um-blue-light: #0B3D6B;
+  --um-maize: #FFCB05;
+  --gold: #C4943D;
+  --bg: #F4F6F9;
+  --card: #FFFFFF;
+  --text: #1A2332;
+  --text-secondary: #5A6B7F;
+  --border: #E2E8F0;
+  --green: #0D9668;
+  --green-bg: #ECFDF5;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --blue-accent: #2563EB;
+  --blue-bg: #EFF6FF;
+  --r: 10px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --sh-xs: 0 1px 2px rgba(0,39,76,.04);
+  --sh-sm: 0 1px 3px rgba(0,39,76,.08);
+  --sh-md: 0 4px 12px rgba(0,39,76,.08);
+  --sh-lg: 0 8px 24px rgba(0,39,76,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.metric-value{font-family:'Fraunces',serif}
+
+/* CC Nav */
+.cc-nav{background:var(--um-blue);padding:8px 24px;display:flex;align-items:center;gap:12px}
+.cc-nav a{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.cc-nav a:hover{color:#fff}
+.cc-nav .sep{color:rgba(255,255,255,.3)}
+.cc-nav .current{color:var(--um-maize);font-weight:600}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--um-blue) 0%,var(--um-blue-light) 100%);padding:32px 40px;color:#fff}
+.header-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.header h1{font-size:28px;font-weight:700;margin-bottom:4px}
+.header .subtitle{color:rgba(255,255,255,.7);font-size:14px}
+.phi-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(13,150,104,.2);border:1px solid rgba(13,150,104,.4);color:#6EE7B7;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.phi-badge .dot{width:8px;height:8px;border-radius:50%;background:#34D399;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:24px 40px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-sm)}
+.card-title{font-size:16px;font-weight:700;color:var(--um-blue);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* Upload Section */
+.upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px}
+.upload-card{border:2px dashed var(--border);border-radius:var(--r-lg);padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;background:var(--card)}
+.upload-card:hover{border-color:var(--gold);background:#FFFDF5}
+.upload-card.loaded{border-color:var(--green);border-style:solid;background:var(--green-bg)}
+.upload-card .icon{font-size:32px;margin-bottom:8px}
+.upload-card .label{font-weight:700;font-size:15px;color:var(--um-blue);margin-bottom:4px}
+.upload-card .desc{font-size:12px;color:var(--text-secondary)}
+.upload-card .file-info{font-size:12px;color:var(--green);font-weight:600;margin-top:8px}
+.upload-card input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* Column Mapping */
+.mapping-section{margin-bottom:24px}
+.mapping-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mapping-item{display:flex;flex-direction:column;gap:4px}
+.mapping-item label{font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.mapping-item select{padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:13px;background:#fff;color:var(--text);cursor:pointer}
+.mapping-item select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,148,61,.15)}
+
+/* Controls */
+.controls-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:24px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg)}
+.toggle-group{display:flex;gap:20px;flex-wrap:wrap}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer}
+.toggle input[type="checkbox"]{accent-color:var(--gold);width:16px;height:16px}
+.btn-run{background:var(--um-blue);color:#fff;border:none;padding:12px 32px;border-radius:var(--r);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-run:hover{background:var(--um-blue-light);box-shadow:var(--sh-md)}
+.btn-run:disabled{opacity:.4;cursor:not-allowed}
+
+/* Filter Bar */
+.filter-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.filter-bar select{padding:8px 14px;border:1px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:13px;background:#fff;cursor:pointer;min-width:180px}
+
+/* Metrics Row */
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;text-align:center;box-shadow:var(--sh-xs)}
+.metric-label{font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.metric-value{font-size:36px;font-weight:800;color:var(--um-blue)}
+.metric-sub{font-size:12px;color:var(--text-secondary);margin-top:2px}
+
+/* Funnel */
+.funnel-container{display:flex;align-items:center;justify-content:center;gap:0;padding:32px 16px;flex-wrap:nowrap}
+.funnel-stage{text-align:center;flex:1;max-width:200px}
+.funnel-bar{height:80px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:28px;font-weight:800;margin-bottom:8px;transition:all .3s}
+.funnel-stage-label{font-size:13px;font-weight:600;color:var(--um-blue)}
+.funnel-arrow{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 8px;min-width:70px}
+.funnel-arrow .arrow-line{font-size:20px;color:var(--gold)}
+.funnel-arrow .conv-rate{font-size:14px;font-weight:800;color:var(--gold);font-family:'Fraunces',serif}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid var(--border);padding-bottom:0;overflow-x:auto}
+.tab{padding:10px 18px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab:hover{color:var(--um-blue)}
+.tab.active{color:var(--um-blue);border-bottom-color:var(--gold)}
+
+/* Tables */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--um-blue);color:#fff;padding:10px 14px;text-align:left;font-weight:600;position:sticky;top:0;white-space:nowrap}
+thead th:first-child{border-radius:var(--r) 0 0 0}
+thead th:last-child{border-radius:0 var(--r) 0 0}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border)}
+tbody tr:hover{background:#F8FAFC}
+.sort-btn{cursor:pointer;user-select:none}
+.sort-btn:after{content:' \u2195';opacity:.4}
+
+/* Chart container */
+.chart-container{position:relative;height:350px;margin:20px 0}
+
+/* Status badge */
+.status-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.status-badge.green{background:var(--green-bg);color:var(--green)}
+.status-badge.red{background:var(--red-bg);color:var(--red)}
+.status-badge.amber{background:var(--amber-bg);color:var(--amber)}
+
+/* Results section */
+#results{display:none}
+.section-gap{margin-bottom:32px}
+
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+.empty-state .icon{font-size:48px;margin-bottom:12px;opacity:.5}
+.empty-state p{font-size:14px}
+
+/* Responsive */
+@media(max-width:900px){
+  .upload-grid{grid-template-columns:1fr}
+  .metrics-row{grid-template-columns:repeat(2,1fr)}
+  .funnel-container{flex-direction:column}
+  .funnel-arrow{transform:rotate(90deg);padding:8px 0}
+  .container{padding:16px}
+  .header{padding:24px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- CC Nav -->
+<nav class="cc-nav">
+  <a href="../">Command Center</a>
+  <span class="sep">/</span>
+  <span class="current">Surgical Yield Tracker</span>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-row">
+    <div>
+      <h1>Surgical Yield Tracker</h1>
+      <p class="subtitle">Referral &rarr; Appointment &rarr; Surgery Conversion Analysis</p>
+    </div>
+    <div class="phi-badge">
+      <span class="dot"></span>
+      PHI-Safe &mdash; All data processed in your browser
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Upload Section -->
+  <div class="card section-gap" id="upload-section">
+    <div class="card-title">&#128203; Upload Your Data Files (CSV)</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Export CSVs from MiChart / Reporting Workbench. Files are processed entirely in your browser &mdash; nothing is uploaded anywhere.</p>
+    <div class="upload-grid">
+      <div class="upload-card" id="upload-referrals">
+        <div class="icon">&#128220;</div>
+        <div class="label">Referrals</div>
+        <div class="desc">Referral date, MRN, referring provider, diagnosis/ICD, status</div>
+        <div class="file-info" id="ref-info"></div>
+        <input type="file" accept=".csv,.tsv,.txt" onchange="handleFileUpload('referrals', this)">
+      </div>
+      <div class="upload-card" id="upload-appointments">
+        <div class="icon">&#128197;</div>
+        <div class="label">Appointments</div>
+        <div class="desc">Appt date, MRN, provider, site/location, status (kept/no-show/canceled)</div>
+        <div class="file-info" id="appt-info"></div>
+        <input type="file" accept=".csv,.tsv,.txt" onchange="handleFileUpload('appointments', this)">
+      </div>
+      <div class="upload-card" id="upload-surgeries">
+        <div class="icon">&#129657;</div>
+        <div class="label">Surgical Cases</div>
+        <div class="desc">Surgery date, MRN, surgeon, CPT code, procedure name</div>
+        <div class="file-info" id="surg-info"></div>
+        <input type="file" accept=".csv,.tsv,.txt" onchange="handleFileUpload('surgeries', this)">
+      </div>
+    </div>
+
+    <!-- Column Mapping -->
+    <div class="mapping-section" id="mapping-referrals" style="display:none">
+      <div class="card-title" style="font-size:14px">&#128279; Referral Column Mapping</div>
+      <div class="mapping-grid" id="map-grid-referrals"></div>
+    </div>
+    <div class="mapping-section" id="mapping-appointments" style="display:none">
+      <div class="card-title" style="font-size:14px">&#128279; Appointment Column Mapping</div>
+      <div class="mapping-grid" id="map-grid-appointments"></div>
+    </div>
+    <div class="mapping-section" id="mapping-surgeries" style="display:none">
+      <div class="card-title" style="font-size:14px">&#128279; Surgery Column Mapping</div>
+      <div class="mapping-grid" id="map-grid-surgeries"></div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-bar">
+    <div class="toggle-group">
+      <label class="toggle">
+        <input type="checkbox" id="opt-enforce-dates" checked>
+        Enforce date ordering (appt after referral)
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="opt-kept-only" checked>
+        Count only kept appointments
+      </label>
+    </div>
+    <button class="btn-run" id="btn-run" disabled onclick="runAnalysis()">Run Analysis</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <select id="filter-period" onchange="applyFilters()"><option value="">All Time Periods</option></select>
+      <select id="filter-ref-provider" onchange="applyFilters()"><option value="">All Referring Providers</option></select>
+      <select id="filter-surgeon" onchange="applyFilters()"><option value="">All Surgeons</option></select>
+      <select id="filter-site" onchange="applyFilters()"><option value="">All Sites</option></select>
+    </div>
+
+    <!-- KPI Metrics -->
+    <div class="metrics-row" id="metrics-row"></div>
+
+    <!-- Funnel -->
+    <div class="card section-gap">
+      <div class="card-title">&#127891; Conversion Funnel</div>
+      <div class="funnel-container" id="funnel"></div>
+    </div>
+
+    <!-- Trend Chart -->
+    <div class="card section-gap">
+      <div class="card-title">&#128200; Monthly Trend</div>
+      <div class="chart-container"><canvas id="trend-chart"></canvas></div>
+    </div>
+
+    <!-- Breakdown Tabs -->
+    <div class="card section-gap">
+      <div class="tabs" id="breakdown-tabs">
+        <div class="tab active" data-tab="ref-provider" onclick="switchTab(this)">By Referring Provider</div>
+        <div class="tab" data-tab="diagnosis" onclick="switchTab(this)">By Diagnosis / ICD</div>
+        <div class="tab" data-tab="surgeon" onclick="switchTab(this)">By Surgeon</div>
+        <div class="tab" data-tab="cpt" onclick="switchTab(this)">By CPT Code</div>
+        <div class="tab" data-tab="site" onclick="switchTab(this)">By Site</div>
+        <div class="tab" data-tab="dropoff" onclick="switchTab(this)">Drop-Off Analysis</div>
+      </div>
+      <div class="table-wrap" id="breakdown-table"></div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="empty-state">
+    <div class="icon">&#128202;</div>
+    <p>Upload your referral, appointment, and surgery CSVs above, map the columns, and hit <strong>Run Analysis</strong>.</p>
+  </div>
+
+</div>
+
+<script>
+// ─── State ───
+const state = {
+  raw: { referrals: null, appointments: null, surgeries: null },
+  columns: { referrals: null, appointments: null, surgeries: null },
+  mapped: { referrals: [], appointments: [], surgeries: [] },
+  analysis: null,
+  filtered: null,
+  activeTab: 'ref-provider',
+  trendChart: null,
+  sortCol: null,
+  sortDir: 1
+};
+
+// ─── Column Definitions (what we need from each file) ───
+const REQUIRED_FIELDS = {
+  referrals: [
+    { key: 'mrn', label: 'Patient ID / MRN', hints: ['mrn','patient_id','pat_id','medical_record','patient id','medical record number','pat id','patient_mrn','empi','enterprise_id'] },
+    { key: 'date', label: 'Referral Date', hints: ['referral_date','ref_date','date','order_date','referral date','date of referral','order date','created_date','entry_date'] },
+    { key: 'ref_provider', label: 'Referring Provider', hints: ['referring_provider','ref_provider','referring_physician','referral_source','referring provider','referred by','source','ordering_provider','referring_prov'] },
+    { key: 'diagnosis', label: 'Diagnosis / ICD', hints: ['diagnosis','dx','icd','icd_code','diagnosis_code','primary_dx','icd10','reason_for_referral','referral_reason','chief_complaint'] },
+    { key: 'status', label: 'Referral Status', hints: ['status','referral_status','ref_status','disposition','outcome','referral status'] }
+  ],
+  appointments: [
+    { key: 'mrn', label: 'Patient ID / MRN', hints: ['mrn','patient_id','pat_id','medical_record','patient id','medical record number','pat id','patient_mrn','empi'] },
+    { key: 'date', label: 'Appointment Date', hints: ['appointment_date','appt_date','date','visit_date','encounter_date','appointment date','appt date','contact_date','scheduled_date'] },
+    { key: 'provider', label: 'Appointment Provider', hints: ['provider','physician','attending','doctor','prov','visit_provider','appointment provider','attending_provider','seen_by'] },
+    { key: 'site', label: 'Site / Location', hints: ['site','location','department','clinic','facility','dept','department_name','clinic_name','location_name','dept_name'] },
+    { key: 'status', label: 'Appointment Status', hints: ['status','appt_status','appointment_status','visit_status','encounter_status','completed','appointment status','appt status'] }
+  ],
+  surgeries: [
+    { key: 'mrn', label: 'Patient ID / MRN', hints: ['mrn','patient_id','pat_id','medical_record','patient id','medical record number','pat id','patient_mrn','empi'] },
+    { key: 'date', label: 'Surgery Date', hints: ['surgery_date','surg_date','date','procedure_date','case_date','or_date','date_of_surgery','surgery date','case date','service_date'] },
+    { key: 'surgeon', label: 'Surgeon', hints: ['surgeon','primary_surgeon','operating_physician','surgeon_name','primary surgeon','attending_surgeon','lead_surgeon','performing_provider'] },
+    { key: 'cpt', label: 'CPT Code', hints: ['cpt','cpt_code','procedure_code','cpt code','primary_cpt','cpt4'] },
+    { key: 'procedure', label: 'Procedure Name', hints: ['procedure','procedure_name','procedure_description','case_name','operation','surgery_name','procedure name','case name'] }
+  ]
+};
+
+// ─── File Upload ───
+function handleFileUpload(type, input) {
+  const file = input.files[0];
+  if (!file) return;
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: function(result) {
+      state.raw[type] = result.data;
+      state.columns[type] = result.meta.fields;
+      document.getElementById('upload-' + type.replace('ies','y').replace(/s$/,'')).classList.add('loaded');
+      // For the card IDs: referrals -> upload-referrals, appointments -> upload-appointments, surgeries -> upload-surgeries
+      // Fix: use type directly for card lookup
+      const cardMap = { referrals: 'upload-referrals', appointments: 'upload-appointments', surgeries: 'upload-surgeries' };
+      document.getElementById(cardMap[type]).classList.add('loaded');
+      const infoMap = { referrals: 'ref-info', appointments: 'appt-info', surgeries: 'surg-info' };
+      document.getElementById(infoMap[type]).textContent = file.name + ' \u2014 ' + result.data.length.toLocaleString() + ' rows';
+      buildMappingUI(type);
+      checkReady();
+    }
+  });
+}
+
+function buildMappingUI(type) {
+  const section = document.getElementById('mapping-' + type);
+  const grid = document.getElementById('map-grid-' + type);
+  section.style.display = 'block';
+  grid.innerHTML = '';
+  const cols = state.columns[type];
+  const fields = REQUIRED_FIELDS[type];
+  fields.forEach(field => {
+    const item = document.createElement('div');
+    item.className = 'mapping-item';
+    const lbl = document.createElement('label');
+    lbl.textContent = field.label;
+    const sel = document.createElement('select');
+    sel.id = 'map-' + type + '-' + field.key;
+    sel.innerHTML = '<option value="">(not mapped)</option>' + cols.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+    // Auto-detect
+    const normalizedCols = cols.map(c => c.toLowerCase().replace(/[\s\-\/]+/g,'_').replace(/[^a-z0-9_]/g,''));
+    let bestMatch = '';
+    for (const hint of field.hints) {
+      const hintNorm = hint.toLowerCase().replace(/[\s\-\/]+/g,'_');
+      const idx = normalizedCols.findIndex(c => c === hintNorm || c.includes(hintNorm) || hintNorm.includes(c));
+      if (idx !== -1) { bestMatch = cols[idx]; break; }
+    }
+    if (bestMatch) sel.value = bestMatch;
+    item.appendChild(lbl);
+    item.appendChild(sel);
+    grid.appendChild(item);
+  });
+}
+
+function checkReady() {
+  const allLoaded = state.raw.referrals && state.raw.appointments && state.raw.surgeries;
+  document.getElementById('btn-run').disabled = !allLoaded;
+}
+
+function getMappedValue(type, field) {
+  const sel = document.getElementById('map-' + type + '-' + field);
+  return sel ? sel.value : '';
+}
+
+// ─── Parse / Normalize ───
+function parseDate(str) {
+  if (!str) return null;
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function normalizeStr(s) { return (s || '').toString().trim().toUpperCase(); }
+
+function getMonthKey(d) {
+  if (!d) return null;
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+}
+
+// ─── Core Analysis ───
+function runAnalysis() {
+  // Read mappings
+  const refMap = {};
+  REQUIRED_FIELDS.referrals.forEach(f => refMap[f.key] = getMappedValue('referrals', f.key));
+  const apptMap = {};
+  REQUIRED_FIELDS.appointments.forEach(f => apptMap[f.key] = getMappedValue('appointments', f.key));
+  const surgMap = {};
+  REQUIRED_FIELDS.surgeries.forEach(f => surgMap[f.key] = getMappedValue('surgeries', f.key));
+
+  if (!refMap.mrn || !apptMap.mrn || !surgMap.mrn) {
+    alert('Please map at least the Patient ID / MRN column for all three files.');
+    return;
+  }
+
+  const enforceDates = document.getElementById('opt-enforce-dates').checked;
+  const keptOnly = document.getElementById('opt-kept-only').checked;
+
+  // Normalize all data
+  const referrals = state.raw.referrals.map(r => ({
+    mrn: normalizeStr(r[refMap.mrn]),
+    date: parseDate(r[refMap.date]),
+    ref_provider: (r[refMap.ref_provider] || '').toString().trim(),
+    diagnosis: (r[refMap.diagnosis] || '').toString().trim(),
+    status: (r[refMap.status] || '').toString().trim()
+  })).filter(r => r.mrn);
+
+  const appointments = state.raw.appointments.map(a => ({
+    mrn: normalizeStr(a[apptMap.mrn]),
+    date: parseDate(a[apptMap.date]),
+    provider: (a[apptMap.provider] || '').toString().trim(),
+    site: (a[apptMap.site] || '').toString().trim(),
+    status: (a[apptMap.status] || '').toString().trim()
+  })).filter(a => a.mrn);
+
+  const surgeries = state.raw.surgeries.map(s => ({
+    mrn: normalizeStr(s[surgMap.mrn]),
+    date: parseDate(s[surgMap.date]),
+    surgeon: (s[surgMap.surgeon] || '').toString().trim(),
+    cpt: (s[surgMap.cpt] || '').toString().trim(),
+    procedure: (s[surgMap.procedure] || '').toString().trim()
+  })).filter(s => s.mrn);
+
+  // Build patient-level records
+  const patients = {};
+  referrals.forEach(r => {
+    if (!patients[r.mrn]) patients[r.mrn] = { mrn: r.mrn, referrals: [], appointments: [], surgeries: [] };
+    patients[r.mrn].referrals.push(r);
+  });
+  appointments.forEach(a => {
+    if (!patients[a.mrn]) patients[a.mrn] = { mrn: a.mrn, referrals: [], appointments: [], surgeries: [] };
+    patients[a.mrn].appointments.push(a);
+  });
+  surgeries.forEach(s => {
+    if (!patients[s.mrn]) patients[s.mrn] = { mrn: s.mrn, referrals: [], appointments: [], surgeries: [] };
+    patients[s.mrn].surgeries.push(s);
+  });
+
+  // Determine funnel status for each referred patient
+  const referred = new Set(referrals.map(r => r.mrn));
+  const results = [];
+  referred.forEach(mrn => {
+    const p = patients[mrn];
+    const firstRef = p.referrals.sort((a,b) => (a.date||0) - (b.date||0))[0];
+    let scheduled = false, kept = false, surgery = false;
+    let matchedAppt = null, matchedSurg = null;
+
+    // Check appointments
+    const validAppts = p.appointments.filter(a => {
+      if (enforceDates && firstRef.date && a.date) return a.date >= firstRef.date;
+      return true;
+    });
+
+    const KEPT_STATUSES = ['completed','arrived','kept','checked in','checked out','seen','encounter closed','closed'];
+    const NOSHOW_CANCEL = ['no show','no-show','noshow','canceled','cancelled','cancel','rescheduled'];
+
+    if (validAppts.length > 0) {
+      scheduled = true;
+      if (keptOnly) {
+        matchedAppt = validAppts.find(a => KEPT_STATUSES.some(s => a.status.toLowerCase().includes(s)));
+        kept = !!matchedAppt;
+      } else {
+        matchedAppt = validAppts.find(a => !NOSHOW_CANCEL.some(s => a.status.toLowerCase().includes(s))) || validAppts[0];
+        kept = !!matchedAppt;
+      }
+    }
+
+    // Check surgeries
+    const validSurgs = p.surgeries.filter(s => {
+      if (enforceDates && firstRef.date && s.date) return s.date >= firstRef.date;
+      return true;
+    });
+    if (validSurgs.length > 0) {
+      surgery = true;
+      matchedSurg = validSurgs[0];
+    }
+
+    let stage = 'Referred Only';
+    if (surgery) stage = 'Surgery';
+    else if (kept) stage = 'Kept Appointment';
+    else if (scheduled) stage = 'Scheduled Only';
+
+    results.push({
+      mrn,
+      ref_provider: firstRef.ref_provider,
+      diagnosis: firstRef.diagnosis,
+      ref_date: firstRef.date,
+      ref_status: firstRef.status,
+      appt_provider: matchedAppt ? matchedAppt.provider : '',
+      appt_date: matchedAppt ? matchedAppt.date : null,
+      appt_site: matchedAppt ? matchedAppt.site : '',
+      appt_status: matchedAppt ? matchedAppt.status : '',
+      surgeon: matchedSurg ? matchedSurg.surgeon : '',
+      surg_date: matchedSurg ? matchedSurg.date : null,
+      cpt: matchedSurg ? matchedSurg.cpt : '',
+      procedure: matchedSurg ? matchedSurg.procedure : '',
+      stage,
+      scheduled, kept, surgery
+    });
+  });
+
+  state.analysis = results;
+  populateFilters(results);
+  state.filtered = results;
+  renderAll(results);
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('empty-state').style.display = 'none';
+}
+
+// ─── Filters ───
+function populateFilters(data) {
+  const periods = [...new Set(data.filter(d=>d.ref_date).map(d=>getMonthKey(d.ref_date)))].sort();
+  const refs = [...new Set(data.map(d=>d.ref_provider).filter(Boolean))].sort();
+  const surgeons = [...new Set(data.map(d=>d.surgeon).filter(Boolean))].sort();
+  const sites = [...new Set(data.map(d=>d.appt_site).filter(Boolean))].sort();
+
+  fillSelect('filter-period', periods, 'All Time Periods');
+  fillSelect('filter-ref-provider', refs, 'All Referring Providers');
+  fillSelect('filter-surgeon', surgeons, 'All Surgeons');
+  fillSelect('filter-site', sites, 'All Sites');
+}
+
+function fillSelect(id, items, defaultLabel) {
+  const sel = document.getElementById(id);
+  sel.innerHTML = '<option value="">' + defaultLabel + '</option>' + items.map(i => '<option value="' + i + '">' + i + '</option>').join('');
+}
+
+function applyFilters() {
+  if (!state.analysis) return;
+  let data = state.analysis;
+  const period = document.getElementById('filter-period').value;
+  const ref = document.getElementById('filter-ref-provider').value;
+  const surgeon = document.getElementById('filter-surgeon').value;
+  const site = document.getElementById('filter-site').value;
+
+  if (period) data = data.filter(d => d.ref_date && getMonthKey(d.ref_date) === period);
+  if (ref) data = data.filter(d => d.ref_provider === ref);
+  if (surgeon) data = data.filter(d => d.surgeon === surgeon);
+  if (site) data = data.filter(d => d.appt_site === site);
+
+  state.filtered = data;
+  renderAll(data);
+}
+
+// ─── Rendering ───
+function renderAll(data) {
+  renderMetrics(data);
+  renderFunnel(data);
+  renderTrend(data);
+  renderBreakdown(data);
+}
+
+function renderMetrics(data) {
+  const total = data.length;
+  const scheduled = data.filter(d => d.scheduled).length;
+  const kept = data.filter(d => d.kept).length;
+  const surgeries = data.filter(d => d.surgery).length;
+
+  const html = [
+    metricCard('Total Referrals', total, ''),
+    metricCard('Scheduled', scheduled, pct(scheduled, total) + ' of referrals'),
+    metricCard('Kept Appointments', kept, pct(kept, scheduled) + ' of scheduled'),
+    metricCard('Surgeries', surgeries, pct(surgeries, total) + ' yield')
+  ].join('');
+  document.getElementById('metrics-row').innerHTML = html;
+}
+
+function metricCard(label, value, sub) {
+  return '<div class="metric-card"><div class="metric-label">' + label + '</div><div class="metric-value">' + value.toLocaleString() + '</div><div class="metric-sub">' + sub + '</div></div>';
+}
+
+function pct(num, den) { return den === 0 ? '0%' : (num/den*100).toFixed(1) + '%'; }
+
+function renderFunnel(data) {
+  const total = data.length;
+  const scheduled = data.filter(d => d.scheduled).length;
+  const kept = data.filter(d => d.kept).length;
+  const surg = data.filter(d => d.surgery).length;
+
+  const stages = [
+    { label: 'Referrals', count: total, color: '#00274C' },
+    { label: 'Scheduled', count: scheduled, color: '#0B3D6B' },
+    { label: 'Kept Appts', count: kept, color: '#C4943D' },
+    { label: 'Surgeries', count: surg, color: '#0D9668' }
+  ];
+
+  const maxW = 100;
+  let html = '';
+  stages.forEach((s, i) => {
+    const w = total > 0 ? Math.max(30, (s.count / total) * maxW) : 30;
+    html += '<div class="funnel-stage"><div class="funnel-bar" style="background:' + s.color + ';width:' + w + '%;margin:0 auto">' + s.count.toLocaleString() + '</div><div class="funnel-stage-label">' + s.label + '</div></div>';
+    if (i < stages.length - 1) {
+      const rate = stages[i].count > 0 ? (stages[i+1].count / stages[i].count * 100).toFixed(1) + '%' : '0%';
+      html += '<div class="funnel-arrow"><div class="arrow-line">&rarr;</div><div class="conv-rate">' + rate + '</div></div>';
+    }
+  });
+  document.getElementById('funnel').innerHTML = html;
+}
+
+function renderTrend(data) {
+  const months = {};
+  data.forEach(d => {
+    const mk = d.ref_date ? getMonthKey(d.ref_date) : null;
+    if (!mk) return;
+    if (!months[mk]) months[mk] = { referrals: 0, scheduled: 0, kept: 0, surgeries: 0 };
+    months[mk].referrals++;
+    if (d.scheduled) months[mk].scheduled++;
+    if (d.kept) months[mk].kept++;
+    if (d.surgery) months[mk].surgeries++;
+  });
+
+  const sorted = Object.keys(months).sort();
+  const labels = sorted.map(m => { const [y,mo] = m.split('-'); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(mo)-1] + ' ' + y; });
+
+  if (state.trendChart) state.trendChart.destroy();
+  const ctx = document.getElementById('trend-chart').getContext('2d');
+  state.trendChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Referrals', data: sorted.map(m => months[m].referrals), borderColor: '#00274C', backgroundColor: 'rgba(0,39,76,.08)', fill: true, tension: .3 },
+        { label: 'Scheduled', data: sorted.map(m => months[m].scheduled), borderColor: '#0B3D6B', backgroundColor: 'transparent', borderDash: [5,3], tension: .3 },
+        { label: 'Kept Appts', data: sorted.map(m => months[m].kept), borderColor: '#C4943D', backgroundColor: 'rgba(196,148,61,.08)', fill: true, tension: .3 },
+        { label: 'Surgeries', data: sorted.map(m => months[m].surgeries), borderColor: '#0D9668', backgroundColor: 'rgba(13,150,104,.08)', fill: true, tension: .3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { usePointStyle: true, font: { family: 'Plus Jakarta Sans', size: 12 } } } },
+      scales: { y: { beginAtZero: true, grid: { color: '#E2E8F0' } }, x: { grid: { display: false } } }
+    }
+  });
+}
+
+// ─── Breakdown Tables ───
+function switchTab(el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  state.activeTab = el.dataset.tab;
+  state.sortCol = null;
+  state.sortDir = 1;
+  renderBreakdown(state.filtered);
+}
+
+function renderBreakdown(data) {
+  const tab = state.activeTab;
+  if (tab === 'dropoff') return renderDropoff(data);
+
+  const groupKey = { 'ref-provider': 'ref_provider', 'diagnosis': 'diagnosis', 'surgeon': 'surgeon', 'cpt': 'cpt', 'site': 'appt_site' }[tab];
+  const groupLabel = { 'ref-provider': 'Referring Provider', 'diagnosis': 'Diagnosis / ICD', 'surgeon': 'Surgeon', 'cpt': 'CPT Code', 'site': 'Site' }[tab];
+
+  const groups = {};
+  data.forEach(d => {
+    const key = d[groupKey] || '(Unknown)';
+    if (!groups[key]) groups[key] = { referrals: 0, scheduled: 0, kept: 0, surgeries: 0 };
+    groups[key].referrals++;
+    if (d.scheduled) groups[key].scheduled++;
+    if (d.kept) groups[key].kept++;
+    if (d.surgery) groups[key].surgeries++;
+  });
+
+  let rows = Object.entries(groups).map(([name, g]) => ({
+    name,
+    referrals: g.referrals,
+    scheduled: g.scheduled,
+    schedRate: g.referrals > 0 ? (g.scheduled/g.referrals*100) : 0,
+    kept: g.kept,
+    keptRate: g.scheduled > 0 ? (g.kept/g.scheduled*100) : 0,
+    surgeries: g.surgeries,
+    yieldRate: g.referrals > 0 ? (g.surgeries/g.referrals*100) : 0
+  }));
+
+  if (state.sortCol) {
+    rows.sort((a,b) => (a[state.sortCol] > b[state.sortCol] ? 1 : -1) * state.sortDir);
+  } else {
+    rows.sort((a,b) => b.referrals - a.referrals);
+  }
+
+  let html = '<table><thead><tr>';
+  html += '<th>' + groupLabel + '</th>';
+  const cols = [
+    { key: 'referrals', label: 'Referrals' },
+    { key: 'scheduled', label: 'Scheduled' },
+    { key: 'schedRate', label: 'Sched %' },
+    { key: 'kept', label: 'Kept' },
+    { key: 'keptRate', label: 'Kept %' },
+    { key: 'surgeries', label: 'Surgeries' },
+    { key: 'yieldRate', label: 'Yield %' }
+  ];
+  cols.forEach(c => {
+    html += '<th class="sort-btn" onclick="sortTable(\'' + c.key + '\')">' + c.label + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+  rows.forEach(r => {
+    html += '<tr><td style="font-weight:600">' + r.name + '</td>';
+    html += '<td>' + r.referrals + '</td>';
+    html += '<td>' + r.scheduled + '</td>';
+    html += '<td>' + r.schedRate.toFixed(1) + '%</td>';
+    html += '<td>' + r.kept + '</td>';
+    html += '<td>' + r.keptRate.toFixed(1) + '%</td>';
+    html += '<td>' + r.surgeries + '</td>';
+    html += '<td><span class="status-badge ' + yieldColor(r.yieldRate) + '">' + r.yieldRate.toFixed(1) + '%</span></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('breakdown-table').innerHTML = html;
+}
+
+function renderDropoff(data) {
+  const dropoffs = data.filter(d => !d.surgery);
+  let rows = dropoffs.map(d => ({
+    stage: d.stage,
+    ref_provider: d.ref_provider || '(Unknown)',
+    diagnosis: d.diagnosis || '(Unknown)',
+    ref_date: d.ref_date ? d.ref_date.toLocaleDateString() : '',
+    appt_status: d.appt_status || '',
+    days: d.ref_date ? Math.round((new Date() - d.ref_date) / 86400000) : ''
+  }));
+
+  if (state.sortCol) {
+    rows.sort((a,b) => (a[state.sortCol] > b[state.sortCol] ? 1 : -1) * state.sortDir);
+  }
+
+  let html = '<table><thead><tr>';
+  html += '<th class="sort-btn" onclick="sortTable(\'stage\')">Stage Reached</th>';
+  html += '<th class="sort-btn" onclick="sortTable(\'ref_provider\')">Referring Provider</th>';
+  html += '<th class="sort-btn" onclick="sortTable(\'diagnosis\')">Diagnosis</th>';
+  html += '<th class="sort-btn" onclick="sortTable(\'ref_date\')">Referral Date</th>';
+  html += '<th class="sort-btn" onclick="sortTable(\'appt_status\')">Appt Status</th>';
+  html += '<th class="sort-btn" onclick="sortTable(\'days\')">Days Since Referral</th>';
+  html += '</tr></thead><tbody>';
+  rows.slice(0, 200).forEach(r => {
+    const stageColor = r.stage === 'Referred Only' ? 'red' : r.stage === 'Scheduled Only' ? 'amber' : 'green';
+    html += '<tr>';
+    html += '<td><span class="status-badge ' + stageColor + '">' + r.stage + '</span></td>';
+    html += '<td>' + r.ref_provider + '</td>';
+    html += '<td>' + r.diagnosis + '</td>';
+    html += '<td>' + r.ref_date + '</td>';
+    html += '<td>' + r.appt_status + '</td>';
+    html += '<td>' + r.days + '</td>';
+    html += '</tr>';
+  });
+  if (rows.length > 200) {
+    html += '<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);font-style:italic">Showing 200 of ' + rows.length + ' drop-offs</td></tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('breakdown-table').innerHTML = html;
+}
+
+function sortTable(col) {
+  if (state.sortCol === col) state.sortDir *= -1;
+  else { state.sortCol = col; state.sortDir = 1; }
+  renderBreakdown(state.filtered);
+}
+
+function yieldColor(rate) {
+  if (rate >= 30) return 'green';
+  if (rate >= 15) return 'amber';
+  return 'red';
+}
+</script>
+</body>
+</html>

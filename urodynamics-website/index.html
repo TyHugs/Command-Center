@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Urodynamics Study | Michigan Medicine – Department of Urology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+
+<!-- Schema.org Structured Data (P2 — SEO/Discoverability) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Urodynamics Study",
+  "procedureType": "https://schema.org/DiagnosticProcedure",
+  "description": "A urodynamics study measures how well your bladder and urinary system store and release urine, helping your doctor find the best treatment plan for you.",
+  "howPerformed": "Small, thin sensors are gently placed to measure bladder pressure and urine flow while the bladder is slowly filled with sterile water.",
+  "preparation": "Arrive with a comfortably full bladder. Bring a list of current medications. Wear comfortable clothing.",
+  "followup": "Results are reviewed by your urologist and discussed at your follow-up appointment to determine next steps in your treatment plan.",
+  "status": "https://schema.org/ActiveActionStatus",
+  "bodyLocation": "Urinary bladder",
+  "provider": {
+    "@type": "MedicalOrganization",
+    "name": "Michigan Medicine – Department of Urology",
+    "url": "https://www.uofmhealth.org/conditions-treatments/urology",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1500 E. Medical Center Drive",
+      "addressLocality": "Ann Arbor",
+      "addressRegion": "MI",
+      "postalCode": "48109"
+    }
+  }
+}
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* ─── LIGHT THEME ─── */
+    --michigan-blue: #00274C;
+    --michigan-maize: #FFCB05;
+    --blue-dark: #001a33;
+    --blue-mid: #003366;
+    --blue-light: #E8F0F8;
+    --blue-mist: #F3F7FB;
+    --warm-white: #FAFBFD;
+    --warm-cream: #FFF9E5;
+    --text-primary: #1a2a3a;
+    --text-secondary: #4a5a6a;
+    --text-light: #6a7a8a;
+    --success-green: #1B7A3D;
+    --success-light: #E8F5EC;
+    --border: #D8E2EC;
+    --card-bg: #fff;
+    --shadow-sm: 0 1px 3px rgba(0,39,76,0.06);
+    --shadow-md: 0 4px 16px rgba(0,39,76,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,39,76,0.10);
+    --radius: 12px;
+    --radius-lg: 20px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --tab-bg: #fff;
+    --tab-active-bg: var(--blue-mist);
+    --overlay: rgba(0,39,76,0.03);
+  }
+
+  /* ─── DARK MODE ─── */
+  [data-theme="dark"] {
+    --michigan-blue: #4A90D9;
+    --blue-dark: #0a1628;
+    --blue-mid: #1a3a5c;
+    --blue-light: #1a2d42;
+    --blue-mist: #111f30;
+    --warm-white: #0d1721;
+    --warm-cream: #1e1a0f;
+    --text-primary: #e0e8f0;
+    --text-secondary: #a0b0c0;
+    --text-light: #708090;
+    --success-green: #4CAF78;
+    --success-light: #142820;
+    --border: #1e3348;
+    --card-bg: #14202e;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.3);
+    --tab-bg: #0d1721;
+    --tab-active-bg: #1a2d42;
+    --overlay: rgba(0,0,0,0.2);
+  }
+
+  [data-theme="dark"] .topbar { background: #0a1220; }
+  [data-theme="dark"] .hero { background: linear-gradient(165deg, #0a1628 0%, #0f2540 55%, #133058 100%); }
+  [data-theme="dark"] .tab-nav { background: var(--tab-bg); border-color: var(--border); }
+  [data-theme="dark"] .tab-btn.active { background: var(--tab-active-bg); }
+  [data-theme="dark"] .provider-avatar.has-initials { background: linear-gradient(135deg, #1a3a5c, #0f2540); }
+
+  /* ─── BASE (P1: 18px for older patients) ─── */
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: var(--warm-white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  :focus-visible { outline: 3px solid var(--michigan-maize); outline-offset: 2px; }
+
+  /* ─── SIMPLIFIED ENGLISH MODE ─── */
+  .simple-text { display: none; }
+  body.simplified .standard-text { display: none; }
+  body.simplified .simple-text { display: inline; }
+
+  /* ─── MEDICAL TERM TOOLTIPS ─── */
+  .med-term {
+    border-bottom: 1px dashed var(--text-light);
+    cursor: help;
+    position: relative;
+  }
+
+  .med-term::after {
+    content: attr(data-definition);
+    position: absolute;
+    bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--michigan-blue);
+    color: #fff; font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    max-width: 280px; white-space: normal;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 500;
+    line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .med-term:hover::after, .med-term:focus::after {
+    opacity: 1; pointer-events: auto;
+  }
+
+  [data-theme="dark"] .med-term::after { background: #1a3a5c; }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    background: #00274C;
+    border-bottom: 3px solid var(--michigan-maize);
+    padding: 0 1.5rem;
+    position: relative; z-index: 200;
+  }
+
+  .topbar-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+
+  .topbar-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .topbar-logo {
+    width: 36px; height: 36px;
+    background: var(--michigan-maize);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem; color: #00274C;
+    font-weight: 700;
+  }
+
+  .topbar-title {
+    color: #fff; font-size: 0.78rem; line-height: 1.3;
+  }
+
+  .topbar-title strong {
+    display: block; font-size: 0.85rem; font-weight: 700;
+  }
+
+  /* ─── TOOLBAR BUTTONS ─── */
+  .topbar-tools {
+    display: flex; align-items: center; gap: 0.35rem;
+  }
+
+  .tool-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+    font-family: var(--font-body);
+    font-size: 0.68rem; font-weight: 600;
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    min-height: 36px;
+  }
+
+  .tool-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .tool-btn.active { background: rgba(255,203,5,0.2); border-color: rgba(255,203,5,0.4); color: var(--michigan-maize); }
+  .tool-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ─── HERO (compact) ─── */
+  .hero {
+    background: linear-gradient(165deg, #00274C 0%, #003366 55%, #004080 100%);
+    position: relative; overflow: hidden;
+    padding: 2.5rem 1.5rem 2.25rem;
+  }
+
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(255,203,5,0.08) 0%, transparent 50%);
+  }
+
+  .hero-inner {
+    max-width: 800px; margin: 0 auto;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,203,5,0.15);
+    border: 1px solid rgba(255,203,5,0.3);
+    border-radius: 100px; padding: 0.3rem 0.9rem;
+    font-size: 0.65rem; font-weight: 600;
+    color: var(--michigan-maize);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    animation: fadeDown 0.5s ease-out both;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--michigan-maize); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 4.2vw, 2.4rem);
+    color: #fff; line-height: 1.2;
+    margin-bottom: 0.65rem;
+    animation: fadeDown 0.5s 0.08s ease-out both;
+  }
+
+  .hero h1 em { color: var(--michigan-maize); font-style: italic; }
+
+  .hero-sub {
+    font-size: clamp(0.88rem, 2vw, 1rem);
+    color: rgba(255,255,255,0.8);
+    max-width: 540px; margin: 0 auto 1.25rem;
+    line-height: 1.6;
+    animation: fadeDown 0.5s 0.15s ease-out both;
+  }
+
+  .hero-pills {
+    display: flex; justify-content: center; gap: 0.5rem;
+    flex-wrap: wrap;
+    animation: fadeDown 0.5s 0.22s ease-out both;
+  }
+
+  .hero-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem; color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  .hero-pill svg { width: 13px; height: 13px; color: var(--michigan-maize); flex-shrink: 0; }
+
+  /* ─── TAB NAV + PROGRESS (P2) ─── */
+  .tab-nav-wrapper {
+    position: sticky; top: 0; z-index: 150;
+    background: var(--tab-bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,39,76,0.06);
+  }
+
+  .tab-progress {
+    height: 3px;
+    background: var(--border);
+  }
+
+  .tab-progress-fill {
+    height: 100%;
+    background: var(--michigan-maize);
+    transition: width 0.35s ease;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .tab-nav {
+    max-width: 1100px; margin: 0 auto;
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1; min-width: max-content;
+    background: none; border: none;
+    padding: 0.8rem 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    white-space: nowrap;
+    /* P1: 44px min touch target */
+    min-height: 48px;
+  }
+
+  .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .tab-btn:hover { color: var(--text-primary); background: var(--overlay); }
+
+  /* P1: Stronger active indicator */
+  .tab-btn.active {
+    color: #00274C;
+    border-bottom-color: var(--michigan-maize);
+    background: var(--tab-active-bg);
+    font-weight: 700;
+  }
+
+  [data-theme="dark"] .tab-btn.active { color: var(--michigan-maize); }
+
+  .tab-step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-light);
+    font-size: 0.6rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .tab-btn.active .tab-step-num,
+  .tab-btn.visited .tab-step-num {
+    background: var(--michigan-maize);
+    color: #00274C;
+  }
+
+  /* ─── CONTENT AREA ─── */
+  .content-area {
+    max-width: 860px; margin: 0 auto;
+    padding: 2rem 1.5rem 2.5rem;
+    min-height: 55vh;
+  }
+
+  .tab-panel {
+    display: none;
+    animation: panelIn 0.3s ease-out;
+  }
+
+  .tab-panel.active { display: block; }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── PANEL COMMON ─── */
+  .panel-header { margin-bottom: 1.5rem; }
+
+  .panel-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--blue-mid); margin-bottom: 0.4rem;
+  }
+
+  [data-theme="dark"] .panel-label { color: #6aa3d9; }
+  .panel-label svg { width: 14px; height: 14px; }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+    color: var(--michigan-blue);
+    line-height: 1.25; margin-bottom: 0.5rem;
+  }
+
+  .panel-lead {
+    font-size: 0.92rem; color: var(--text-secondary);
+    max-width: 620px; line-height: 1.65;
+  }
+
+  /* ─── NEXT SECTION PROMPT ─── */
+  .next-section {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .next-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--blue-light);
+    color: var(--michigan-blue);
+    border: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 0.82rem; font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+  }
+
+  .next-btn:hover { background: var(--michigan-maize); border-color: var(--michigan-maize); }
+  .next-btn svg { width: 16px; height: 16px; }
+
+  [data-theme="dark"] .next-btn { background: var(--blue-light); color: var(--text-primary); }
+
+  /* ─── OVERVIEW CARDS ─── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .o-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    transition: all 0.2s;
+  }
+
+  .o-card:hover { box-shadow: var(--shadow-md); }
+
+  .o-card-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.65rem;
+  }
+
+  .o-card-icon svg { width: 20px; height: 20px; }
+  .o-card-icon.blue { background: var(--blue-light); color: var(--michigan-blue); }
+  .o-card-icon.maize { background: var(--warm-cream); color: #9a7b00; }
+  .o-card-icon.green { background: var(--success-light); color: var(--success-green); }
+
+  .o-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem; color: var(--michigan-blue);
+    margin-bottom: 0.3rem;
+  }
+
+  .o-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ─── TIMELINE WITH SVG ILLUSTRATIONS ─── */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 28px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--michigan-maize), var(--michigan-blue));
+    border-radius: 3px;
+  }
+
+  .t-step {
+    display: flex; gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .t-step:last-child { padding-bottom: 0; }
+
+  .t-marker {
+    width: 56px; height: 56px; flex-shrink: 0;
+    border-radius: 50%; background: var(--card-bg);
+    border: 3px solid var(--michigan-blue);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0,39,76,0.1);
+    transition: all 0.4s;
+  }
+
+  .t-marker svg { width: 24px; height: 24px; color: var(--michigan-blue); }
+
+  /* P3: Micro-animations on timeline */
+  .t-step.animate .t-marker {
+    animation: markerPop 0.5s ease-out;
+    border-color: var(--michigan-maize);
+  }
+
+  @keyframes markerPop {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .t-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.3rem;
+    flex: 1;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .t-content .t-badge {
+    display: inline-block;
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--blue-mid); background: var(--blue-light);
+    padding: 0.15rem 0.5rem; border-radius: 100px;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  [data-theme="dark"] .t-content .t-badge { color: #6aa3d9; }
+
+  .t-content h3 {
+    font-family: var(--font-display);
+    font-size: 1rem; color: var(--michigan-blue);
+    margin-bottom: 0.25rem;
+  }
+
+  .t-content p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ─── WHY IT MATTERS ─── */
+  .why-highlight {
+    background: linear-gradient(135deg, #00274C, #003366);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    position: relative; overflow: hidden;
+  }
+
+  [data-theme="dark"] .why-highlight { background: linear-gradient(135deg, #0f2540, #1a3a5c); }
+
+  .why-highlight::before {
+    content: ''; position: absolute; top: -50%; right: -10%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(255,203,5,0.1), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .why-highlight h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem; margin-bottom: 0.4rem;
+    position: relative;
+  }
+
+  .why-highlight p {
+    font-size: 0.88rem; line-height: 1.6;
+    opacity: 0.9; max-width: 620px; position: relative;
+  }
+
+  .why-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .w-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.15rem;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .w-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .w-card-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem; color: var(--michigan-maize);
+    line-height: 1;
+  }
+
+  .w-card h4 {
+    font-size: 0.82rem; font-weight: 700;
+    color: var(--michigan-blue);
+    margin: 0.3rem 0 0.2rem;
+  }
+
+  .w-card p { font-size: 0.75rem; color: var(--text-light); line-height: 1.45; }
+
+  /* After Results box */
+  .after-results {
+    background: var(--success-light);
+    border: 1px solid rgba(27,122,61,0.2);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+
+  .after-results svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--success-green); margin-top: 2px; }
+  .after-results h4 { font-size: 0.92rem; font-weight: 700; color: var(--success-green); margin-bottom: 0.25rem; }
+  .after-results p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Fear of diagnosis callout */
+  .courage-note {
+    background: var(--warm-cream);
+    border: 1px solid rgba(255,203,5,0.25);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.3rem;
+    margin: 1.25rem 0;
+    font-size: 0.88rem; color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .courage-note strong { font-style: normal; color: var(--michigan-blue); }
+
+  /* ─── PREPARE ─── */
+  .prep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .prep-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+  }
+
+  .prep-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem; color: var(--michigan-blue);
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 7px;
+  }
+
+  .prep-card h3 svg { width: 18px; height: 18px; color: var(--michigan-maize); }
+
+  .prep-list { list-style: none; }
+
+  .prep-list li {
+    padding: 0.35rem 0;
+    font-size: 0.85rem; color: var(--text-secondary);
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.5;
+  }
+
+  .prep-list li::before {
+    content: '\2713'; color: var(--success-green);
+    font-weight: 700; font-size: 0.82rem;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .prep-note, .prep-special {
+    grid-column: 1 / -1;
+    background: var(--warm-cream);
+    border: 1px solid rgba(255,203,5,0.3);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.83rem; color: var(--text-primary);
+    line-height: 1.55;
+  }
+
+  .prep-special { background: var(--blue-light); border-color: var(--border); }
+
+  .prep-note svg, .prep-special svg { width: 20px; height: 20px; flex-shrink: 0; color: #9a7b00; margin-top: 2px; }
+  .prep-special svg { color: var(--michigan-blue); }
+
+  /* ─── TESTIMONIALS (P1: #1 recommendation) ─── */
+  .testimonials-grid {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .testimonial-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .testimonial-card:hover { box-shadow: var(--shadow-md); }
+
+  .testimonial-card::before {
+    content: '\201C';
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--michigan-maize);
+    line-height: 1;
+    position: absolute; top: 0.6rem; left: 1.2rem;
+    opacity: 0.5;
+  }
+
+  .testimonial-quote {
+    font-size: 0.92rem; color: var(--text-primary);
+    line-height: 1.65;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+
+  .testimonial-attr {
+    display: flex; align-items: center; gap: 10px;
+    padding-left: 1.5rem;
+  }
+
+  .testimonial-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--michigan-blue);
+  }
+
+  .testimonial-name {
+    font-size: 0.78rem; font-weight: 600; color: var(--text-primary);
+  }
+
+  .testimonial-detail {
+    font-size: 0.7rem; color: var(--text-light);
+  }
+
+  .testimonial-note {
+    font-size: 0.72rem; color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  /* ─── FAQ ─── */
+  .faq-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .faq-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .faq-item.open { box-shadow: var(--shadow-md); }
+
+  .faq-question {
+    width: 100%; background: none; border: none;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--michigan-blue);
+    cursor: pointer; text-align: left;
+    transition: background 0.2s;
+    min-height: 48px;
+  }
+
+  .faq-question:hover { background: var(--overlay); }
+
+  .faq-chevron {
+    width: 18px; height: 18px; flex-shrink: 0;
+    transition: transform 0.3s; color: var(--text-light);
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .faq-item.open .faq-answer { max-height: 500px; }
+
+  .faq-answer-inner {
+    padding: 0 1.2rem 1rem;
+    font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65;
+  }
+
+  /* ─── PROVIDER PROFILES ─── */
+  .provider-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .provider-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .provider-card:hover { box-shadow: var(--shadow-md); }
+
+  .provider-card-inner {
+    display: flex; gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .provider-avatar {
+    width: 96px; height: 96px; flex-shrink: 0;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid var(--michigan-maize);
+    overflow: hidden;
+  }
+
+  .provider-avatar.has-initials {
+    background: linear-gradient(135deg, #00274C, #003366);
+    font-family: var(--font-display);
+    font-size: 1.6rem; color: #fff;
+  }
+
+  .provider-info { flex: 1; min-width: 0; }
+
+  .provider-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem; color: var(--michigan-blue);
+    margin-bottom: 0.1rem;
+  }
+
+  .provider-title {
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--blue-mid); margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  [data-theme="dark"] .provider-title { color: #6aa3d9; }
+
+  .provider-details { display: flex; flex-direction: column; gap: 0.25rem; }
+
+  .provider-detail {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 0.8rem; color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .provider-detail svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--michigan-maize); margin-top: 2px; }
+
+  .provider-specialties {
+    display: flex; flex-wrap: wrap; gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .provider-tag {
+    font-size: 0.65rem; font-weight: 600;
+    background: var(--blue-light);
+    color: var(--michigan-blue);
+    padding: 0.18rem 0.5rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .team-note {
+    background: var(--blue-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    font-size: 0.85rem; color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #001a33;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  [data-theme="dark"] .footer { background: #060e18; }
+
+  .footer p {
+    font-size: 0.7rem; color: rgba(255,255,255,0.4); line-height: 1.6;
+  }
+
+  .footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+  .footer a:hover { color: var(--michigan-maize); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── PRINT STYLES — POLISHED ONE-PAGE HANDOUT ─── */
+  @media print {
+    /* Force print colors */
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+
+    @page { size: letter; margin: 0.4in 0.45in 0.35in 0.45in; }
+
+    /* Hide interactive-only elements */
+    .topbar-tools, .tab-nav-wrapper, .next-section, .footer,
+    .med-term::after, .hero-badge { display: none !important; }
+
+    /* Reset */
+    html { font-size: 10px !important; }
+    body { background: #fff !important; line-height: 1.4 !important; overflow: visible !important; }
+
+    /* Show all panels stacked */
+    .tab-panel { display: block !important; animation: none !important; padding: 0 !important; margin-bottom: 6px !important; }
+    .content-area { max-width: 100% !important; padding: 0 !important; min-height: 0 !important; }
+
+    /* ── Topbar becomes header ── */
+    .topbar {
+      background: #00274C !important;
+      border-bottom: 3px solid #FFCB05 !important;
+      padding: 6px 14px !important;
+      border-radius: 5px 5px 0 0;
+    }
+    .topbar-inner { height: auto !important; min-height: 32px; }
+    .topbar-logo { width: 26px !important; height: 26px !important; font-size: 0.85rem !important; border-radius: 5px !important; }
+    .topbar-title { font-size: 0.65rem !important; }
+    .topbar-title strong { font-size: 0.75rem !important; }
+    .topbar-brand { gap: 6px !important; }
+
+    /* ── Hero compact ── */
+    .hero {
+      background: linear-gradient(135deg, #00274C, #003366) !important;
+      padding: 10px 16px !important;
+      border-radius: 0 0 5px 5px;
+      margin-bottom: 7px;
+    }
+    .hero::before { display: none; }
+    .hero-inner { text-align: left !important; }
+    .hero h1 { font-size: 16px !important; margin-bottom: 2px !important; animation: none !important; }
+    .hero h1 em { color: #FFCB05 !important; }
+    .hero-sub { font-size: 8px !important; margin: 0 0 5px 0 !important; max-width: 100% !important; animation: none !important; color: rgba(255,255,255,0.8) !important; }
+    .hero-pills { justify-content: flex-start !important; gap: 6px !important; animation: none !important; }
+    .hero-pill { font-size: 6.5px !important; padding: 2px 7px !important; }
+    .hero-pill svg { width: 9px !important; height: 9px !important; }
+
+    /* ── Section headers ── */
+    .panel-header { margin-bottom: 5px !important; }
+    .panel-label { font-size: 5.5px !important; margin-bottom: 0 !important; }
+    .panel-label svg { width: 9px !important; height: 9px !important; }
+    .panel-title { font-size: 11.5px !important; margin-bottom: 1px !important; }
+    .panel-lead { font-size: 7.5px !important; line-height: 1.3 !important; max-width: 100% !important; }
+
+    /* ── Overview: 4 across ── */
+    .overview-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 5px !important; }
+    .o-card { padding: 6px 7px !important; border: 1px solid #D8E2EC !important; box-shadow: none !important; border-radius: 5px !important; }
+    .o-card-icon { width: 22px !important; height: 22px !important; margin-bottom: 3px !important; border-radius: 5px !important; }
+    .o-card-icon svg { width: 12px !important; height: 12px !important; }
+    .o-card h3 { font-size: 8px !important; margin-bottom: 1px !important; }
+    .o-card p { font-size: 6.8px !important; line-height: 1.3 !important; }
+
+    /* ── Timeline: 2x2 grid ── */
+    .timeline { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 5px !important; }
+    .timeline::before { display: none !important; }
+    .t-step { padding-bottom: 0 !important; gap: 6px !important; }
+    .t-marker { width: 28px !important; height: 28px !important; min-width: 28px !important; border-width: 2px !important; box-shadow: none !important; }
+    .t-marker svg { width: 13px !important; height: 13px !important; }
+    .t-content { padding: 5px 7px !important; box-shadow: none !important; border-radius: 5px !important; }
+    .t-badge { font-size: 5.5px !important; padding: 1px 4px !important; margin-bottom: 1px !important; }
+    .t-content h3 { font-size: 8px !important; margin-bottom: 1px !important; }
+    .t-content p { font-size: 6.8px !important; line-height: 1.3 !important; }
+
+    /* ── Why It Matters ── */
+    .why-highlight { padding: 8px 12px !important; margin-bottom: 5px !important; border-radius: 6px !important; background: linear-gradient(135deg, #00274C, #003366) !important; }
+    .why-highlight::before { display: none; }
+    .why-highlight h3 { font-size: 9.5px !important; margin-bottom: 2px !important; color: #fff !important; }
+    .why-highlight p { font-size: 7px !important; line-height: 1.3 !important; color: rgba(255,255,255,0.85) !important; }
+    .why-cards { grid-template-columns: repeat(3, 1fr) !important; gap: 4px !important; margin-bottom: 5px !important; }
+    .w-card { padding: 5px !important; box-shadow: none !important; border-radius: 5px !important; }
+    .w-card:hover { transform: none !important; }
+    .w-card-num { font-size: 13px !important; }
+    .w-card h4 { font-size: 7px !important; margin: 1px 0 !important; }
+    .w-card p { font-size: 6px !important; line-height: 1.25 !important; }
+    .courage-note { padding: 5px 8px !important; font-size: 7px !important; line-height: 1.3 !important; margin: 5px 0 !important; border-radius: 4px !important; background: #FFF9E5 !important; }
+    .after-results { padding: 5px 8px !important; border-radius: 4px !important; background: #E8F5EC !important; }
+    .after-results svg { width: 14px !important; height: 14px !important; }
+    .after-results h4 { font-size: 8px !important; margin-bottom: 1px !important; }
+    .after-results p { font-size: 6.8px !important; line-height: 1.3 !important; }
+
+    /* ── Prepare: 2 columns ── */
+    .prep-grid { grid-template-columns: 1fr 1fr !important; gap: 5px !important; }
+    .prep-card { padding: 6px 7px !important; border-radius: 5px !important; }
+    .prep-card h3 { font-size: 8px !important; margin-bottom: 2px !important; }
+    .prep-card h3 svg { width: 11px !important; height: 11px !important; }
+    .prep-list li { padding: 1px 0 !important; font-size: 6.8px !important; line-height: 1.25 !important; gap: 4px !important; }
+    .prep-list li::before { font-size: 7px !important; }
+    .prep-note, .prep-special { padding: 4px 7px !important; font-size: 6.8px !important; line-height: 1.3 !important; border-radius: 4px !important; }
+    .prep-note svg, .prep-special svg { width: 12px !important; height: 12px !important; }
+
+    /* ── Testimonials: 2x2 grid ── */
+    .testimonials-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 4px !important; }
+    .testimonial-card { padding: 6px 8px !important; box-shadow: none !important; border-radius: 5px !important; }
+    .testimonial-card::before { font-size: 16px !important; top: 1px !important; left: 5px !important; }
+    .testimonial-quote { font-size: 6.8px !important; line-height: 1.3 !important; padding-left: 8px !important; margin-bottom: 3px !important; }
+    .testimonial-attr { padding-left: 8px !important; gap: 4px !important; }
+    .testimonial-avatar { width: 18px !important; height: 18px !important; font-size: 5.5px !important; }
+    .testimonial-name { font-size: 6px !important; }
+    .testimonial-detail { font-size: 5.5px !important; }
+    .testimonial-note { font-size: 5.5px !important; margin-top: 3px !important; }
+
+    /* ── FAQ: 2 columns, all expanded ── */
+    .faq-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 4px !important; }
+    .faq-item { border-radius: 5px !important; box-shadow: none !important; }
+    .faq-answer { max-height: none !important; }
+    .faq-chevron { display: none !important; }
+    .faq-question { padding: 4px 7px !important; font-size: 7.5px !important; min-height: 0 !important; }
+    .faq-answer-inner { padding: 0 7px 4px !important; font-size: 6.8px !important; line-height: 1.3 !important; }
+
+    /* ── Provider / Team ── */
+    .provider-card { box-shadow: none !important; border-radius: 5px !important; }
+    .provider-card-inner { padding: 8px !important; gap: 10px !important; }
+    .provider-avatar { width: 48px !important; height: 48px !important; font-size: 12px !important; border-width: 2px !important; }
+    .provider-name { font-size: 9px !important; }
+    .provider-title { font-size: 6.8px !important; margin-bottom: 2px !important; }
+    .provider-detail { font-size: 6.5px !important; gap: 4px !important; }
+    .provider-detail svg { width: 9px !important; height: 9px !important; }
+    .provider-tag { font-size: 5.5px !important; padding: 1px 4px !important; }
+    .provider-specialties { gap: 2px !important; margin-top: 2px !important; }
+    .team-note { font-size: 7px !important; padding: 5px 8px !important; border-radius: 4px !important; }
+
+    /* ── Print footer ── */
+    .footer {
+      display: block !important;
+      background: #fff !important;
+      padding: 5px 0 0 !important;
+      border-top: 2px solid #FFCB05 !important;
+      margin-top: 5px;
+    }
+    .footer p { color: #6a7a8a !important; font-size: 6.5px !important; }
+    .footer a { color: #003366 !important; }
+
+    /* Section dividers */
+    #panel-expect, #panel-why, #panel-prepare, #panel-testimonials, #panel-faq, #panel-trust {
+      padding-top: 4px !important;
+      border-top: 1px solid #E8F0F8 !important;
+    }
+
+    /* No hover effects in print */
+    .o-card:hover, .w-card:hover, .testimonial-card:hover, .provider-card:hover { transform: none !important; box-shadow: none !important; }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    html { font-size: 16px; }
+
+    .topbar-tools .tool-label { display: none; }
+    .tool-btn { padding: 0.35rem 0.5rem; }
+
+    .hero { padding: 1.75rem 1.25rem 1.5rem; }
+
+    .tab-btn { padding: 0.7rem 0.65rem; font-size: 0.68rem; min-height: 44px; }
+    .tab-btn .tab-label-full { display: none; }
+    .tab-btn .tab-label-short { display: inline; }
+    .tab-step-num { width: 18px; height: 18px; font-size: 0.55rem; }
+
+    .content-area { padding: 1.5rem 1.25rem 2rem; }
+
+    .overview-grid,
+    .prep-grid { grid-template-columns: 1fr; }
+
+    .why-cards { grid-template-columns: 1fr; }
+
+    .timeline::before { left: 20px; }
+    .t-marker { width: 42px; height: 42px; }
+    .t-marker svg { width: 18px; height: 18px; }
+
+    .provider-card-inner { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+    .provider-avatar { width: 80px; height: 80px; }
+    .provider-details { align-items: center; }
+    .provider-specialties { justify-content: center; }
+
+    .med-term::after { left: 0; transform: none; max-width: 220px; }
+  }
+
+  @media (min-width: 769px) {
+    .tab-btn .tab-label-short { display: none; }
+  }
+
+  /* ===== COMMAND CENTER NAV ===== */
+  .cc-nav {
+    background: #060E1A;
+    padding: 0.4rem 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .cc-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.15s ease;
+  }
+  .cc-nav a:hover { color: rgba(255,255,255,0.75); }
+  .cc-nav svg { opacity: 0.5; transition: opacity 0.15s ease; }
+  .cc-nav a:hover svg { opacity: 0.85; }
+  @media (max-width: 700px) {
+    .cc-nav { padding: 0.35rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="cc-nav">
+  <a href="../">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    Command Center
+  </a>
+</nav>
+
+<!-- ━━━ TOP BAR ━━━ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="topbar-brand" aria-label="Michigan Medicine Urology">
+      <div class="topbar-logo">M</div>
+      <div class="topbar-title">
+        <strong>Michigan Medicine</strong>
+        Department of Urology
+      </div>
+    </a>
+    <div class="topbar-tools">
+      <!-- Simplified English Toggle (P0) -->
+      <button class="tool-btn" id="simplifyToggle" onclick="toggleSimplified()" aria-label="Toggle simplified English">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h14"/></svg>
+        <span class="tool-label">Simple</span>
+      </button>
+      <!-- Share (P2) -->
+      <button class="tool-btn" id="shareBtn" onclick="sharePage()" aria-label="Share with caregiver">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        <span class="tool-label">Share</span>
+      </button>
+      <!-- Print (P1) -->
+      <button class="tool-btn" onclick="printPage()" aria-label="Print this page">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span class="tool-label">Print</span>
+      </button>
+      <!-- Dark Mode (P3) -->
+      <button class="tool-btn" id="darkToggle" onclick="toggleDark()" aria-label="Toggle dark mode">
+        <svg id="darkIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ━━━ HERO ━━━ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Your Upcoming Appointment</div>
+    <h1>Understanding Your <em>Urodynamics Study</em></h1>
+    <p class="hero-sub">
+      <span class="standard-text">Everything you need to know about your upcoming test — what it is, what to expect, and how to prepare. You've got this.</span>
+      <span class="simple-text">This page tells you about your bladder test. It will help you know what will happen and how to get ready.</span>
+    </p>
+    <div class="hero-pills">
+      <div class="hero-pill">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Safe &amp; routine
+      </div>
+      <div class="hero-pill">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        30–45 minutes
+      </div>
+      <div class="hero-pill">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/></svg>
+        Expert team
+      </div>
+      <div class="hero-pill">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Drive yourself home
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ TAB NAV WITH PROGRESS ━━━ -->
+<div class="tab-nav-wrapper">
+  <div class="tab-progress"><div class="tab-progress-fill" id="progressFill" style="width:14.28%"></div></div>
+  <nav class="tab-nav" role="tablist" aria-label="Page sections">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview" onclick="switchTab('overview',this)">
+      <span class="tab-step-num">1</span>
+      <span class="tab-label-full">Overview</span><span class="tab-label-short">Overview</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-expect" data-tab="expect" onclick="switchTab('expect',this)">
+      <span class="tab-step-num">2</span>
+      <span class="tab-label-full">What to Expect</span><span class="tab-label-short">Expect</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-why" data-tab="why" onclick="switchTab('why',this)">
+      <span class="tab-step-num">3</span>
+      <span class="tab-label-full">Why It Matters</span><span class="tab-label-short">Why</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-prepare" data-tab="prepare" onclick="switchTab('prepare',this)">
+      <span class="tab-step-num">4</span>
+      <span class="tab-label-full">How to Prepare</span><span class="tab-label-short">Prepare</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-testimonials" data-tab="testimonials" onclick="switchTab('testimonials',this)">
+      <span class="tab-step-num">5</span>
+      <span class="tab-label-full">What Patients Say</span><span class="tab-label-short">Patients</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-faq" data-tab="faq" onclick="switchTab('faq',this)">
+      <span class="tab-step-num">6</span>
+      <span class="tab-label-full">FAQ</span><span class="tab-label-short">FAQ</span>
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-trust" data-tab="trust" onclick="switchTab('trust',this)">
+      <span class="tab-step-num">7</span>
+      <span class="tab-label-full">Your Team</span><span class="tab-label-short">Team</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ━━━ CONTENT PANELS ━━━ -->
+<main class="content-area">
+
+  <!-- ── 1. OVERVIEW ── -->
+  <div class="tab-panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Understanding Your Test
+      </div>
+      <h2 class="panel-title">What Is a Urodynamics Study?</h2>
+      <p class="panel-lead">
+        <span class="standard-text">A straightforward test that helps your doctor understand how your bladder and urinary system are working — so they can find the best treatment plan <em>for you</em>.</span>
+        <span class="simple-text">A simple test that shows your doctor how your bladder works. This helps them find the best way to help you feel better.</span>
+      </p>
+    </div>
+    <div class="overview-grid">
+      <div class="o-card">
+        <div class="o-card-icon blue">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        </div>
+        <h3>What It Measures</h3>
+        <p><span class="standard-text">How well your bladder stores and releases urine — including <span class="med-term" data-definition="The force your bladder uses to hold and push out urine" tabindex="0">bladder pressure</span>, urine flow, and how your muscles work together.</span><span class="simple-text">How your bladder holds and lets go of urine. It checks if your bladder muscles are working well.</span></p>
+      </div>
+      <div class="o-card">
+        <div class="o-card-icon maize">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Why Your Doctor Ordered It</h3>
+        <p><span class="standard-text">Your provider needs information that other tests can't provide. This gives precise answers about what's causing your symptoms.</span><span class="simple-text">Other tests can't give your doctor the answers they need. This test will show exactly what is going on.</span></p>
+      </div>
+      <div class="o-card">
+        <div class="o-card-icon green">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h3>Safe &amp; Well-Tolerated</h3>
+        <p><span class="standard-text">Most patients describe mild to moderate discomfort. The <span class="med-term" data-definition="A thin, flexible tube — about the width of a strand of spaghetti" tabindex="0">catheter</span> is very thin, and our team will keep you comfortable throughout.</span><span class="simple-text">Most people say it feels a little uncomfortable but not painful. A very thin, soft tube is used. Your nurse will help you stay comfortable.</span></p>
+      </div>
+      <div class="o-card">
+        <div class="o-card-icon blue">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>No Anesthesia Needed</h3>
+        <p><span class="standard-text">This is not a surgery. You'll be awake the entire time and can drive yourself home. Most patients resume normal activities the same day.</span><span class="simple-text">You will be awake the whole time. You can drive home after. You can go back to your normal day right away.</span></p>
+      </div>
+    </div>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(1)">Next: What to Expect <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 2. WHAT TO EXPECT ── -->
+  <div class="tab-panel" id="panel-expect" role="tabpanel" aria-labelledby="tab-expect">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Step by Step
+      </div>
+      <h2 class="panel-title">What to Expect Before, During &amp; After</h2>
+      <p class="panel-lead"><span class="standard-text">Not knowing what to expect can be the hardest part. Here's your appointment from start to finish — no surprises.</span><span class="simple-text">Here is what will happen at your appointment. We want you to know each step so there are no surprises.</span></p>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="t-step">
+        <div class="t-marker">
+          <!-- SVG: Clipboard/Check-in icon -->
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M9 14l2 2 4-4"/></svg>
+        </div>
+        <div class="t-content">
+          <span class="t-badge">Before Your Visit</span>
+          <h3>Arrive &amp; Check In</h3>
+          <p><span class="standard-text">Check in at the front desk like any other appointment. A nurse brings you to a private room and explains everything. You're welcome to ask any questions.</span><span class="simple-text">Go to the front desk when you arrive. A nurse will take you to a private room. You can ask questions at any time.</span></p>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-marker">
+          <!-- SVG: Setup/Sensors icon -->
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 100-12 6 6 0 000 12z"/><path d="M12 14a2 2 0 100-4 2 2 0 000 4z"/></svg>
+        </div>
+        <div class="t-content">
+          <span class="t-badge">During — First 5 Minutes</span>
+          <h3>Getting Set Up</h3>
+          <p><span class="standard-text">Small, thin <span class="med-term" data-definition="Thin, flexible tubes used to take measurements — not the same as a permanent catheter" tabindex="0">sensors</span> are gently placed to measure what's happening inside your bladder. A numbing gel minimizes any discomfort. The nurse stays with you the entire time.</span><span class="simple-text">The nurse places very small, thin tubes to take measurements. Numbing gel is used so it doesn't hurt. Your nurse stays with you.</span></p>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-marker">
+          <!-- SVG: Activity/Measurement icon -->
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="t-content">
+          <span class="t-badge">During — 20 to 30 Minutes</span>
+          <h3>The Study Itself</h3>
+          <p><span class="standard-text">Your bladder is slowly filled with <span class="med-term" data-definition="Clean, safe water — similar to saline solution used in IVs" tabindex="0">sterile water</span> while sensors record measurements. You'll be asked simple questions like "Do you feel the urge to go?" These readings guide your treatment.</span><span class="simple-text">Clean water slowly fills your bladder while the machine takes measurements. The nurse will ask you simple questions like "Do you need to go to the bathroom?" This helps your doctor plan your treatment.</span></p>
+        </div>
+      </div>
+      <div class="t-step">
+        <div class="t-marker">
+          <!-- SVG: Checkmark/Done icon -->
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="t-content">
+          <span class="t-badge">After — Same Day</span>
+          <h3>All Done — Head Home</h3>
+          <p><span class="standard-text">Sensors are removed in seconds, and you can leave. No recovery time. Mild tingling when urinating for a day or two is normal and goes away quickly. Drinking extra water helps.</span><span class="simple-text">The tubes are taken out in just a few seconds. You can go home right away. You might feel a little tingling when you go to the bathroom for a day or two. This is normal. Drink extra water to help.</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(2)">Next: Why It Matters <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 3. WHY IT MATTERS ── -->
+  <div class="tab-panel" id="panel-why" role="tabpanel" aria-labelledby="tab-why">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Your Health Matters
+      </div>
+      <h2 class="panel-title">Why This Test Matters for Your Care</h2>
+      <p class="panel-lead"><span class="standard-text">We understand it can be tempting to put off an unfamiliar test. Here's why keeping this appointment is so important.</span><span class="simple-text">We know it can be hard to go to a new kind of test. Here is why this appointment is very important for you.</span></p>
+    </div>
+    <div class="why-highlight">
+      <h3>This Test Unlocks Your Treatment Plan</h3>
+      <p><span class="standard-text">Without these results, your doctor cannot move forward with the treatment you need. Canceling or missing this appointment means your symptoms continue — and the answers you need are delayed. This single test can be the turning point toward feeling better.</span><span class="simple-text">Your doctor needs these results to help you. If you miss this test, your doctor cannot start your treatment. This test can help you start feeling better.</span></p>
+    </div>
+    <div class="why-cards">
+      <div class="w-card">
+        <div class="w-card-num">1</div>
+        <h4>Answers Only This Test Provides</h4>
+        <p><span class="standard-text">Measurements no other exam or imaging can offer. The gold standard for understanding bladder function.</span><span class="simple-text">No other test can give your doctor this information.</span></p>
+      </div>
+      <div class="w-card">
+        <div class="w-card-num">2</div>
+        <h4>Faster Path to Relief</h4>
+        <p><span class="standard-text">The sooner we have results, the sooner your doctor can recommend the right treatment for you.</span><span class="simple-text">Getting results sooner means your doctor can help you sooner.</span></p>
+      </div>
+      <div class="w-card">
+        <div class="w-card-num">3</div>
+        <h4>A Short Commitment</h4>
+        <p><span class="standard-text">About 30–45 minutes today can prevent months of ongoing symptoms and extra follow-up visits.</span><span class="simple-text">Less than one hour of your time can save you months of problems.</span></p>
+      </div>
+    </div>
+
+    <!-- Oracle's insight: Address fear of diagnosis -->
+    <div class="courage-note">
+      <strong>A note about what comes next:</strong> Some patients worry not just about the test itself, but about what the results might show. That's completely understandable. Whatever the results reveal, knowing is always better than not knowing — and your care team will be with you every step of what comes next.
+    </div>
+
+    <!-- After Your Results (Theme 3: Complete the journey) -->
+    <div class="after-results">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+      <div>
+        <h4>After Your Results</h4>
+        <p>Your urologist will review your study results — typically within one to two weeks — and discuss them with you at a follow-up appointment. Together, you'll create a treatment plan tailored to what the test found. This is the step where real progress begins.</p>
+      </div>
+    </div>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(3)">Next: How to Prepare <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 4. HOW TO PREPARE ── -->
+  <div class="tab-panel" id="panel-prepare" role="tabpanel" aria-labelledby="tab-prepare">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+        Be Ready
+      </div>
+      <h2 class="panel-title">How to Prepare for Your Appointment</h2>
+      <p class="panel-lead"><span class="standard-text">A little preparation goes a long way. Follow these simple steps to make your visit smooth and comfortable.</span><span class="simple-text">Here are easy steps to get ready for your visit.</span></p>
+    </div>
+    <div class="prep-grid">
+      <div class="prep-card">
+        <h3>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          Do
+        </h3>
+        <ul class="prep-list">
+          <li>Arrive with a comfortably full bladder</li>
+          <li>Bring a list of all current medications</li>
+          <li>Wear comfortable, easy-to-change clothing</li>
+          <li>Bring your insurance card and photo ID</li>
+          <li>Eat and drink normally — no fasting required</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+          Don't
+        </h3>
+        <ul class="prep-list">
+          <li>Don't empty your bladder right before the appointment</li>
+          <li>Don't stop prescribed medications unless told to</li>
+          <li>Don't worry about "performing" — just answer honestly</li>
+          <li>Don't hesitate to reach out to your care team with any concerns</li>
+        </ul>
+      </div>
+
+      <!-- P0: Special population prep (anticoagulants, catheterized patients) -->
+      <div class="prep-special">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div>
+          <strong>Special instructions:</strong> If you take <span class="med-term" data-definition="Blood-thinning medications such as warfarin, Eliquis, or Xarelto" tabindex="0">blood thinners</span> (anticoagulants), please let your care team know in advance — you may receive specific guidance. If you currently have an <span class="med-term" data-definition="A tube that stays in your bladder to drain urine continuously" tabindex="0">indwelling catheter</span>, your preparation may differ; your care team will provide separate instructions tailored to you.
+        </div>
+      </div>
+
+      <div class="prep-note">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div>
+          <strong>Need to reschedule?</strong> If you truly cannot make it, please contact us at least 48 hours in advance so another patient can use your time slot. But if you're just feeling nervous — that's completely normal. Reach out to your care team and they'll talk you through it.
+        </div>
+      </div>
+    </div>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(4)">Next: What Patients Say <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 5. WHAT PATIENTS SAY (P1: #1 recommendation) ── -->
+  <div class="tab-panel" id="panel-testimonials" role="tabpanel" aria-labelledby="tab-testimonials">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Real Experiences
+      </div>
+      <h2 class="panel-title">What Patients Say</h2>
+      <p class="panel-lead"><span class="standard-text">We asked patients who've had a urodynamics study at Michigan Medicine to share their experience. Here's what they told us.</span><span class="simple-text">These are words from real patients who had this test. They want to help you feel less worried.</span></p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"I was so nervous I almost canceled twice. But the nurse talked me through everything before she even started, and honestly, it was over before I knew it. I wish I hadn't spent two weeks worrying."</div>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">R.M.</div>
+          <div><div class="testimonial-name">R.M.</div><div class="testimonial-detail">Age 67 · Had test for overactive bladder</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"The worst part was the anticipation. The actual test was uncomfortable for maybe a minute when they placed the catheter, but the numbing gel really helped. I drove myself home and went grocery shopping after."</div>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">S.K.</div>
+          <div><div class="testimonial-name">S.K.</div><div class="testimonial-detail">Age 54 · Had test for urinary incontinence</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"I felt embarrassed about the whole thing, but the staff made it so much easier than I expected. They were professional and kind. And the results finally gave my doctor the answers we'd been looking for."</div>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">J.T.</div>
+          <div><div class="testimonial-name">J.T.</div><div class="testimonial-detail">Age 71 · Had test for neurogenic bladder</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"My daughter came with me and waited in the lobby. The whole thing took about 40 minutes. I'm glad I didn't cancel — we finally have a real treatment plan now."</div>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">M.C.</div>
+          <div><div class="testimonial-name">M.C.</div><div class="testimonial-detail">Age 62 · Had test for frequent urination</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="testimonial-note">Patient names and details have been anonymized. Experiences shared with permission.</p>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(5)">Next: FAQ <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 6. FAQ ── -->
+  <div class="tab-panel" id="panel-faq" role="tabpanel" aria-labelledby="tab-faq">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        Common Questions
+      </div>
+      <h2 class="panel-title">Frequently Asked Questions</h2>
+      <p class="panel-lead">Here are the questions we hear most often from patients just like you.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Does the test hurt?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <span class="standard-text">Most patients describe the sensation as mildly uncomfortable — not painful. The catheter is very thin, and we use numbing gel. Many patients say afterward it was much easier than expected.</span>
+          <span class="simple-text">Most people say it is a little uncomfortable but not painful. Numbing gel is used. Many people say it was easier than they thought.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          How long does the appointment take?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Plan for about 45 minutes to one hour total. The test itself takes 20–30 minutes. You'll be on your way shortly after.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I drive myself home?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Yes! No sedation or anesthesia is used. You're fully awake the entire time and fine to drive yourself home.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          What if I'm embarrassed about the test?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <span class="standard-text">You're not alone in feeling that way. Our team performs these studies every day. The room is private, your comfort and dignity are our top priorities, and your nurse will explain everything before it happens.</span>
+          <span class="simple-text">Many people feel this way. You are not alone. The room is private. Your nurse does this every day and will take good care of you.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Are there any side effects?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Some patients feel mild tingling when urinating for a day or two. Drinking extra water for 24–48 hours afterward is recommended to help flush your system and reduce any risk of <span class="med-term" data-definition="An infection in the urinary system — very rare after this test" tabindex="0">urinary tract infection</span>. Serious side effects are very rare. Contact your care team if you have any concerns.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          What if I'm thinking about canceling?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <span class="standard-text">We hear this from patients more often than you'd think — and most of them tell us afterward that they're glad they came. Here's what you gain by keeping this appointment: a clear diagnosis, a real treatment plan, and a path toward feeling better. Rescheduling can take several weeks due to demand, which means more time waiting with your current symptoms. If you're on the fence, that's okay — it means you're thinking about it, and we're glad you're here.</span>
+          <span class="simple-text">Many patients feel like canceling, but almost all are glad they came. This test helps your doctor make a plan to help you feel better. If you cancel, it can take weeks to get a new appointment. If you are nervous, that is okay. We are here to help you.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          What happens after the test?
+          <svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Your urologist reviews the results, usually within one to two weeks, and will discuss them with you at a follow-up appointment. Together, you'll decide on the best next steps for your treatment plan.
+        </div></div>
+      </div>
+    </div>
+    <div class="next-section">
+      <button class="next-btn" onclick="goToTab(6)">Next: Your Team <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── 7. YOUR TEAM ── -->
+  <div class="tab-panel" id="panel-trust" role="tabpanel" aria-labelledby="tab-trust">
+    <div class="panel-header">
+      <div class="panel-label">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        You're in Good Hands
+      </div>
+      <h2 class="panel-title">Your Care Team</h2>
+      <p class="panel-lead">You've been referred to one of the top urology programs in the nation. Here are the providers who may be part of your urodynamics care.</p>
+    </div>
+
+    <div class="provider-grid">
+      <!-- DR. JOHN STOFFEL -->
+      <div class="provider-card">
+        <div class="provider-card-inner">
+          <div class="provider-avatar has-initials">JS</div>
+          <div class="provider-info">
+            <div class="provider-name">John T. Stoffel, MD</div>
+            <div class="provider-title">Professor of Urology · Chief, Division of Neurourology &amp; Pelvic Reconstruction</div>
+            <div class="provider-details">
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>Stanford University (BS, Biology with Distinction) · Washington University in St. Louis School of Medicine (MD)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Residency: Massachusetts General Hospital &amp; Lahey Clinic · Fellowship: University of Michigan</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Board Certified: Urology · Female Pelvic Medicine &amp; Reconstructive Surgery (FPMRS)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <span>110+ published papers, articles, and book chapters · Textbook editor</span>
+              </div>
+            </div>
+            <div class="provider-specialties">
+              <span class="provider-tag">Urinary Incontinence</span>
+              <span class="provider-tag">Neurogenic Bladder</span>
+              <span class="provider-tag">Overactive Bladder</span>
+              <span class="provider-tag">Reconstructive Surgery</span>
+              <span class="provider-tag">Urodynamics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DR. J. QUENTIN CLEMENS -->
+      <div class="provider-card">
+        <div class="provider-card-inner">
+          <div class="provider-avatar has-initials">QC</div>
+          <div class="provider-info">
+            <div class="provider-name">J. Quentin Clemens, MD, FACS, MSCI</div>
+            <div class="provider-title">Edward J. McGuire Professor of Urology · Associate Chair for Research · Director, FPMRS Fellowship</div>
+            <div class="provider-details">
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>Goshen College (BA, Natural Science) · Johns Hopkins University School of Medicine (MD)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Residency: Northwestern University · Fellowship: University of Michigan</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Board Certified: Urology · Female Pelvic Medicine &amp; Reconstructive Surgery (FPMRS)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <span>200+ peer-reviewed manuscripts and book chapters · Continuous NIH funding since 2001</span>
+              </div>
+            </div>
+            <div class="provider-specialties">
+              <span class="provider-tag">Interstitial Cystitis</span>
+              <span class="provider-tag">Urodynamics</span>
+              <span class="provider-tag">Lower Urinary Tract Reconstruction</span>
+              <span class="provider-tag">Neurogenic Bladder</span>
+              <span class="provider-tag">Female Incontinence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DR. ANNE PELLETIER CAMERON -->
+      <div class="provider-card">
+        <div class="provider-card-inner">
+          <div class="provider-avatar has-initials">AC</div>
+          <div class="provider-info">
+            <div class="provider-name">Anne Pelletier Cameron, MD, FRCSC</div>
+            <div class="provider-title">James Montie Legacy Professor of Urology · Vice Chair of Academic Affairs · Service Chief · Director, CURE</div>
+            <div class="provider-details">
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>University of New Brunswick (BS) · University of Ottawa (MD)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Residency: Dalhousie University · Fellowship: University of Michigan (FPMRS)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Board Certified: Urology · Female Pelvic Medicine &amp; Reconstructive Surgery (FPMRS)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <span>NIDDK-funded researcher · Past President, Society of Women in Urology · Paul Zimskind Research Award (2018)</span>
+              </div>
+            </div>
+            <div class="provider-specialties">
+              <span class="provider-tag">Complex Incontinence</span>
+              <span class="provider-tag">Neurogenic Bladder</span>
+              <span class="provider-tag">Neuromodulation</span>
+              <span class="provider-tag">Female Urethral Disease</span>
+              <span class="provider-tag">Urodynamics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DR. GIULIA IPPOLITO -->
+      <div class="provider-card">
+        <div class="provider-card-inner">
+          <div class="provider-avatar has-initials">GI</div>
+          <div class="provider-info">
+            <div class="provider-name">Giulia M. Ippolito, MD, MS</div>
+            <div class="provider-title">Assistant Professor of Urology · NIDDK-funded K-12 Scholar</div>
+            <div class="provider-details">
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>University of Texas at Dallas (BS) · Texas A&amp;M University (MD) · University of Michigan (MS, Health &amp; Healthcare Research)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Residency: University of Minnesota · Fellowship: University of Michigan (FPMRS)</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Board Certified: Urology</span>
+              </div>
+              <div class="provider-detail">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <span>Published researcher in shared decision-making &amp; overactive bladder · UroEPI Career Development Program</span>
+              </div>
+            </div>
+            <div class="provider-specialties">
+              <span class="provider-tag">Urinary Incontinence</span>
+              <span class="provider-tag">Pelvic Organ Prolapse</span>
+              <span class="provider-tag">Neurogenic Bladder</span>
+              <span class="provider-tag">Urodynamics</span>
+              <span class="provider-tag">Lower Urinary Tract Reconstruction</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team note -->
+      <div class="team-note">
+        Your care team may also include nurse practitioners, physician assistants, and registered nurses who specialize in urodynamics. Every member of our team performs these studies regularly and is dedicated to your comfort and dignity throughout your visit.
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ━━━ FOOTER ━━━ -->
+<footer class="footer">
+  <p>
+    Michigan Medicine · Department of Urology<br />
+    1500 E. Medical Center Drive · Ann Arbor, MI 48109<br />
+    <a href="https://www.uofmhealth.org/conditions-treatments/urology" target="_blank" rel="noopener">Visit Michigan Urology</a>
+  </p>
+</footer>
+
+<script>
+  const tabOrder = ['overview','expect','why','prepare','testimonials','faq','trust'];
+  const visitedTabs = new Set(['overview']);
+
+  function switchTab(tabId, btn) {
+    // Deactivate all
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+    // Activate
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.getElementById('panel-' + tabId).classList.add('active');
+
+    // Track visited
+    visitedTabs.add(tabId);
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (visitedTabs.has(b.dataset.tab)) b.classList.add('visited');
+    });
+
+    // Update progress bar
+    const idx = tabOrder.indexOf(tabId);
+    const pct = ((idx + 1) / tabOrder.length * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+
+    // Scroll tab into view
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Trigger timeline animations
+    if (tabId === 'expect') animateTimeline();
+  }
+
+  function goToTab(idx) {
+    const btn = document.querySelectorAll('.tab-btn')[idx];
+    if (btn) switchTab(tabOrder[idx], btn);
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  // P3: Timeline micro-animations
+  function animateTimeline() {
+    const steps = document.querySelectorAll('.t-step');
+    steps.forEach((s, i) => {
+      s.classList.remove('animate');
+      setTimeout(() => s.classList.add('animate'), i * 150);
+    });
+  }
+
+  // Keyboard nav for tabs
+  document.querySelector('.tab-nav').addEventListener('keydown', (e) => {
+    const tabs = [...document.querySelectorAll('.tab-btn')];
+    const idx = tabs.indexOf(document.activeElement);
+    if (idx === -1) return;
+    let next;
+    if (e.key === 'ArrowRight') next = tabs[(idx + 1) % tabs.length];
+    if (e.key === 'ArrowLeft') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+    if (next) { e.preventDefault(); next.focus(); next.click(); }
+  });
+
+  // Print: expand all panels and FAQs, then trigger browser print
+  function printPage() {
+    // Remember current state
+    const activeTab = document.querySelector('.tab-btn.active');
+    const openFaqs = [...document.querySelectorAll('.faq-item.open')];
+
+    // Expand everything
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('active'));
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.add('open'));
+
+    // Small delay to let DOM update, then print
+    requestAnimationFrame(() => {
+      window.print();
+    });
+
+    // Restore after print dialog closes
+    window.addEventListener('afterprint', function restore() {
+      window.removeEventListener('afterprint', restore);
+      // Hide all panels, restore only the active one
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      if (activeTab) {
+        document.getElementById('panel-' + activeTab.dataset.tab).classList.add('active');
+      } else {
+        document.getElementById('panel-overview').classList.add('active');
+      }
+      // Restore FAQ state
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      openFaqs.forEach(i => i.classList.add('open'));
+    });
+  }
+
+  // Simplified English toggle (P0)
+  function toggleSimplified() {
+    document.body.classList.toggle('simplified');
+    const btn = document.getElementById('simplifyToggle');
+    btn.classList.toggle('active');
+    btn.setAttribute('aria-pressed', document.body.classList.contains('simplified'));
+  }
+
+  // Dark mode toggle (P3)
+  function toggleDark() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('darkToggle').classList.toggle('active', !isDark);
+  }
+
+  // Share with Caregiver (P2)
+  async function sharePage() {
+    const shareData = {
+      title: 'Your Urodynamics Study — Michigan Medicine',
+      text: 'Here is important information about an upcoming urodynamics study at Michigan Medicine. Please take a moment to review it.',
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); }
+      catch (e) { fallbackShare(); }
+    } else {
+      fallbackShare();
+    }
+  }
+
+  function fallbackShare() {
+    const url = window.location.href;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('shareBtn');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg><span class="tool-label">Copied!</span>';
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+  }
+
+  // Add timestamp to page footer
+  (function(){
+    var d = new Date();
+    var ts = d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/Detroit'});
+    var footer = document.createElement('div');
+    footer.style.cssText = 'margin-top:3rem;padding:1.5rem 2rem;text-align:center;border-top:1px solid var(--border);color:var(--text-light);font-size:0.75rem;';
+    footer.innerHTML = 'Last updated: ' + ts;
+    document.body.appendChild(footer);
+  })();
+</script>
+</body>
+</html>
