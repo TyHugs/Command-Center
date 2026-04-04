@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OR Performance Dashboard — University of Michigan Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
@@ -35,10 +37,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 /* Focus styles for accessibility */
 *:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
-.header { background: var(--blue); color: white; padding: 20px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.header h1 { font-size: 22px; font-weight: 600; }
-.header .subtitle { color: var(--maize); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; }
-.header .logo { width: 36px; height: 36px; background: var(--maize); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--blue); font-size: 18px; flex-shrink:0; }
+.header {
+  background: linear-gradient(180deg, #0B1D3A 0%, #0E2344 100%);
+  border-bottom: 2px solid #C4943D;
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.header-titles h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.header-titles p {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.02em;
+  margin-top: 0.1rem;
+}
 .header-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
 .header .date-range-label { font-size: 12px; color: rgba(255,255,255,0.7); }
 .header .updated-label { font-size: 11px; color: rgba(255,255,255,0.5); }
@@ -221,14 +253,17 @@ tr.clickable:hover { background: #dbeafe; }
 </nav>
 
 <header class="header">
-  <div class="logo" aria-hidden="true">M</div>
-  <div>
-    <h1>OR Performance Dashboard</h1>
-    <div class="subtitle">UNIVERSITY OF MICHIGAN HEALTH &bull; DEPARTMENT OF SURGERY</div>
-  </div>
-  <div class="header-right">
-    <div class="date-range-label" id="dateRange"></div>
-    <div class="updated-label" id="updatedLabel"></div>
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-titles">
+        <h1>Operating Cases</h1>
+        <p>Department of Urology &middot; Michigan Medicine</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-range-label" id="dateRange"></div>
+      <div class="updated-label" id="updatedLabel"></div>
+    </div>
   </div>
 </header>
 

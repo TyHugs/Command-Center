@@ -80,38 +80,36 @@ body {
 .hero {
   background: linear-gradient(180deg, var(--navy) 0%, #0E2344 100%);
   border-bottom: 2px solid var(--gold);
-  padding: 1.5rem 2.5rem 1.2rem;
 }
-.hero-row {
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  height: 72px;
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1.5rem;
 }
-.hero-logo {
-  width: 34px; height: 34px;
-  border-radius: 7px;
-  background: var(--gold);
+.hero-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--navy);
+  gap: 0.75rem;
   flex-shrink: 0;
 }
-.hero-title {
+.hero-titles h1 {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-inv);
   letter-spacing: -0.01em;
+  line-height: 1.15;
 }
-.hero-sub {
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.45);
+.hero-titles p {
+  font-size: 0.65rem;
   font-weight: 500;
-  margin-top: 0.05rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.02em;
+  margin-top: 0.1rem;
 }
 
 /* ═══════ TOGGLE CONTROLS ═══════ */
@@ -318,11 +316,12 @@ body {
 </nav>
 
 <header class="hero">
-  <div class="hero-row">
-    <div class="hero-logo">M</div>
-    <div>
-      <div class="hero-title">KPI Dashboard</div>
-      <div class="hero-sub">Department of Urology &middot; Michigan Medicine</div>
+  <div class="hero-inner">
+    <div class="hero-brand">
+      <div class="hero-titles">
+        <h1>KPI Dashboard</h1>
+        <p>Department of Urology &middot; Michigan Medicine</p>
+      </div>
     </div>
   </div>
 </header>
