@@ -1646,6 +1646,93 @@ tbody tr { contain: content; }
 }
 .biziq-header-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 0.15rem; margin-left: 2rem; }
 
+/* ===== CHECKLIST VIEW ===== */
+.checklist-toolbar {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+}
+.checklist-toolbar .filter-select { font-size: 0.72rem; }
+.checklist-toolbar .search-wrap { margin-left: auto; }
+.checklist-count {
+  font-size: 0.72rem; color: var(--text-3); font-weight: 500;
+  padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;
+}
+.checklist-count .done-ratio { color: var(--gold); font-weight: 700; }
+
+.checklist { list-style: none; padding: 0; margin: 0; }
+.checklist-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: start;
+  gap: 0.5rem;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: background var(--t-fast) var(--ease);
+}
+.checklist-item:hover { background: var(--surface-muted); border-radius: var(--r-sm); }
+.checklist-item.is-complete { opacity: 0.45; }
+
+.checklist-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; margin-top: 2px;
+  transition: all var(--t-fast) var(--ease);
+  background: transparent;
+}
+.checklist-check:hover { border-color: var(--gold); }
+.checklist-check.checked {
+  background: var(--gold); border-color: var(--gold);
+}
+.checklist-check.checked svg { display: block; }
+.checklist-check svg { display: none; width: 11px; height: 11px; }
+
+.checklist-body { min-width: 0; }
+.checklist-title {
+  font-size: 0.85rem; font-weight: 600; color: var(--text);
+  line-height: 1.35; cursor: pointer;
+}
+.checklist-title:hover { color: var(--gold); }
+.is-complete .checklist-title { text-decoration: line-through; color: var(--text-3); }
+
+.checklist-meta {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  margin-top: 0.3rem; font-size: 0.68rem; color: var(--text-3);
+}
+.checklist-meta .cl-owner { font-weight: 600; color: var(--text-2); }
+.checklist-meta .cl-priority {
+  display: inline-flex; padding: 1px 6px; border-radius: var(--r-full);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.02em;
+}
+.checklist-meta .cl-priority.p-critical { background: #FEE2E2; color: #991B1B; }
+.checklist-meta .cl-priority.p-urgent   { background: #FEF3C7; color: #92400E; }
+.checklist-meta .cl-priority.p-important { background: #DBEAFE; color: #1E40AF; }
+.checklist-meta .cl-priority.p-medium   { background: #E0E7FF; color: #3730A3; }
+.checklist-meta .cl-priority.p-low      { background: var(--surface-muted); color: var(--text-3); }
+.checklist-meta .cl-priority.p-nonurgent { background: var(--surface-muted); color: var(--text-3); }
+
+.checklist-meta .cl-due { display: inline-flex; align-items: center; gap: 0.2rem; }
+.checklist-meta .cl-due.overdue { color: #DC2626; font-weight: 600; }
+.checklist-meta .cl-due.due-soon { color: #D97706; font-weight: 600; }
+
+.checklist-notes {
+  font-size: 0.68rem; color: var(--text-3); margin-top: 0.25rem;
+  line-height: 1.45; font-style: italic;
+  max-width: 600px;
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+.checklist-right {
+  display: flex; align-items: center; gap: 0.5rem;
+  flex-shrink: 0; padding-top: 2px;
+}
+
+.checklist-empty {
+  text-align: center; padding: 3rem 1rem; color: var(--text-3);
+  font-size: 0.82rem;
+}
+
 
 /* ===== OPERATIONAL TRACKER ===== */
 .ops-tracker-header { margin-bottom: 1.2rem; }
@@ -2227,51 +2314,12 @@ tbody tr { contain: content; }
 <!-- ===== CHAIR VIEW (Landing Page) ===== -->
 <div class="app" id="chairView">
 
-  <!-- EXECUTIVE KPI BAR -->
-  <div class="exec-bar anim a1" id="execBar">
-    <div class="exec-bar-inner">
-      <div class="exec-metric exec-metric-hoverable" id="execTotal" onmouseenter="showKpiTooltip(event,'total')" onmouseleave="hideKpiTooltip()">
-        <div class="exec-metric-value">—</div>
-        <div class="exec-metric-label">Total Projects</div>
-      </div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric exec-metric-hoverable" id="execPriorities" onmouseenter="showKpiTooltip(event,'priority')" onmouseleave="hideKpiTooltip()">
-        <div class="exec-metric-value">—</div>
-        <div class="exec-metric-label">Priorities</div>
-      </div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric exec-metric-hoverable" id="execStdWork" onmouseenter="showKpiTooltip(event,'stdwork')" onmouseleave="hideKpiTooltip()">
-        <div class="exec-metric-value">—</div>
-        <div class="exec-metric-label">Standard Work</div>
-      </div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric exec-metric-hoverable" id="execRequests" onmouseenter="showKpiTooltip(event,'requests')" onmouseleave="hideKpiTooltip()">
-        <div class="exec-metric-value">—</div>
-        <div class="exec-metric-label">Requests</div>
-      </div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric exec-metric-hoverable" id="execBizIQ" onmouseenter="showKpiTooltip(event,'biziq')" onmouseleave="hideKpiTooltip()">
-        <div class="exec-metric-value">—</div>
-        <div class="exec-metric-label">BizIQ</div>
-      </div>
-    </div>
-    <div class="exec-bar-secondary">
-      <span class="exec-secondary-label">AI Optimization Potential</span>
-      <span class="exec-secondary-value" id="execAIPct">—</span>
-    </div>
-  </div>
-  <!-- KPI Hover Tooltip -->
-  <div class="kpi-tooltip" id="kpiTooltip">
-    <div class="kpi-tooltip-header" id="kpiTooltipHeader"></div>
-    <div class="kpi-tooltip-body" id="kpiTooltipBody"></div>
-  </div>
-
-  <!-- KEY PROJECTS SPOTLIGHT -->
-  <div class="spotlight anim a1" id="spotlightSection">
+  <!-- PRIORITIES -->
+  <div class="spotlight anim a1" id="spotlightSection" style="margin-top: 1.25rem;">
     <div class="section-collapse-header" data-collapse-target="spotlightBody" onclick="toggleSection('spotlightBody')">
       <div class="spotlight-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Key Projects
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Priorities
         <span class="spotlight-count" id="spotlightCount">0</span>
       </div>
       <div class="section-collapse-chevron"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -2490,91 +2538,35 @@ tbody tr { contain: content; }
     <div class="biziq-header-content">
       <div class="biziq-header-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        BizIQ Overview
+        BizIQ Tasks
       </div>
-      <div class="biziq-header-sub">Business intelligence initiatives, analytics projects &amp; data-driven workflows</div>
-    </div>
-  </div>
-
-  <!-- BizIQ KPI Bar -->
-  <div class="exec-bar anim a1" id="execBarBizIQ">
-    <div class="exec-bar-inner">
-      <div class="exec-metric" id="biqTotal"><div class="exec-metric-value">—</div><div class="exec-metric-label">BizIQ Projects</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="biqActive"><div class="exec-metric-value">—</div><div class="exec-metric-label">Active</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="biqInProgress"><div class="exec-metric-value">—</div><div class="exec-metric-label">In Progress</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="biqComplete"><div class="exec-metric-value">—</div><div class="exec-metric-label">Complete</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="biqAI"><div class="exec-metric-value">—</div><div class="exec-metric-label">AI Enabled</div></div>
+      <div class="biziq-header-sub">Business intelligence initiatives &amp; analytics tasks</div>
     </div>
   </div>
 
   <!-- BizIQ Toolbar -->
-  <div class="toolbar anim a2">
-    <div class="toolbar-left">
-      <select class="filter-select" id="biqFilterStatus" onchange="renderBizIQ()">
-        <option value="">Status</option>
-        <option>Not Started</option><option>Delayed</option><option>Planning</option><option>In Progress</option>
-        <option>In Review</option><option>On Hold</option><option>Complete</option>
-      </select>
-      <select class="filter-select" id="biqFilterPriority" onchange="renderBizIQ()">
-        <option value="">Priority</option>
-        <option>Critical</option><option>Urgent</option><option>Important</option><option>Medium</option><option>Low</option><option>Non-Urgent</option>
-      </select>
-      <select class="filter-select" id="biqFilterOwner" onchange="renderBizIQ()"><option value="">Owner</option></select>
-      <div class="filter-sep"></div>
-      <button class="btn-icon" onclick="clearBizIQFilters()" title="Clear filters">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="toolbar-right">
-      <div class="view-toggle">
-        <button class="view-toggle-btn" id="biqViewTable" onclick="setBizIQView('table')" title="Table view">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="21" x2="9" y2="3"/></svg>
-        </button>
-        <button class="view-toggle-btn active" id="biqViewKanban" onclick="setBizIQView('kanban')" title="Board view">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="10" rx="1"/><rect x="16" y="4" width="4" height="13" rx="1"/></svg>
-        </button>
-      </div>
-      <div class="search-wrap">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        <input type="text" class="search-input" placeholder="Search BizIQ..." oninput="renderBizIQ()" id="biqSearchInput" />
-      </div>
-      <button class="btn btn-primary" onclick="openAddModal()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        New Project
-      </button>
+  <div class="checklist-toolbar">
+    <select class="filter-select" id="biqFilterStatus" onchange="renderBizIQ()">
+      <option value="">All Statuses</option>
+      <option>Not Started</option><option>Delayed</option><option>Planning</option><option>In Progress</option>
+      <option>In Review</option><option>On Hold</option><option>Complete</option>
+    </select>
+    <select class="filter-select" id="biqFilterPriority" onchange="renderBizIQ()">
+      <option value="">All Priorities</option>
+      <option>Critical</option><option>Urgent</option><option>Important</option><option>Medium</option><option>Low</option><option>Non-Urgent</option>
+    </select>
+    <select class="filter-select" id="biqFilterOwner" onchange="renderBizIQ()"><option value="">All Owners</option></select>
+    <button class="btn-icon" onclick="clearBizIQFilters()" title="Clear filters">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="search-wrap">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" class="search-input" placeholder="Search BizIQ..." oninput="renderBizIQ()" id="biqSearchInput" />
     </div>
   </div>
 
-  <div class="results-bar anim a3">
-    <div>Showing <span class="count" id="biqResultCount">0</span> BizIQ projects</div>
-  </div>
-
-  <div class="table-container anim a4" id="biqTableContainer">
-    <div class="table-scroll">
-      <table>
-        <thead><tr>
-          <th style="width:58px" onclick="biqSortBy('ID')">ID<span class="sort-arrow"></span></th>
-          <th style="width:200px" onclick="biqSortBy('Project')">Project<span class="sort-arrow"></span></th>
-          <th style="width:200px" onclick="biqSortBy('Description')">Description<span class="sort-arrow"></span></th>
-          <th style="width:110px" onclick="biqSortBy('Owner')">Owner<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="biqSortBy('Priority')">Priority<span class="sort-arrow"></span></th>
-          <th style="width:108px" onclick="biqSortBy('Status')">Status<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="biqSortBy('Start Date')">Start<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="biqSortBy('Due Date')">Due<span class="sort-arrow"></span></th>
-          <th style="width:70px" onclick="biqSortBy('% Complete')">Progress<span class="sort-arrow"></span></th>
-          <th style="width:155px" onclick="biqSortBy('Notes')">Notes<span class="sort-arrow"></span></th>
-          <th style="width:42px" title="AI Potential"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M12 2L9 12l-7 0 5.5 4.5L5 22l7-4.5L19 22l-2.5-5.5L22 12l-7 0z"/></svg></th>
-        </tr></thead>
-        <tbody id="biqTableBody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="kanban anim a4" id="biqKanbanBoard"></div>
+  <div class="checklist-count" id="biqChecklistCount"></div>
+  <ul class="checklist" id="biqChecklist"></ul>
 
   <div class="footer">
     <div class="footer-left">Michigan Medicine &middot; Urology &middot; BizIQ</div>
@@ -2588,90 +2580,35 @@ tbody tr { contain: content; }
     <div class="biziq-header-content">
       <div class="biziq-header-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        PCC Overview
+        PCC Tasks
       </div>
-      <div class="biziq-header-sub">Prostate Cancer Center initiatives, projects &amp; operational tasks</div>
-    </div>
-  </div>
-
-  <!-- PCC KPI Bar -->
-  <div class="exec-bar anim a1" id="execBarPCC">
-    <div class="exec-bar-inner">
-      <div class="exec-metric" id="pccTotal"><div class="exec-metric-value">—</div><div class="exec-metric-label">PCC Projects</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="pccActive"><div class="exec-metric-value">—</div><div class="exec-metric-label">Active</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="pccInProgress"><div class="exec-metric-value">—</div><div class="exec-metric-label">In Progress</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="pccComplete"><div class="exec-metric-value">—</div><div class="exec-metric-label">Complete</div></div>
-      <div class="exec-metric-divider"></div>
-      <div class="exec-metric" id="pccBlocked"><div class="exec-metric-value">—</div><div class="exec-metric-label">Blocked</div></div>
+      <div class="biziq-header-sub">Prostate Cancer Center initiatives &amp; operational tasks</div>
     </div>
   </div>
 
   <!-- PCC Toolbar -->
-  <div class="toolbar anim a2">
-    <div class="toolbar-left">
-      <select class="filter-select" id="pccFilterStatus" onchange="renderPCC()">
-        <option value="">Status</option>
-        <option>Not Started</option><option>Delayed</option><option>Planning</option><option>In Progress</option>
-        <option>In Review</option><option>On Hold</option><option>Complete</option>
-      </select>
-      <select class="filter-select" id="pccFilterPriority" onchange="renderPCC()">
-        <option value="">Priority</option>
-        <option>Critical</option><option>Urgent</option><option>Important</option><option>Medium</option><option>Low</option><option>Non-Urgent</option>
-      </select>
-      <select class="filter-select" id="pccFilterOwner" onchange="renderPCC()"><option value="">Owner</option></select>
-      <div class="filter-sep"></div>
-      <button class="btn-icon" onclick="clearPCCFilters()" title="Clear filters">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="toolbar-right">
-      <div class="view-toggle">
-        <button class="view-toggle-btn" id="pccViewTable" onclick="setPCCView('table')" title="Table view">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="21" x2="9" y2="3"/></svg>
-        </button>
-        <button class="view-toggle-btn active" id="pccViewKanban" onclick="setPCCView('kanban')" title="Board view">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="10" rx="1"/><rect x="16" y="4" width="4" height="13" rx="1"/></svg>
-        </button>
-      </div>
-      <div class="search-wrap">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        <input type="text" class="search-input" placeholder="Search PCC..." oninput="renderPCC()" id="pccSearchInput" />
-      </div>
-      <button class="btn btn-primary" onclick="openAddModal()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        New Project
-      </button>
+  <div class="checklist-toolbar">
+    <select class="filter-select" id="pccFilterStatus" onchange="renderPCC()">
+      <option value="">All Statuses</option>
+      <option>Not Started</option><option>Delayed</option><option>Planning</option><option>In Progress</option>
+      <option>In Review</option><option>On Hold</option><option>Complete</option>
+    </select>
+    <select class="filter-select" id="pccFilterPriority" onchange="renderPCC()">
+      <option value="">All Priorities</option>
+      <option>Critical</option><option>Urgent</option><option>Important</option><option>Medium</option><option>Low</option><option>Non-Urgent</option>
+    </select>
+    <select class="filter-select" id="pccFilterOwner" onchange="renderPCC()"><option value="">All Owners</option></select>
+    <button class="btn-icon" onclick="clearPCCFilters()" title="Clear filters">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="search-wrap">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" class="search-input" placeholder="Search PCC..." oninput="renderPCC()" id="pccSearchInput" />
     </div>
   </div>
 
-  <div class="results-bar anim a3">
-    <div>Showing <span class="count" id="pccResultCount">0</span> PCC projects</div>
-  </div>
-
-  <div class="table-container anim a4" id="pccTableContainer" style="display:none">
-    <div class="table-scroll">
-      <table>
-        <thead><tr>
-          <th style="width:58px" onclick="pccSortBy('ID')">ID<span class="sort-arrow"></span></th>
-          <th style="width:200px" onclick="pccSortBy('Project')">Project<span class="sort-arrow"></span></th>
-          <th style="width:200px" onclick="pccSortBy('Description')">Description<span class="sort-arrow"></span></th>
-          <th style="width:110px" onclick="pccSortBy('Owner')">Owner<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="pccSortBy('Priority')">Priority<span class="sort-arrow"></span></th>
-          <th style="width:108px" onclick="pccSortBy('Status')">Status<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="pccSortBy('Start Date')">Start<span class="sort-arrow"></span></th>
-          <th style="width:95px" onclick="pccSortBy('Due Date')">Due<span class="sort-arrow"></span></th>
-          <th style="width:70px" onclick="pccSortBy('% Complete')">Progress<span class="sort-arrow"></span></th>
-          <th style="width:155px" onclick="pccSortBy('Notes')">Notes<span class="sort-arrow"></span></th>
-        </tr></thead>
-        <tbody id="pccTableBody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="kanban anim a4" id="pccKanbanBoard" style="display:flex"></div>
+  <div class="checklist-count" id="pccChecklistCount"></div>
+  <ul class="checklist" id="pccChecklist"></ul>
 
   <div class="footer">
     <div class="footer-left">Michigan Medicine &middot; Urology &middot; PCC</div>
@@ -2990,9 +2927,9 @@ const TIME_OPTIONS = ['< 1 Week','1-2 Weeks','2-4 Weeks','1-3 Months','3+ Months
 
 // Constants moved to top level
 
-// ===== KEY PROJECTS (backed by Leadership Status column in Google Sheet) =====
+// ===== PRIORITIES (backed by Leadership Status column in Google Sheet) =====
 function getKeyProjectIds() {
-  // Key Projects = projects with Leadership Status "Priority"
+  // Priorities = projects with Leadership Status "Priority"
   // Use localStorage only for ORDERING; membership comes from the Sheet data
   const priorityIds = getActiveProjects()
     .filter(p => p['Leadership Status'] === 'Priority')
@@ -3142,56 +3079,44 @@ function renderSpotlight() {
   document.getElementById('spotlightCount').textContent = keyProjects.length;
 
   if (keyProjects.length === 0) {
-    container.innerHTML = `<div class="spotlight-empty"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Star projects in Urology Projects to add them to the priority list. Drag rows to override the default priority sort.</div>`;
+    container.innerHTML = `<div class="checklist-empty">No projects flagged as priorities yet. Flag projects as "Priority" in the Urology Projects tab to add them here.</div>`;
     return;
   }
 
+  // Render as checklist
   const today = new Date(); today.setHours(0,0,0,0);
   const soonThreshold = new Date(today.getTime() + 3 * 86400000);
 
-  // Sort info bar (shows when user has manually reordered)
-  const sortBar = _spotManualOrder
-    ? `<div class="spotlight-sort-info"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>Custom order (drag to reorder)<button class="sort-reset" onclick="resetSpotlightOrder()" title="Reset to auto-sort by priority">Reset to auto-sort</button></div>`
-    : `<div class="spotlight-sort-info"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5h10M11 9h7M11 13h4"/><path d="M3 17l3 3 3-3"/><path d="M6 18V4"/></svg>Sorted by priority &middot; Drag rows to set a custom order</div>`;
+  const items = keyProjects.map(function(p) {
+    const isDone = p['Status'] === 'Complete';
+    const _dv = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)) : null;
+    const dueCls = isDone ? '' : (_dv && _dv < today) ? ' overdue' : (_dv && _dv <= soonThreshold) ? ' due-soon' : '';
+    const dueLabel = _dv ? _dv.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+    const priCls = (p['Priority']||'').toLowerCase().replace(/[\s\-]/g,'');
 
-  // Column header
-  const header = `<div class="spotlight-list-header"><span>#</span><span>Project</span><span>Status</span><span>Owner</span><span>Due</span><span></span></div>`;
-
-  // Rows
-  const rows = keyProjects.map((p, idx) => {
-    const status = p['Status'] || 'Not Started';
-    const owner = p['Owner'] || '';
-    const dueDate = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)) : null;
-    const dueStr = dueDate ? dueDate.toLocaleDateString('en-US', {month:'short', day:'numeric'}) : '';
-    const isOverdue = dueDate && dueDate < today && status !== 'Complete';
-    const isDueSoon = dueDate && !isOverdue && dueDate <= soonThreshold && status !== 'Complete';
-
-    let sCls = 's-ns';
-    if (status === 'In Progress') sCls = 's-prog';
-    else if (status === 'Planning') sCls = 's-plan';
-    else if (status === 'In Review') sCls = 's-review';
-    else if (status === 'Delayed') sCls = 's-delayed';
-    else if (status === 'On Hold') sCls = 's-hold';
-    else if (status === 'Complete') sCls = 's-done';
-
-    const rankCls = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : 'rank-n';
-    const dueCls = isOverdue ? ' overdue' : isDueSoon ? ' due-soon' : '';
-
-    return `<div class="spot-row" draggable="true" data-spot-id="${esc(p['ID']||'')}"
-        ondragstart="spotDragStart(event)" ondragend="spotDragEnd(event)"
-        ondragover="spotDragOver(event)" ondrop="spotDrop(event)" ondragleave="spotDragLeave(event)">
-      <div class="spot-rank ${rankCls}">${idx + 1}</div>
-      <div class="spot-name" onclick="openDetail('${esc(p['ID'])}')" title="${esc(p['Project']||'')}">${esc(p['Project']||'Untitled')}</div>
-      <div class="spot-status ${sCls}">${esc(status)}</div>
-      <div class="spot-owner" title="${esc(owner)}">${esc(owner || '\u2014')}</div>
-      <div class="spot-due${dueCls}">${isOverdue ? 'Overdue \u2013 ' : ''}${dueStr || '\u2014'}</div>
-      <button class="spot-unpin" onclick="event.stopPropagation();toggleKeyProject('${esc(p['ID']||'')}')" title="Remove from priorities">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>`;
+    return `<li class="checklist-item${isDone ? ' is-complete' : ''}">
+      <div class="checklist-check${isDone ? ' checked' : ''}" onclick="toggleChecklistStatus('${esc(p['ID']||'')}')" title="${isDone ? 'Mark incomplete' : 'Mark complete'}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="checklist-body">
+        <div class="checklist-title" onclick="openDetail('${esc(p['ID']||'')}')">${esc(p['Project']||'Untitled')}</div>
+        <div class="checklist-meta">
+          ${p['Owner'] ? '<span class="cl-owner">' + esc(p['Owner']) + '</span>' : ''}
+          ${p['Priority'] ? '<span class="cl-priority p-' + priCls + '">' + esc(p['Priority']) + '</span>' : ''}
+          ${dueLabel ? '<span class="cl-due' + dueCls + '"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>' + dueLabel + '</span>' : ''}
+          ${!isDone && p['Status'] ? '<span>' + esc(p['Status']) + '</span>' : ''}
+        </div>
+        ${p['Notes'] ? '<div class="checklist-notes">' + esc(p['Notes']) + '</div>' : ''}
+      </div>
+      <div class="checklist-right">
+        <button class="spot-unpin" onclick="event.stopPropagation();toggleKeyProject('${esc(p['ID']||'')}')" title="Remove from priorities">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </li>`;
   }).join('');
 
-  container.innerHTML = sortBar + header + rows;
+  container.innerHTML = `<ul class="checklist">${items}</ul>`;
 }
 
 // ===== SPOTLIGHT DRAG-AND-DROP (Vertical List) =====
@@ -4022,25 +3947,6 @@ function deleteMeeting(idx) {
 
 // ===== BIZIQ TAB =====
 // ===== BIZIQ =====
-let _biqView = 'kanban';
-let _biqSortCol = 'Priority';
-let _biqSortDir = 1;
-
-function setBizIQView(v) {
-  _biqView = v;
-  document.getElementById('biqViewTable').classList.toggle('active', v === 'table');
-  document.getElementById('biqViewKanban').classList.toggle('active', v === 'kanban');
-  document.getElementById('biqTableContainer').style.display = v === 'table' ? '' : 'none';
-  document.getElementById('biqKanbanBoard').style.display = v === 'kanban' ? '' : 'none';
-  renderBizIQ();
-}
-
-function biqSortBy(col) {
-  if (_biqSortCol === col) _biqSortDir *= -1;
-  else { _biqSortCol = col; _biqSortDir = 1; }
-  renderBizIQ();
-}
-
 function clearBizIQFilters() {
   document.getElementById('biqFilterStatus').value = '';
   document.getElementById('biqFilterPriority').value = '';
@@ -4063,132 +3969,88 @@ function getFilteredBizIQ() {
   });
 }
 
+function renderChecklistItem(p) {
+  var isDone = p['Status'] === 'Complete';
+  var _today = new Date(); _today.setHours(0,0,0,0);
+  var _soon = new Date(_today); _soon.setDate(_today.getDate() + 3);
+  var _dv = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)) : null;
+  var dueCls = isDone ? '' : (_dv && _dv < _today) ? ' overdue' : (_dv && _dv <= _soon) ? ' due-soon' : '';
+  var dueLabel = _dv ? _dv.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+  var priCls = (p['Priority']||'').toLowerCase().replace(/[\s\-]/g,'');
+
+  return '<li class="checklist-item' + (isDone ? ' is-complete' : '') + '">' +
+    '<div class="checklist-check' + (isDone ? ' checked' : '') + '" onclick="toggleChecklistStatus(\'' + esc(p['ID']||'') + '\')" title="' + (isDone ? 'Mark incomplete' : 'Mark complete') + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+    '</div>' +
+    '<div class="checklist-body">' +
+      '<div class="checklist-title" onclick="openDetail(\'' + esc(p['ID']||'') + '\')">' + esc(p['Project']||'Untitled') + '</div>' +
+      '<div class="checklist-meta">' +
+        (p['Owner'] ? '<span class="cl-owner">' + esc(p['Owner']) + '</span>' : '') +
+        (p['Priority'] ? '<span class="cl-priority p-' + priCls + '">' + esc(p['Priority']) + '</span>' : '') +
+        (dueLabel ? '<span class="cl-due' + dueCls + '">' +
+          '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>' +
+          dueLabel + '</span>' : '') +
+        (!isDone && p['Status'] ? '<span>' + esc(p['Status']) + '</span>' : '') +
+      '</div>' +
+      (p['Notes'] ? '<div class="checklist-notes">' + esc(p['Notes']) + '</div>' : '') +
+    '</div>' +
+  '</li>';
+}
+
+function toggleChecklistStatus(id) {
+  var proj = projects.find(function(p) { return p['ID'] === id; });
+  if (!proj) return;
+  var newStatus = proj['Status'] === 'Complete' ? 'In Progress' : 'Complete';
+  proj['Status'] = newStatus;
+  if (newStatus === 'Complete') proj['% Complete'] = '100';
+  if (typeof onFieldChange === 'function') onFieldChange(proj._row, 'Status', newStatus);
+  if (activePage === 'biziq') renderBizIQ();
+  else if (activePage === 'pcc') renderPCC();
+  updateTabBadges();
+  if (typeof scheduleSync === 'function') scheduleSync();
+}
+
 function renderBizIQ() {
   var allBiq = getBizIQProjects();
   var filtered = getFilteredBizIQ();
 
-  // Sort
+  // Sort: incomplete first (by priority), then complete
   filtered.sort(function(a, b) {
-    var av = a[_biqSortCol] || '', bv = b[_biqSortCol] || '';
-    if (_biqSortCol === 'Priority') { av = PRIORITY_RANK[av] !== undefined ? PRIORITY_RANK[av] : 99; bv = PRIORITY_RANK[bv] !== undefined ? PRIORITY_RANK[bv] : 99; }
-    else if (_biqSortCol === 'Status') { av = STATUS_RANK[av] !== undefined ? STATUS_RANK[av] : 99; bv = STATUS_RANK[bv] !== undefined ? STATUS_RANK[bv] : 99; }
-    if (av < bv) return -1 * _biqSortDir;
-    if (av > bv) return 1 * _biqSortDir;
+    var aDone = a['Status'] === 'Complete' ? 1 : 0;
+    var bDone = b['Status'] === 'Complete' ? 1 : 0;
+    if (aDone !== bDone) return aDone - bDone;
+    var av = PRIORITY_RANK[a['Priority']] !== undefined ? PRIORITY_RANK[a['Priority']] : 99;
+    var bv = PRIORITY_RANK[b['Priority']] !== undefined ? PRIORITY_RANK[b['Priority']] : 99;
+    if (av !== bv) return av - bv;
     return 0;
   });
-
-  // KPIs
-  var active = allBiq.filter(function(p) { return p['Status'] !== 'Complete'; });
-  var inProg = allBiq.filter(function(p) { return p['Status'] === 'In Progress'; });
-  var complete = allBiq.filter(function(p) { return p['Status'] === 'Complete'; });
-  var ai = allBiq.filter(function(p) { var v = (p['AI Potential?'] || '').toString().toLowerCase(); return v === 'yes' || v === 'true' || v === '1'; });
-
-  var el;
-  if (el = document.getElementById('biqTotal')) el.querySelector('.exec-metric-value').textContent = allBiq.length;
-  if (el = document.getElementById('biqActive')) el.querySelector('.exec-metric-value').textContent = active.length;
-  if (el = document.getElementById('biqInProgress')) el.querySelector('.exec-metric-value').textContent = inProg.length;
-  if (el = document.getElementById('biqComplete')) el.querySelector('.exec-metric-value').textContent = complete.length;
-  if (el = document.getElementById('biqAI')) el.querySelector('.exec-metric-value').textContent = ai.length;
 
   // Populate owner filter
   var owners = {};
   allBiq.forEach(function(p) { if (p['Owner']) owners[p['Owner']] = true; });
   var ownerSel = document.getElementById('biqFilterOwner');
   var curOwner = ownerSel.value;
-  ownerSel.innerHTML = '<option value="">Owner</option>' + Object.keys(owners).sort().map(function(o) {
+  ownerSel.innerHTML = '<option value="">All Owners</option>' + Object.keys(owners).sort().map(function(o) {
     return '<option' + (o === curOwner ? ' selected' : '') + '>' + esc(o) + '</option>';
   }).join('');
 
-  document.getElementById('biqResultCount').textContent = filtered.length;
+  // Count summary
+  var doneCount = filtered.filter(function(p) { return p['Status'] === 'Complete'; }).length;
+  var countEl = document.getElementById('biqChecklistCount');
+  countEl.innerHTML = '<span class="done-ratio">' + doneCount + '/' + filtered.length + '</span> tasks complete';
 
-  // Table
-  if (_biqView === 'table') {
-    var tbody = document.getElementById('biqTableBody');
-    var keyIds = getKeyProjectIds();
-    var _today = new Date(); _today.setHours(0,0,0,0);
-    var _soon = new Date(_today); _soon.setDate(_today.getDate() + 3);
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="11"><div class="empty-state"><p>No BizIQ projects match</p><span class="hint">Try adjusting your filters or add a new BizIQ project</span></div></td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = filtered.map(function(p) {
-      var _dv = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)) : null;
-      var _done = p['Status'] === 'Complete';
-      var dueCls = _done ? 'date-complete' : (_dv && _dv < _today) ? 'date-overdue' : (_dv && _dv <= _soon) ? 'date-due-soon' : '';
-      var pct = parseInt(p['% Complete'] || '0', 10) || 0;
-      var aiVal = (p['AI Potential?'] || '').toString().toLowerCase();
-      var isAI = aiVal === 'yes' || aiVal === 'true' || aiVal === '1';
-      return '<tr onclick="if(!event.target.closest(\'.editable,.pill-select,.date-input\'))openDetail(\'' + esc(p['ID']||'') + '\')" style="cursor:pointer">' +
-        '<td><span class="cell-id">' + esc(p['ID']||'') + '</span></td>' +
-        '<td><span class="cell-project editable" contenteditable="true" data-row="' + p._row + '" data-col="Project" onblur="onEdit(this)">' + esc(p['Project']||'') + '</span></td>' +
-        '<td><span class="cell-desc editable" contenteditable="true" data-row="' + p._row + '" data-col="Description" onblur="onEdit(this)">' + esc(p['Description']||'') + '</span></td>' +
-        '<td><span class="editable" contenteditable="true" data-row="' + p._row + '" data-col="Owner" onblur="onEdit(this)">' + esc(p['Owner']||'') + '</span></td>' +
-        '<td><select class="pill-select" data-type="priority" data-value="' + esc(p['Priority']||'') + '" data-row="' + p._row + '" data-col="Priority" onchange="onDrop(this)">' + PRIORITY_OPTIONS.map(function(o){return '<option'+(p['Priority']===o?' selected':'')+'>'+o+'</option>';}).join('') + '</select></td>' +
-        '<td><select class="pill-select" data-type="status" data-value="' + esc(p['Status']||'') + '" data-row="' + p._row + '" data-col="Status" onchange="onDrop(this)">' + STATUS_OPTIONS.map(function(o){return '<option'+(p['Status']===o?' selected':'')+'>'+o+'</option>';}).join('') + '</select></td>' +
-        '<td><input type="date" class="date-input" value="' + esc(p['Start Date']?String(p['Start Date']).slice(0,10):'') + '" data-row="' + p._row + '" data-col="Start Date" onchange="onDate(this)"/></td>' +
-        '<td><input type="date" class="date-input' + (dueCls ? ' '+dueCls : '') + '" value="' + esc(p['Due Date']?String(p['Due Date']).slice(0,10):'') + '" data-row="' + p._row + '" data-col="Due Date" onchange="onDate(this)"/></td>' +
-        '<td><div style="display:flex;align-items:center;gap:0.3rem"><div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:' + pct + '%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:0.62rem;color:var(--text-3)">' + pct + '%</span></div></td>' +
-        '<td><span class="cell-notes editable" contenteditable="true" data-row="' + p._row + '" data-col="Notes" onblur="onEdit(this)">' + esc(p['Notes']||'') + '</span></td>' +
-        '<td style="text-align:center">' + (isAI ? '<span class="ai-badge-table"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L9 12l-7 0 5.5 4.5L5 22l7-4.5L19 22l-2.5-5.5L22 12l-7 0z"/></svg> AI</span>' : '') + '</td>' +
-      '</tr>';
-    }).join('');
+  // Render checklist
+  var listEl = document.getElementById('biqChecklist');
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="checklist-empty">No BizIQ tasks match your filters</div>';
+    return;
   }
-
-  // Kanban
-  if (_biqView === 'kanban') {
-    var board = document.getElementById('biqKanbanBoard');
-    var columns = ['Not Started', 'Planning', 'In Progress', 'In Review', 'Complete'];
-    board.innerHTML = columns.map(function(status) {
-      var colProjects = filtered.filter(function(p) { return p['Status'] === status; });
-      var colColor = status === 'In Progress' ? 'var(--s-prog)' : status === 'Planning' ? 'var(--s-plan)' : status === 'Complete' ? 'var(--s-done)' : status === 'In Review' ? '#6C5CB2' : 'var(--text-3)';
-      return '<div class="kanban-col">' +
-        '<div class="kanban-col-header"><span class="kanban-col-dot" style="background:' + colColor + '"></span><span class="kanban-col-name">' + status + '</span><span class="kanban-col-count">' + colProjects.length + '</span></div>' +
-        '<div class="kanban-col-body">' +
-        (colProjects.length === 0 ? '<div class="kanban-empty">No projects</div>' :
-        colProjects.map(function(p) {
-          var pct = parseInt(p['% Complete'] || '0', 10) || 0;
-          return '<div class="kanban-card" onclick="openDetail(\'' + esc(p['ID']||'') + '\')">' +
-            '<div class="kanban-card-title">' + esc(p['Project']||'') + '</div>' +
-            '<div class="kanban-card-meta">' +
-              (p['Owner'] ? '<span>' + esc(p['Owner']) + '</span>' : '') +
-              (p['Priority'] ? '<span class="pill-inline pill-' + (p['Priority']||'').toLowerCase().replace(/[^a-z]/g,'') + '">' + esc(p['Priority']) + '</span>' : '') +
-            '</div>' +
-            (pct > 0 ? '<div style="height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:0.3rem"><div style="height:100%;width:' + pct + '%;background:var(--gold);border-radius:2px"></div></div>' : '') +
-          '</div>';
-        }).join('')) +
-        '</div></div>';
-    }).join('');
-  }
-
-  // Show/hide based on view
-  document.getElementById('biqTableContainer').style.display = _biqView === 'table' ? '' : 'none';
-  document.getElementById('biqKanbanBoard').style.display = _biqView === 'kanban' ? '' : 'none';
+  listEl.innerHTML = filtered.map(renderChecklistItem).join('');
 }
 
 // ===== PCC TAB =====
-let _pccView = 'kanban';
-let _pccSortCol = 'Priority';
-let _pccSortDir = 1;
-
 function getPCCProjects() {
   return projects.filter(function(p) { return (p['Category'] || '') === 'PCC'; });
-}
-
-function setPCCView(v) {
-  _pccView = v;
-  document.getElementById('pccViewTable').classList.toggle('active', v === 'table');
-  document.getElementById('pccViewKanban').classList.toggle('active', v === 'kanban');
-  document.getElementById('pccTableContainer').style.display = v === 'table' ? '' : 'none';
-  document.getElementById('pccKanbanBoard').style.display = v === 'kanban' ? '' : 'none';
-  renderPCC();
-}
-
-function pccSortBy(col) {
-  if (_pccSortCol === col) _pccSortDir *= -1;
-  else { _pccSortCol = col; _pccSortDir = 1; }
-  renderPCC();
 }
 
 function clearPCCFilters() {
@@ -4217,100 +4079,38 @@ function renderPCC() {
   var allPcc = getPCCProjects();
   var filtered = getFilteredPCC();
 
-  // Sort
+  // Sort: incomplete first (by priority), then complete
   filtered.sort(function(a, b) {
-    var av = a[_pccSortCol] || '', bv = b[_pccSortCol] || '';
-    if (_pccSortCol === 'Priority') { av = PRIORITY_RANK[av] !== undefined ? PRIORITY_RANK[av] : 99; bv = PRIORITY_RANK[bv] !== undefined ? PRIORITY_RANK[bv] : 99; }
-    else if (_pccSortCol === 'Status') { av = STATUS_RANK[av] !== undefined ? STATUS_RANK[av] : 99; bv = STATUS_RANK[bv] !== undefined ? STATUS_RANK[bv] : 99; }
-    if (av < bv) return -1 * _pccSortDir;
-    if (av > bv) return 1 * _pccSortDir;
+    var aDone = a['Status'] === 'Complete' ? 1 : 0;
+    var bDone = b['Status'] === 'Complete' ? 1 : 0;
+    if (aDone !== bDone) return aDone - bDone;
+    var av = PRIORITY_RANK[a['Priority']] !== undefined ? PRIORITY_RANK[a['Priority']] : 99;
+    var bv = PRIORITY_RANK[b['Priority']] !== undefined ? PRIORITY_RANK[b['Priority']] : 99;
+    if (av !== bv) return av - bv;
     return 0;
   });
-
-  // KPIs
-  var active = allPcc.filter(function(p) { return p['Status'] !== 'Complete'; });
-  var inProg = allPcc.filter(function(p) { return p['Status'] === 'In Progress'; });
-  var complete = allPcc.filter(function(p) { return p['Status'] === 'Complete'; });
-  var blocked = allPcc.filter(function(p) { return p['Status'] === 'On Hold' || p['Status'] === 'Delayed'; });
-
-  var el;
-  if (el = document.getElementById('pccTotal')) el.querySelector('.exec-metric-value').textContent = allPcc.length;
-  if (el = document.getElementById('pccActive')) el.querySelector('.exec-metric-value').textContent = active.length;
-  if (el = document.getElementById('pccInProgress')) el.querySelector('.exec-metric-value').textContent = inProg.length;
-  if (el = document.getElementById('pccComplete')) el.querySelector('.exec-metric-value').textContent = complete.length;
-  if (el = document.getElementById('pccBlocked')) el.querySelector('.exec-metric-value').textContent = blocked.length;
 
   // Populate owner filter
   var owners = {};
   allPcc.forEach(function(p) { if (p['Owner']) owners[p['Owner']] = true; });
   var ownerSel = document.getElementById('pccFilterOwner');
   var curOwner = ownerSel.value;
-  ownerSel.innerHTML = '<option value="">Owner</option>' + Object.keys(owners).sort().map(function(o) {
+  ownerSel.innerHTML = '<option value="">All Owners</option>' + Object.keys(owners).sort().map(function(o) {
     return '<option' + (o === curOwner ? ' selected' : '') + '>' + esc(o) + '</option>';
   }).join('');
 
-  document.getElementById('pccResultCount').textContent = filtered.length;
+  // Count summary
+  var doneCount = filtered.filter(function(p) { return p['Status'] === 'Complete'; }).length;
+  var countEl = document.getElementById('pccChecklistCount');
+  countEl.innerHTML = '<span class="done-ratio">' + doneCount + '/' + filtered.length + '</span> tasks complete';
 
-  // Table
-  if (_pccView === 'table') {
-    var tbody = document.getElementById('pccTableBody');
-    var _today = new Date(); _today.setHours(0,0,0,0);
-    var _soon = new Date(_today); _soon.setDate(_today.getDate() + 3);
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="10"><div class="empty-state"><p>No PCC projects match</p><span class="hint">Try adjusting your filters or add a new PCC project</span></div></td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = filtered.map(function(p) {
-      var _dv = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)) : null;
-      var _done = p['Status'] === 'Complete';
-      var dueCls = _done ? 'date-complete' : (_dv && _dv < _today) ? 'date-overdue' : (_dv && _dv <= _soon) ? 'date-due-soon' : '';
-      var pct = parseInt(p['% Complete'] || '0', 10) || 0;
-      return '<tr onclick="if(!event.target.closest(\'.editable,.pill-select,.date-input\'))openDetail(\'' + esc(p['ID']||'') + '\')" style="cursor:pointer">' +
-        '<td><span class="cell-id">' + esc(p['ID']||'') + '</span></td>' +
-        '<td><span class="cell-project editable" contenteditable="true" data-row="' + p._row + '" data-col="Project" onblur="onEdit(this)">' + esc(p['Project']||'') + '</span></td>' +
-        '<td><span class="cell-desc editable" contenteditable="true" data-row="' + p._row + '" data-col="Description" onblur="onEdit(this)">' + esc(p['Description']||'') + '</span></td>' +
-        '<td><span class="editable" contenteditable="true" data-row="' + p._row + '" data-col="Owner" onblur="onEdit(this)">' + esc(p['Owner']||'') + '</span></td>' +
-        '<td><select class="pill-select" data-type="priority" data-value="' + esc(p['Priority']||'') + '" data-row="' + p._row + '" data-col="Priority" onchange="onDrop(this)">' + PRIORITY_OPTIONS.map(function(o){return '<option'+(p['Priority']===o?' selected':'')+'>'+o+'</option>';}).join('') + '</select></td>' +
-        '<td><select class="pill-select" data-type="status" data-value="' + esc(p['Status']||'') + '" data-row="' + p._row + '" data-col="Status" onchange="onDrop(this)">' + STATUS_OPTIONS.map(function(o){return '<option'+(p['Status']===o?' selected':'')+'>'+o+'</option>';}).join('') + '</select></td>' +
-        '<td><input type="date" class="date-input" value="' + esc(p['Start Date']?String(p['Start Date']).slice(0,10):'') + '" data-row="' + p._row + '" data-col="Start Date" onchange="onDate(this)"/></td>' +
-        '<td><input type="date" class="date-input' + (dueCls ? ' '+dueCls : '') + '" value="' + esc(p['Due Date']?String(p['Due Date']).slice(0,10):'') + '" data-row="' + p._row + '" data-col="Due Date" onchange="onDate(this)"/></td>' +
-        '<td><div style="display:flex;align-items:center;gap:0.3rem"><div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:' + pct + '%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:0.62rem;color:var(--text-3)">' + pct + '%</span></div></td>' +
-        '<td><span class="cell-notes editable" contenteditable="true" data-row="' + p._row + '" data-col="Notes" onblur="onEdit(this)">' + esc(p['Notes']||'') + '</span></td>' +
-      '</tr>';
-    }).join('');
+  // Render checklist
+  var listEl = document.getElementById('pccChecklist');
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="checklist-empty">No PCC tasks match your filters</div>';
+    return;
   }
-
-  // Kanban
-  if (_pccView === 'kanban') {
-    var board = document.getElementById('pccKanbanBoard');
-    var columns = ['Not Started', 'Planning', 'In Progress', 'In Review', 'Complete'];
-    board.innerHTML = columns.map(function(status) {
-      var colProjects = filtered.filter(function(p) { return p['Status'] === status; });
-      var colColor = status === 'In Progress' ? 'var(--s-prog)' : status === 'Planning' ? 'var(--s-plan)' : status === 'Complete' ? 'var(--s-done)' : status === 'In Review' ? '#6C5CB2' : 'var(--text-3)';
-      return '<div class="kanban-col">' +
-        '<div class="kanban-col-header"><span class="kanban-col-dot" style="background:' + colColor + '"></span><span class="kanban-col-name">' + status + '</span><span class="kanban-col-count">' + colProjects.length + '</span></div>' +
-        '<div class="kanban-col-body">' +
-        (colProjects.length === 0 ? '<div class="kanban-empty">No projects</div>' :
-        colProjects.map(function(p) {
-          var pct = parseInt(p['% Complete'] || '0', 10) || 0;
-          return '<div class="kanban-card" onclick="openDetail(\'' + esc(p['ID']||'') + '\')">' +
-            '<div class="kanban-card-title">' + esc(p['Project']||'') + '</div>' +
-            '<div class="kanban-card-meta">' +
-              (p['Owner'] ? '<span>' + esc(p['Owner']) + '</span>' : '') +
-              (p['Priority'] ? '<span class="pill-inline pill-' + (p['Priority']||'').toLowerCase().replace(/[^a-z]/g,'') + '">' + esc(p['Priority']) + '</span>' : '') +
-            '</div>' +
-            (pct > 0 ? '<div style="height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:0.3rem"><div style="height:100%;width:' + pct + '%;background:var(--gold);border-radius:2px"></div></div>' : '') +
-          '</div>';
-        }).join('')) +
-        '</div></div>';
-    }).join('');
-  }
-
-  // Show/hide based on view
-  document.getElementById('pccTableContainer').style.display = _pccView === 'table' ? '' : 'none';
-  document.getElementById('pccKanbanBoard').style.display = _pccView === 'kanban' ? '' : 'none';
+  listEl.innerHTML = filtered.map(renderChecklistItem).join('');
 }
 
 // ===== TAB BADGES =====
@@ -5794,7 +5594,7 @@ function renderTable() {
     const dueCls = _done ? 'date-complete' : (_dv && _dv < _today) ? 'date-overdue' : (_dv && _dv <= _soon) ? 'date-due-soon' : '';
     return `
     <tr onclick="if(!event.target.closest('.editable,.pill-select,.time-pill,.date-input,.btn-delete,.star-toggle'))openDetail('${esc(p['ID']||'')}')" style="cursor:pointer">
-      <td><button class="star-toggle${isKey?' active':''}" onclick="toggleKeyProject('${esc(p['ID']||'')}')" title="${isKey?'Remove from':'Add to'} key projects"><svg width="12" height="12" viewBox="0 0 24 24" ${isKey?'fill="currentColor" stroke="currentColor"':'fill="none" stroke="currentColor"'} stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button><span class="cell-id">${esc(p['ID']||'')}</span></td>
+      <td><button class="star-toggle${isKey?' active':''}" onclick="toggleKeyProject('${esc(p['ID']||'')}')" title="${isKey?'Remove from':'Add to'} priorities"><svg width="12" height="12" viewBox="0 0 24 24" ${isKey?'fill="currentColor" stroke="currentColor"':'fill="none" stroke="currentColor"'} stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button><span class="cell-id">${esc(p['ID']||'')}</span></td>
       <td><span class="cell-project editable" contenteditable="true" data-row="${p._row}" data-col="Project" onblur="onEdit(this)">${esc(p['Project']||'')}</span></td>
       <td><span class="cell-desc editable" contenteditable="true" data-row="${p._row}" data-col="Description" onblur="onEdit(this)">${esc(p['Description']||'')}</span></td>
       <td><select class="pill-select" data-type="category" data-value="${esc(p['Category']||'')}" data-row="${p._row}" data-col="Category" onchange="onDrop(this)"><option value="">\u2014</option>${CATEGORY_OPTIONS.map(o=>`<option${p['Category']===o?' selected':''}>${o}</option>`).join('')}</select></td>
