@@ -3,43 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Management - Urology Command Center</title>
+  <title>Urology Projects - Command Center</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #F7F8FA;
+      --bg: #FAFAF8;
       --bg-warm: #F5F2ED;
       --bg-card: #FFFFFF;
       --bg-card-hover: #FEFDFB;
       --bg-stripe: #FDFCFA;
-      --gold: #C4943D;
-      --gold-light: #D4A84F;
-      --gold-glow: rgba(196,148,61,0.07);
-      --gold-ring: rgba(196,148,61,0.18);
-      --gold-badge: rgba(196,148,61,0.06);
-      --navy: #0B1D3A;
+      --gold: #B8863A;
+      --gold-light: #D4AA60;
+      --gold-glow: rgba(184, 134, 58, 0.07);
+      --gold-ring: rgba(184, 134, 58, 0.18);
+      --gold-badge: rgba(184, 134, 58, 0.06);
+      --navy: #1A2740;
       --navy-mid: #132D54;
       --text: #111827;
       --text-2: #4B5563;
       --text-3: #9CA3AF;
       --text-inv-1: #FFFFFF;
-      --border: #E5E7EB;
-      --border-warm: rgba(196,148,61,0.12);
-      --border-strong: #D1D5DB;
+      --text-inv-2: rgba(255,255,255,0.55);
+      --border: rgba(0,0,0,0.055);
+      --border-warm: rgba(184,134,58,0.14);
+      --border-strong: rgba(0,0,0,0.08);
       --sh-xs: 0 1px 2px rgba(28,33,39,0.03);
       --sh-sm: 0 1px 4px rgba(28,33,39,0.035), 0 2px 8px rgba(28,33,39,0.02);
       --sh-md: 0 4px 16px rgba(28,33,39,0.045), 0 1px 4px rgba(28,33,39,0.025);
-      --s-queue-bg: #EFECEA;
-      --s-queue: #827D78;
-      --s-prog-bg: #E2ECF8;
-      --s-prog: #3D6CB4;
-      --s-hold-bg: #ECEBE8;
-      --s-hold: #76716A;
-      --s-done-bg: #DEF0E5;
-      --s-done: #387A5C;
-      --p-crit-bg: #F8E1DE;
-      --p-crit: #B04840;
+      --sh-lg: 0 8px 32px rgba(28,33,39,0.06), 0 2px 8px rgba(28,33,39,0.025);
+      --sh-gold: 0 3px 14px rgba(184,134,58,0.14);
+      --s-nostart-bg: #F3F4F6;
+      --s-nostart: #6B7280;
+      --s-plan-bg: #EFF6FF;
+      --s-plan: #1E40AF;
+      --s-prog-bg: #DCFCE7;
+      --s-prog: #15803D;
+      --s-rev-bg: #FEF3C7;
+      --s-rev: #B45309;
+      --s-done-bg: #DBEAFE;
+      --s-done: #0369A1;
+      --s-block-bg: #FEE2E2;
+      --s-block: #DC2626;
+      --s-hold-bg: #F3F4F6;
+      --s-hold: #6B7280;
+      --p-crit-bg: #FEE2E2;
+      --p-crit: #DC2626;
+      --p-urg-bg: #FED7AA;
+      --p-urg: #EA580C;
+      --p-imp-bg: #FCA5A5;
+      --p-imp: #BE123C;
+      --p-med-bg: #FCD34D;
+      --p-med: #B45309;
+      --p-low-bg: #DBEAFE;
+      --p-low: #0369A1;
+      --p-non-bg: #E0E7FF;
+      --p-non: #4338CA;
       --p-high-bg: #FAE4D0;
       --p-high: #B06C2E;
       --r-xs: 5px;
@@ -58,35 +77,139 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    html, body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
+      min-height: 100vh;
       line-height: 1.5;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 80% -10%, rgba(184,134,58,0.035) 0%, transparent 55%),
+                  radial-gradient(circle at -5% 100%, rgba(74,144,217,0.02) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Command Center Nav */
     .cc-nav {
       background: #111E30;
-      padding: 0.4rem 2.5rem;
+      padding: 0.5rem 2.5rem;
       display: flex;
       align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
     }
 
     .cc-nav a {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.4);
+      color: var(--text-inv-2);
       text-decoration: none;
+      font-weight: 600;
       letter-spacing: 0.02em;
       transition: color 0.15s ease;
     }
 
     .cc-nav a:hover {
+      color: var(--text-inv-1);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-right: 3px solid var(--gold);
+      padding: 2rem 2.5rem;
+      color: var(--text-inv-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-subtitle {
+      font-size: 0.85rem;
       color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Gold rule */
+    .gold-rule {
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 35%, rgba(207,160,90,0.3) 70%, transparent 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Tabs */
+    .tab-nav {
+      background: var(--navy);
+      padding: 0 2.5rem;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(184,134,58,0.14);
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-inv-2);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-inv-1);
+    }
+
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .tab-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--text-inv-1);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--r-full);
+      margin-left: 0.5rem;
     }
 
     .loading-bar {
@@ -116,90 +239,199 @@
       max-width: 1600px;
       margin: 0 auto;
       padding: 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
     }
 
-    .tab-nav {
+    /* Key Projects Header */
+    .key-projects-header {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .key-projects-title {
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .tab-btn {
-      padding: 0.75rem 1.5rem;
-      background: none;
-      border: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
       font-weight: 500;
-      color: var(--text-2);
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-    }
-
-    .tab-btn.active {
       color: var(--navy);
-      border-bottom-color: var(--gold);
     }
 
-    .tab-btn:hover {
-      color: var(--text);
+    .key-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.5rem;
+      height: 1.5rem;
+      padding: 0 0.4rem;
+      background: var(--gold);
+      color: #fff;
+      border-radius: var(--r-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
 
-    .tab-content {
-      display: none;
+    .key-projects-hint {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      font-style: italic;
     }
 
-    .tab-content.active {
-      display: block;
-    }
-
-    .stats-row {
+    /* Key Projects Grid */
+    .key-projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
     }
 
-    .stat-card {
+    /* Key Card */
+    .key-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
       border-radius: var(--r);
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
-      box-shadow: var(--sh-xs);
-    }
-
-    .stat-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
+      padding: 1.25rem 1.25rem 1rem 1.25rem;
       box-shadow: var(--sh-sm);
+      transition: all var(--t) var(--ease);
+      cursor: grab;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    .stat-card.active {
+    .key-card:hover {
+      box-shadow: var(--sh-md);
+      transform: translateY(-2px);
+      border-left-color: var(--gold-light);
+    }
+
+    .key-card:active { cursor: grabbing; }
+
+    .key-card.drag-over {
       background: var(--gold-glow);
       border-color: var(--gold);
     }
 
-    .stat-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-3);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
+    .key-card.dragging {
+      opacity: 0.4;
     }
 
-    .stat-number {
+    /* Card top row: rank + name */
+    .key-card-top {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .key-rank {
       font-family: 'Fraunces', serif;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      min-width: 1.5rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .key-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    /* Pill row */
+    .key-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .key-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--r-full);
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+
+    .key-pill svg { flex-shrink: 0; }
+
+    /* Pill variants */
+    .key-pill.pill-owner {
+      background: rgba(26,39,64,0.07);
       color: var(--navy);
     }
 
+    .key-pill.pill-status.s-prog { background: var(--s-prog-bg); color: var(--s-prog); }
+    .key-pill.pill-status.s-plan { background: var(--s-plan-bg); color: var(--s-plan); }
+    .key-pill.pill-status.s-review { background: rgba(108,92,178,0.1); color: #6C5CB2; }
+    .key-pill.pill-status.s-delayed { background: var(--s-block-bg); color: var(--s-block); }
+    .key-pill.pill-status.s-hold { background: var(--s-hold-bg); color: var(--s-hold); }
+    .key-pill.pill-status.s-complete { background: rgba(16,185,129,0.1); color: #059669; }
+
+    .key-pill.pill-category {
+      background: rgba(108,92,178,0.08);
+      color: #6C5CB2;
+    }
+
+    .key-pill.pill-due {
+      background: rgba(26,39,64,0.05);
+      color: var(--text-2);
+    }
+
+    .key-pill.pill-due.overdue {
+      background: rgba(239,68,68,0.08);
+      color: var(--p-crit);
+      font-weight: 700;
+    }
+
+    .key-pill.pill-due.due-soon {
+      background: rgba(245,158,11,0.08);
+      color: #B45309;
+    }
+
+    /* Progress bar */
+    .key-progress {
+      height: 4px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .key-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+      transition: width 0.4s var(--ease);
+    }
+
+    /* Empty state */
+    .key-empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-3);
+      background: var(--bg-card);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--r);
+      font-size: 0.9rem;
+    }
+
+    /* Section Heading */
     .section-heading {
       display: flex;
       align-items: center;
@@ -212,7 +444,7 @@
     .section-heading h2 {
       font-family: 'Fraunces', serif;
       font-size: 1.4rem;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--navy);
     }
 
@@ -225,7 +457,7 @@
       background: var(--gold-glow);
       border-radius: var(--r-xs);
       color: var(--gold);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       transition: transform var(--t) var(--ease);
     }
 
@@ -243,203 +475,60 @@
       max-height: 0;
     }
 
-    .priorities-container {
-      display: grid;
-      gap: 1rem;
+    /* Tab Content */
+    .tab-content {
+      display: none;
     }
 
-    .priority-card {
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Dual Panel */
+    .dual-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      .dual-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      cursor: grab;
-      transition: all var(--t) var(--ease);
-      box-shadow: var(--sh-xs);
+      box-shadow: var(--sh-sm);
     }
 
-    .priority-card:active {
-      cursor: grabbing;
-      opacity: 0.8;
-    }
-
-    .priority-rank {
+    .panel-card h3 {
       font-family: 'Fraunces', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--gold);
-      width: 2.5rem;
-      text-align: center;
-    }
-
-    .priority-info {
-      flex: 1;
-    }
-
-    .priority-name {
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-    }
-
-    .priority-meta {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.4rem 0.75rem;
-      border-radius: var(--r-full);
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .status-pill.queued {
-      background: var(--s-queue-bg);
-      color: var(--s-queue);
-    }
-
-    .status-pill.in-progress {
-      background: var(--s-prog-bg);
-      color: var(--s-prog);
-    }
-
-    .status-pill.on-hold {
-      background: var(--s-hold-bg);
-      color: var(--s-hold);
-    }
-
-    .status-pill.complete {
-      background: var(--s-done-bg);
-      color: var(--s-done);
-    }
-
-    .domain-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.4rem 0.75rem;
-      background: rgba(61,108,180,0.06);
-      color: var(--s-prog);
-      border-radius: var(--r-full);
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .priority-due {
-      font-size: 0.85rem;
-      color: var(--text-2);
-    }
-
-    .week-container {
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .owner-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 1.5rem;
-      box-shadow: var(--sh-xs);
-    }
-
-    .owner-name {
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .project-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem;
-      border-radius: var(--r-sm);
-      background: var(--bg);
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background var(--t) var(--ease);
-    }
-
-    .project-item:hover {
-      background: var(--bg-stripe);
-    }
-
-    .project-item-name {
-      color: var(--text);
+      font-size: 1.1rem;
       font-weight: 500;
-    }
-
-    .project-item-due {
-      color: var(--text-3);
-      font-size: 0.85rem;
-    }
-
-    .workload-bars {
-      display: grid;
-      gap: 1.25rem;
-    }
-
-    .workload-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 1.25rem;
-      box-shadow: var(--sh-xs);
-    }
-
-    .workload-name {
-      font-weight: 600;
       color: var(--navy);
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
     }
 
-    .workload-bar-container {
-      width: 100%;
-      height: 6px;
-      background: var(--border);
-      border-radius: var(--r-full);
-      overflow: hidden;
-    }
-
-    .workload-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light));
-      border-radius: var(--r-full);
-      transition: width var(--t) var(--ease);
-    }
-
-    .workload-label {
-      font-size: 0.8rem;
-      color: var(--text-2);
-      margin-top: 0.5rem;
-    }
-
+    /* Goals Grid */
     .goals-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
     }
 
     .goal-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: 1.5rem;
+      padding: 1.25rem;
       box-shadow: var(--sh-xs);
       transition: all var(--t) var(--ease);
+      cursor: pointer;
     }
 
     .goal-card:hover {
@@ -451,68 +540,61 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--text-inv-1);
     }
 
-    .goal-status-ring.not-started {
-      background: #E5E7EB;
-      color: var(--text-3);
-    }
-
-    .goal-status-ring.in-progress {
-      background: var(--gold);
-    }
-
-    .goal-status-ring.complete {
-      background: var(--s-done);
-    }
+    .goal-status-ring.not-started { background: #E5E7EB; color: var(--text-3); }
+    .goal-status-ring.in-progress { background: var(--gold); }
+    .goal-status-ring.complete { background: var(--s-done); }
 
     .goal-title {
       font-weight: 600;
       color: var(--navy);
       margin-bottom: 0.5rem;
+      font-size: 0.95rem;
     }
 
     .goal-description {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-2);
+    }
+
+    /* Action Items */
+    .action-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--p-crit);
+      border-radius: var(--r);
+      padding: 1rem;
       margin-bottom: 1rem;
-    }
-
-    .goal-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .goal-btn {
-      padding: 0.5rem 1rem;
-      background: var(--gold-glow);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--r-sm);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--gold);
-      cursor: pointer;
       transition: all var(--t) var(--ease);
     }
 
-    .goal-btn:hover {
-      background: var(--gold-ring);
-      border-color: var(--gold);
+    .action-card:hover {
+      box-shadow: var(--sh-sm);
+      transform: translateX(4px);
     }
 
-    .calendar-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+    .action-title {
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
     }
 
+    .action-meta {
+      font-size: 0.8rem;
+      color: var(--text-3);
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Calendar */
     .calendar-container {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -558,6 +640,7 @@
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .calendar-day-header {
@@ -587,16 +670,8 @@
       border-color: var(--gold);
     }
 
-    .calendar-day.other-month {
-      color: var(--text-3);
-    }
-
-    .calendar-day.today {
-      background: var(--gold);
-      color: var(--text-inv-1);
-      font-weight: 600;
-    }
-
+    .calendar-day.other-month { color: var(--text-3); }
+    .calendar-day.today { background: var(--gold); color: var(--text-inv-1); font-weight: 600; }
     .calendar-day.has-event::after {
       content: '';
       position: absolute;
@@ -607,6 +682,7 @@
       border-radius: 50%;
     }
 
+    /* Filters */
     .filters-row {
       display: flex;
       gap: 1rem;
@@ -626,33 +702,11 @@
       transition: all var(--t) var(--ease);
     }
 
-    .filter-input::placeholder {
-      color: var(--text-3);
-    }
-
+    .filter-input::placeholder { color: var(--text-3); }
     .filter-input:focus, .filter-select:focus {
       outline: none;
       border-color: var(--gold);
       box-shadow: 0 0 0 3px var(--gold-glow);
-    }
-
-    .filter-select {
-      cursor: pointer;
-    }
-
-    .btn-clear {
-      padding: 0.65rem 1rem;
-      background: var(--border);
-      border: none;
-      border-radius: var(--r);
-      font-weight: 600;
-      color: var(--text-2);
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
-    }
-
-    .btn-clear:hover {
-      background: var(--border-strong);
     }
 
     .btn-add {
@@ -674,6 +728,7 @@
       box-shadow: var(--sh-sm);
     }
 
+    /* Table */
     .table-wrapper {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -702,6 +757,12 @@
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.02em;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th:hover {
+      color: var(--text);
     }
 
     td {
@@ -732,1704 +793,1303 @@
       color: var(--gold);
     }
 
-    .cell-editable {
-      padding: 0;
-    }
-
-    .cell-editable span {
-      display: block;
-      padding: 1rem;
-      cursor: text;
-      border-radius: var(--r-sm);
-      transition: all var(--t) var(--ease);
-      outline: none;
-    }
-
-    .cell-editable span:hover {
-      background: var(--gold-glow);
-    }
-
-    .cell-editable span:focus {
-      background: var(--gold-glow);
-      box-shadow: inset 0 0 0 2px var(--gold);
-    }
-
-    .cell-select, .cell-date {
-      width: 100%;
-      padding: 0.65rem;
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
+    /* Status/Priority Pills */
+    .pill-select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 0.35rem 1.5rem 0.35rem 0.6rem;
+      border-radius: var(--r-full);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.9rem;
-      background: var(--bg-card);
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    .cell-select:focus, .cell-date:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 2px var(--gold-glow);
-    }
-
-    .cell-due-date {
-      font-weight: 500;
-    }
-
-    .cell-due-date.overdue {
-      color: var(--p-crit);
-      font-weight: 600;
-    }
-
-    .cell-due-date.due-soon {
-      color: var(--p-high);
-      font-weight: 600;
-    }
-
-    .cell-ai {
-      cursor: pointer;
-      transition: transform var(--t) var(--ease);
-      text-align: center;
-    }
-
-    .cell-ai:hover {
-      transform: scale(1.2);
-    }
-
-    .btn-delete {
-      padding: 0.4rem 0.8rem;
-      background: var(--p-crit-bg);
-      border: 1px solid var(--p-crit);
-      border-radius: var(--r-sm);
-      color: var(--p-crit);
-      cursor: pointer;
       font-size: 0.8rem;
       font-weight: 600;
-      transition: all var(--t) var(--ease);
-    }
-
-    .btn-delete:hover {
-      background: var(--p-crit);
-      color: var(--text-inv-1);
-    }
-
-    .detail-panel {
-      position: fixed;
-      right: -400px;
-      top: 0;
-      width: 400px;
-      height: 100vh;
-      background: var(--bg-card);
-      border-left: 1px solid var(--border);
-      box-shadow: -4px 0 16px rgba(0,0,0,0.1);
-      z-index: 1000;
-      transition: right var(--t) var(--ease);
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .detail-panel.open {
-      right: 0;
-    }
-
-    .detail-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .detail-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    .detail-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
+      border: 1px solid transparent;
       cursor: pointer;
-      color: var(--text-2);
-      transition: color var(--t) var(--ease);
+      transition: all 0.2s var(--ease);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' fill='none' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%237E8B96' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 0.35rem) center;
+      min-width: 95px;
     }
 
-    .detail-close:hover {
-      color: var(--text);
-    }
+    .pill-select:hover { border-color: rgba(0,0,0,0.06); }
+    .pill-select:focus { outline: none; border-color: var(--gold-ring); box-shadow: 0 0 0 2px var(--gold-glow); }
 
-    .detail-body {
-      padding: 1.5rem;
-      overflow-y: auto;
-      flex: 1;
-    }
+    .pill-select[data-type="status"][data-value="Not Started"] { background-color: var(--s-nostart-bg); color: var(--s-nostart); }
+    .pill-select[data-type="status"][data-value="Planning"] { background-color: var(--s-plan-bg); color: var(--s-plan); }
+    .pill-select[data-type="status"][data-value="In Progress"] { background-color: var(--s-prog-bg); color: var(--s-prog); }
+    .pill-select[data-type="status"][data-value="In Review"] { background-color: var(--s-rev-bg); color: var(--s-rev); }
+    .pill-select[data-type="status"][data-value="Complete"] { background-color: var(--s-done-bg); color: var(--s-done); }
+    .pill-select[data-type="status"][data-value="Delayed"] { background-color: var(--s-block-bg); color: var(--s-block); }
+    .pill-select[data-type="status"][data-value="On Hold"] { background-color: var(--s-hold-bg); color: var(--s-hold); }
 
-    .detail-field {
-      margin-bottom: 1.5rem;
-    }
+    .pill-select[data-type="priority"][data-value="Critical"] { background-color: var(--p-crit-bg); color: var(--p-crit); }
+    .pill-select[data-type="priority"][data-value="Urgent"] { background-color: var(--p-urg-bg); color: var(--p-urg); }
+    .pill-select[data-type="priority"][data-value="Important"] { background-color: var(--p-imp-bg); color: var(--p-imp); }
+    .pill-select[data-type="priority"][data-value="Medium"] { background-color: var(--p-med-bg); color: var(--p-med); }
+    .pill-select[data-type="priority"][data-value="Low"] { background-color: var(--p-low-bg); color: var(--p-low); }
+    .pill-select[data-type="priority"][data-value="Non-Urgent"] { background-color: var(--p-non-bg); color: var(--p-non); }
+    .pill-select[data-type="priority"][data-value="High"] { background-color: var(--p-high-bg); color: var(--p-high); }
 
-    .detail-label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-2);
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .detail-input, .detail-select, .detail-textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text);
-      transition: all var(--t) var(--ease);
-    }
-
-    .detail-input:focus, .detail-select:focus, .detail-textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px var(--gold-glow);
-    }
-
-    .detail-textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .detail-checkbox {
-      margin-right: 0.75rem;
-      cursor: pointer;
-      width: 18px;
-      height: 18px;
-    }
-
-    .detail-checkbox-group {
-      display: flex;
-      align-items: center;
-    }
-
-    .detail-readonly {
-      padding: 0.75rem;
-      background: var(--bg);
-      border-radius: var(--r-sm);
-      color: var(--text-2);
-      font-size: 0.9rem;
-    }
-
-    .detail-footer {
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 0.75rem;
-      flex-shrink: 0;
-    }
-
-    .detail-btn {
-      flex: 1;
-      padding: 0.75rem;
-      border: none;
-      border-radius: var(--r);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
-    }
-
-    .detail-btn-save {
-      background: var(--gold);
-      color: var(--text-inv-1);
-    }
-
-    .detail-btn-save:hover {
-      background: var(--gold-light);
-    }
-
-    .detail-btn-cancel {
-      background: var(--border);
-      color: var(--text-2);
-    }
-
-    .detail-btn-cancel:hover {
-      background: var(--border-strong);
-    }
-
+    /* Modal */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: none;
+      inset: 0;
+      background: rgba(28,33,39,0.28);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
     }
 
     .modal-overlay.active {
-      display: flex;
+      opacity: 1;
+      pointer-events: all;
     }
 
     .modal {
       background: var(--bg-card);
-      border-radius: var(--r);
-      width: 90%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 2rem;
-      box-shadow: var(--sh-md);
-      animation: slideUp 0.3s var(--ease);
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .modal-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-2);
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 0.75rem;
       border: 1px solid var(--border);
-      border-radius: var(--r);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
+      border-radius: 16px;
+      padding: 1.85rem;
+      width: 92%;
+      max-width: 560px;
+      box-shadow: 0 16px 48px rgba(28,33,39,0.12), 0 4px 12px rgba(28,33,39,0.06);
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 1.1rem;
+    }
+
+    .modal-field {
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.25rem;
+    }
+
+    .modal-field input,
+    .modal-field select,
+    .modal-field textarea {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--r-sm);
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
       color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all var(--t) var(--ease);
     }
 
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
+    .modal-field input:focus,
+    .modal-field select:focus,
+    .modal-field textarea:focus {
       outline: none;
-      border-color: var(--gold);
+      border-color: var(--gold-ring);
       box-shadow: 0 0 0 3px var(--gold-glow);
+      background: #fff;
     }
 
-    .form-textarea {
+    .modal-field textarea {
+      min-height: 60px;
       resize: vertical;
-      min-height: 80px;
     }
 
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .modal-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
     }
 
     .modal-actions {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      margin-top: 1.25rem;
+    }
+
+    .btn {
+      padding: 0.65rem 1.5rem;
+      border: none;
+      border-radius: var(--r);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
     }
 
     .btn-primary {
-      flex: 1;
-      padding: 0.75rem;
       background: var(--gold);
-      border: none;
-      border-radius: var(--r);
-      font-weight: 600;
       color: var(--text-inv-1);
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
     }
 
     .btn-primary:hover {
       background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: var(--sh-sm);
     }
 
     .btn-secondary {
-      flex: 1;
-      padding: 0.75rem;
       background: var(--border);
-      border: none;
-      border-radius: var(--r);
-      font-weight: 600;
       color: var(--text-2);
-      cursor: pointer;
-      transition: all var(--t) var(--ease);
     }
 
     .btn-secondary:hover {
       background: var(--border-strong);
     }
 
+    /* Detail Panel */
+    .detail-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,33,39,0.18);
+      backdrop-filter: blur(3px);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .detail-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .detail-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 460px;
+      max-width: 92vw;
+      background: var(--bg-card);
+      border-left: 1px solid var(--border);
+      box-shadow: -12px 0 40px rgba(28,33,39,0.1);
+      z-index: 91;
+      transform: translateX(100%);
+      transition: transform 0.35s var(--ease);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .detail-overlay.active + .detail-panel,
+    .detail-panel.active {
+      transform: translateX(0);
+    }
+
+    .detail-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-warm);
+      flex-shrink: 0;
+    }
+
+    .detail-panel-header h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .detail-panel-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-3);
+      padding: 0.3rem;
+      border-radius: var(--r-xs);
+      transition: all var(--t) var(--ease);
+    }
+
+    .detail-panel-close:hover {
+      color: var(--text);
+      background: var(--border);
+    }
+
+    .detail-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.4rem;
+    }
+
+    .detail-field {
+      margin-bottom: 1rem;
+    }
+
+    .detail-field-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-field-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .detail-edit-select,
+    .detail-edit-input,
+    .detail-edit-textarea {
+      width: 100%;
+      padding: 0.4rem 0.55rem;
+      border-radius: var(--r-xs);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.82rem;
+      transition: all var(--t) var(--ease);
+    }
+
+    .detail-edit-select:focus,
+    .detail-edit-input:focus,
+    .detail-edit-textarea:focus {
+      outline: none;
+      border-color: var(--gold-ring);
+      box-shadow: 0 0 0 2px var(--gold-glow);
+      background: #fff;
+    }
+
+    .detail-edit-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Toast */
     .toast-container {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 3000;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
 
     .toast {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      box-shadow: var(--sh-md);
-      margin-bottom: 0.75rem;
-      animation: slideIn 0.3s var(--ease);
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .toast.success {
-      border-left: 4px solid var(--s-done);
-      color: var(--s-done);
-    }
-
-    .toast.error {
-      border-left: 4px solid var(--p-crit);
-      color: var(--p-crit);
-    }
-
-    .recurring-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      box-shadow: var(--sh-xs);
-    }
-
-    .recurring-name {
-      font-weight: 600;
-      color: var(--navy);
-    }
-
-    .recurring-freq {
-      font-size: 0.85rem;
-      color: var(--text-2);
-      margin-top: 0.25rem;
-    }
-
-    .heatmap-container {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .heatmap-day {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0.65rem 1.25rem;
       border-radius: var(--r-sm);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-inv-1);
-    }
-
-    .heatmap-day.low {
-      background: rgba(196,148,61,0.2);
-      color: var(--gold);
-    }
-
-    .heatmap-day.medium {
-      background: rgba(196,148,61,0.5);
-      color: var(--text-inv-1);
-    }
-
-    .heatmap-day.high {
-      background: var(--gold);
-      color: var(--text-inv-1);
-    }
-
-    .prof-item {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 1.25rem;
+      box-shadow: var(--sh-lg);
+      transform: translateX(120%);
+      transition: transform 0.35s var(--ease);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
-      box-shadow: var(--sh-xs);
+      gap: 0.5rem;
     }
 
-    .prof-name {
+    .toast.visible {
+      transform: translateX(0);
+    }
+
+    /* Kanban */
+    .kanban {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      margin-top: 1rem;
+    }
+
+    .kanban-col {
+      flex: 0 0 280px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      display: flex;
+      flex-direction: column;
+      max-height: 70vh;
+    }
+
+    .kanban-col-header {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
       font-weight: 600;
       color: var(--navy);
+      font-size: 0.9rem;
     }
 
-    .prof-role {
+    .kanban-col-count {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      float: right;
+    }
+
+    .kanban-cards {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .kanban-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+    }
+
+    .kanban-card:hover {
+      box-shadow: var(--sh-sm);
+      border-color: var(--gold);
+    }
+
+    .kanban-card-title {
+      font-weight: 600;
       font-size: 0.85rem;
-      color: var(--text-2);
-      margin-top: 0.25rem;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
+    .kanban-card-meta {
+      font-size: 0.75rem;
       color: var(--text-3);
     }
 
-    .empty-state h3 {
-      color: var(--text-2);
-      margin-bottom: 0.5rem;
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-3);
+      background: var(--bg-card);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--r);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem 1.25rem;
+      }
+
+      .header {
+        padding: 1.5rem 1.25rem;
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+      }
+
+      .key-projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dual-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body { background: #fff !important; }
+      body::before, body::after, .loading-bar, .toast-container, .detail-overlay, .detail-panel,
+      .modal-overlay, .cc-nav, .tab-nav, .gold-rule { display: none !important; }
+      .container { padding: 0.5rem !important; max-width: 100% !important; }
+      .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .key-card, .action-card, .goal-item { break-inside: avoid; }
+      .table-wrap { box-shadow: none !important; border: 1px solid #ddd !important; }
+      table { font-size: 0.7rem !important; }
+      td, th { padding: 0.3rem 0.5rem !important; }
+      .pill-select { -webkit-print-color-adjust: exact; print-color-adjust: exact; border: none !important; }
+      .kanban-col { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-content.collapsed { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <nav class="cc-nav">
-    <a href="/index.html">← Back to Command Center</a>
-  </nav>
 
-  <div id="loadingBar" class="loading-bar"></div>
+<div class="loading-bar" id="loadingBar"></div>
 
-  <div class="container">
-    <div class="tab-nav">
-      <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
-      <button class="tab-btn" data-tab="allProjects">All Projects</button>
-      <button class="tab-btn" data-tab="calendar">Calendar & Compliance</button>
+<!-- Command Center Nav -->
+<div class="cc-nav">
+  <a href="../">&larr; Command Center</a>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-title">Key Projects</div>
+  <div class="header-subtitle">
+    Urology Department · Michigan Medicine
+    <div class="sync-dot"></div>
+  </div>
+</div>
+
+<div class="gold-rule"></div>
+
+<!-- Tabs -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('urology')">Urology Projects</button>
+  <button class="tab-btn" onclick="switchTab('calendar')">Calendar <span class="tab-badge">Preview</span></button>
+</div>
+
+<div class="container">
+
+  <!-- DASHBOARD TAB -->
+  <div id="dashboard-tab" class="tab-content active">
+
+    <!-- Key Projects Spotlight — always visible on load -->
+    <div class="key-projects-header">
+      <div class="key-projects-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--gold)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Key Projects
+        <span class="key-count" id="spotlightCount">0</span>
+      </div>
+      <div class="key-projects-hint">Drag cards to reorder priority</div>
     </div>
+    <div id="spotlightGrid" class="key-projects-grid"></div>
 
-    <!-- DASHBOARD TAB -->
-    <div id="dashboard" class="tab-content active">
-      <div id="statsRow" class="stats-row"></div>
-
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>Leadership Priorities</h2>
-      </div>
-      <div class="section-content">
-        <div id="prioritiesContainer" class="priorities-container"></div>
-      </div>
-
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>This Week by Team</h2>
-      </div>
-      <div class="section-content">
-        <div id="weekContainer" class="week-container"></div>
-      </div>
-
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>30-Day Workload</h2>
-      </div>
-      <div class="section-content">
-        <div id="workloadBars" class="workload-bars"></div>
-      </div>
-
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>Department Goals</h2>
-      </div>
-      <div class="section-content">
-        <div id="goalsGrid" class="goals-grid"></div>
-      </div>
-
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>Upcoming Meetings</h2>
-      </div>
-      <div class="section-content">
-        <div id="upcomingMeetings" class="goals-grid"></div>
-      </div>
-    </div>
-
-    <!-- ALL PROJECTS TAB -->
-    <div id="allProjects" class="tab-content">
-      <div class="filters-row">
-        <input type="text" id="searchInput" class="filter-input" placeholder="Search projects...">
-        <select id="filterDomain" class="filter-select"></select>
-        <select id="filterStatus" class="filter-select"></select>
-        <select id="filterOwner" class="filter-select"></select>
-        <button id="clearFilters" class="btn-clear">Clear</button>
-        <button id="addProjectBtn" class="btn-add">+ Add Project</button>
-      </div>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">Flag</th>
-              <th>Project Name</th>
-              <th>Domain</th>
-              <th>Owner</th>
-              <th>Stakeholder</th>
-              <th>Status</th>
-              <th>Due Date</th>
-              <th style="width: 50px;">AI</th>
-              <th>Notes</th>
-              <th style="width: 100px;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="projectsBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- CALENDAR & COMPLIANCE TAB -->
-    <div id="calendar" class="tab-content">
-      <div class="calendar-wrapper">
-        <div>
-          <div class="calendar-container">
-            <div class="calendar-header">
-              <h3>Calendar</h3>
-              <div class="calendar-nav">
-                <button class="calendar-btn" onclick="app.calendar.previousMonth()">←</button>
-                <button class="calendar-btn" onclick="app.calendar.nextMonth()">→</button>
-              </div>
-            </div>
-            <div id="calendarViewFull"></div>
+    <!-- Dual Panel: Calendar + Goals -->
+    <div class="dual-panel">
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <h3>Meetings Calendar</h3>
+          <div class="calendar-nav">
+            <button class="calendar-btn" onclick="app.prevMonth()">←</button>
+            <button class="calendar-btn" onclick="app.nextMonth()">→</button>
           </div>
         </div>
-
-        <div>
-          <div class="calendar-container">
-            <div class="calendar-header">
-              <h3>Recurring Obligations</h3>
-            </div>
-            <div id="recurringHeatmap" class="heatmap-container"></div>
-            <div id="recurringCards"></div>
-          </div>
-        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div id="upcomingMeetings" style="font-size: 0.85rem; color: var(--text-2);"></div>
       </div>
 
-      <div class="section-heading" onclick="toggleSection(this)">
-        <div class="section-toggle"></div>
-        <h2>Professorships</h2>
+      <div class="panel-card">
+        <h3>Department Goals</h3>
+        <div class="goals-grid" id="goalsGrid"></div>
       </div>
-      <div class="section-content">
-        <div id="profList"></div>
-      </div>
+    </div>
+
+    <!-- Action Items -->
+    <div class="section-heading" onclick="app.toggleSection('actionBody')" data-collapse-target="actionBody">
+      <span class="section-toggle" id="actionToggle">▶</span>
+      <h2>Action Items</h2>
+    </div>
+    <div class="section-content" id="actionBody">
+      <div id="actionItems"></div>
+    </div>
+
+  </div>
+
+  <!-- UROLOGY PROJECTS TAB -->
+  <div id="urology-tab" class="tab-content">
+    <div class="filters-row">
+      <input type="text" id="searchInput" class="filter-input" placeholder="Search projects...">
+      <select class="filter-select" id="filterStatus">
+        <option value="">All Status</option>
+        <option value="Not Started">Not Started</option>
+        <option value="Planning">Planning</option>
+        <option value="In Progress">In Progress</option>
+        <option value="In Review">In Review</option>
+        <option value="Delayed">Delayed</option>
+        <option value="On Hold">On Hold</option>
+        <option value="Complete">Complete</option>
+      </select>
+      <select class="filter-select" id="filterPriority">
+        <option value="">All Priority</option>
+        <option value="Critical">Critical</option>
+        <option value="Urgent">Urgent</option>
+        <option value="Important">Important</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+      <select class="filter-select" id="filterOwner">
+        <option value="">All Owners</option>
+      </select>
+      <button class="btn-add" onclick="openAddModal()">+ Add Project</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30px;">★</th>
+            <th onclick="app.sortTable('Project Name')">Project Name</th>
+            <th onclick="app.sortTable('Status')">Status</th>
+            <th onclick="app.sortTable('Priority')">Priority</th>
+            <th onclick="app.sortTable('Owner')">Owner</th>
+            <th onclick="app.sortTable('Due Date')">Due Date</th>
+            <th style="width: 50px;">AI</th>
+          </tr>
+        </thead>
+        <tbody id="projectsBody"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <h3 style="font-family: 'Fraunces', serif; font-size: 1.2rem; margin-bottom: 1rem; color: var(--navy);">Kanban Board</h3>
+      <div class="kanban" id="kanbanBoard"></div>
     </div>
   </div>
 
-  <!-- DETAIL PANEL -->
-  <div id="detailPanel" class="detail-panel">
-    <div class="detail-header">
-      <div class="detail-title" id="detailTitle"></div>
-      <button class="detail-close" onclick="app.closeDetail()">×</button>
+  <!-- CALENDAR TAB -->
+  <div id="calendar-tab" class="tab-content">
+    <div style="background: var(--p-high-bg); border: 1px solid var(--p-high); color: var(--p-high); padding: 1rem; border-radius: var(--r); margin-bottom: 2rem; font-size: 0.85rem; font-weight: 500;">
+      📋 Calendar feature coming soon
     </div>
-    <div class="detail-body">
-      <div class="detail-field">
-        <label class="detail-label">Project Name</label>
-        <input type="text" id="detailName" class="detail-input">
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Owner</label>
-        <input type="text" id="detailOwner" class="detail-input">
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Stakeholder</label>
-        <input type="text" id="detailStakeholder" class="detail-input">
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Status</label>
-        <select id="detailStatus" class="detail-select">
-          <option value="Queued">Queued</option>
-          <option value="In-Progress">In-Progress</option>
-          <option value="On-Hold">On-Hold</option>
-          <option value="Complete">Complete</option>
-        </select>
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Domain</label>
-        <select id="detailDomain" class="detail-select">
-          <option value="Finance">Finance</option>
-          <option value="ORs">ORs</option>
-          <option value="Clinics">Clinics</option>
-          <option value="HR">HR</option>
-          <option value="BizIQ">BizIQ</option>
-          <option value="Prostate Cancer Center">Prostate Cancer Center</option>
-        </select>
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Due Date</label>
-        <input type="date" id="detailDueDate" class="detail-input">
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">AI Potential</label>
-        <select id="detailAI" class="detail-select">
-          <option value="">None</option>
-          <option value="Candidate">Candidate</option>
-          <option value="Pilot">Pilot</option>
-          <option value="Implemented">Implemented</option>
-        </select>
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Notes</label>
-        <textarea id="detailNotes" class="detail-textarea"></textarea>
-      </div>
-      <div class="detail-field">
-        <div class="detail-checkbox-group">
-          <input type="checkbox" id="detailLeadership" class="detail-checkbox">
-          <label class="detail-label" style="margin: 0;">Leadership Priority</label>
-        </div>
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Project ID</label>
-        <div class="detail-readonly" id="detailID"></div>
-      </div>
-      <div class="detail-field">
-        <label class="detail-label">Last Updated</label>
-        <div class="detail-readonly" id="detailUpdated"></div>
-      </div>
-    </div>
-    <div class="detail-footer">
-      <button class="detail-btn detail-btn-save" onclick="app.saveDetail()">Save</button>
-      <button class="detail-btn detail-btn-cancel" onclick="app.closeDetail()">Cancel</button>
-    </div>
+    <div id="fullCalendar"></div>
   </div>
 
-  <!-- ADD PROJECT MODAL -->
-  <div id="addProjectModal" class="modal-overlay">
-    <div class="modal">
-      <h2 class="modal-title">Add New Project</h2>
-      <div class="form-group">
-        <label class="form-label">Project Name *</label>
-        <input type="text" id="modalName" class="form-input" placeholder="Project name">
+</div>
+
+<!-- Add Project Modal -->
+<div class="modal-overlay" id="addModalOverlay" onclick="closeAddModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h2>Create Project</h2>
+    <div class="modal-field">
+      <label>Project Name</label>
+      <input type="text" id="newProjectName" placeholder="Project name...">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Owner</label>
+        <input type="text" id="newOwner" placeholder="Owner name...">
       </div>
-      <div class="form-group">
-        <label class="form-label">Owner *</label>
-        <input type="text" id="modalOwner" class="form-input" placeholder="Team member name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Key Stakeholder</label>
-        <input type="text" id="modalStakeholder" class="form-input" placeholder="Stakeholder name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Domain</label>
-        <select id="modalDomain" class="form-select">
-          <option value="Finance">Finance</option>
-          <option value="ORs">ORs</option>
-          <option value="Clinics">Clinics</option>
-          <option value="HR">HR</option>
-          <option value="BizIQ">BizIQ</option>
-          <option value="Prostate Cancer Center">Prostate Cancer Center</option>
+      <div class="modal-field">
+        <label>Status</label>
+        <select id="newStatus">
+          <option>Not Started</option>
+          <option>Planning</option>
+          <option>In Progress</option>
+          <option>In Review</option>
+          <option>Delayed</option>
+          <option>On Hold</option>
+          <option>Complete</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select id="modalStatus" class="form-select">
-          <option value="Queued">Queued</option>
-          <option value="In-Progress">In-Progress</option>
-          <option value="On-Hold">On-Hold</option>
-          <option value="Complete">Complete</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Due Date</label>
-        <input type="date" id="modalDueDate" class="form-input">
-      </div>
-      <div class="form-group">
-        <label class="form-label">AI Potential</label>
-        <select id="modalAI" class="form-select">
-          <option value="">None</option>
-          <option value="Candidate">Candidate</option>
-          <option value="Pilot">Pilot</option>
-          <option value="Implemented">Implemented</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-        <textarea id="modalNotes" class="form-textarea" placeholder="Project description and notes"></textarea>
-      </div>
-      <div class="form-group">
-        <div class="checkbox-group">
-          <input type="checkbox" id="modalLeadership">
-          <label style="margin: 0;">Mark as Leadership Priority</label>
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-primary" onclick="app.submitAddProject()">Add Project</button>
-        <button class="btn-secondary" onclick="app.closeAddModal()">Cancel</button>
       </div>
     </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Priority</label>
+        <select id="newPriority">
+          <option>Medium</option>
+          <option>Critical</option>
+          <option>Urgent</option>
+          <option>Important</option>
+          <option>Low</option>
+          <option>Non-Urgent</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Category</label>
+        <select id="newCategory">
+          <option value="">—</option>
+          <option>Finance</option>
+          <option>Faculty</option>
+          <option>Operations</option>
+          <option>Administrative</option>
+          <option>Strategy</option>
+          <option>Analytics</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Start Date</label>
+        <input type="date" id="newStartDate">
+      </div>
+      <div class="modal-field">
+        <label>Due Date</label>
+        <input type="date" id="newDueDate">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Description</label>
+      <textarea id="newDescription" placeholder="Project description..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="app.addProject()">Create</button>
+    </div>
   </div>
-
-  <div id="toastContainer" class="toast-container"></div>
-
-  <script>
-    const app = {
-      data: {
-        projects: [],
-        recurring: [],
-        calendarEvents: [],
-        goals: [],
-        meetings: [],
-        professorships: []
-      },
-      currentDetailProject: null,
-      currentMonth: new Date(),
-      filters: {
-        search: '',
-        domain: '',
-        status: '',
-        owner: ''
-      },
-      priorityOrder: [],
-      apiUrl: 'https://script.google.com/macros/s/AKfycbwDdeZBBx63c2Iexsd4Mrbt3lZ1bUjMdIJXlXV1QfRxD171i1GCvyaOmgGRsDxJIYk/exec',
-      projectRowMap: {},
-
-      async init() {
-        this.loadLocalStorage();
-        await this.fetchData();
-        this.renderDashboard();
-        this.attachEventListeners();
-        this.setupAutoRefresh();
-      },
-
-      loadLocalStorage() {
-        const stored = localStorage.getItem('cc-priority-order');
-        if (stored) this.priorityOrder = JSON.parse(stored);
-      },
-
-      async fetchData() {
-        this.showLoading();
-        try {
-          const response = await fetch(this.apiUrl);
-          const result = await response.json();
-
-          this.data.projects = (result.projects || []).map((p, idx) => {
-            const mapped = this.mapProjectSchema(p);
-            this.projectRowMap[mapped.ID] = p._row || idx + 2;
-            return mapped;
-          });
-
-          this.data.recurring = result.recurring || [];
-          this.data.calendarEvents = result.calendarEvents || [];
-          this.data.goals = result.goals || [];
-          this.data.meetings = this.getMeetingsFromStorage();
-          this.data.professorships = this.getProfessionalshipsFromStorage();
-
-          if (!this.priorityOrder.length) {
-            this.priorityOrder = this.data.projects
-              .filter(p => p.Leadership)
-              .map((p, i) => ({ id: p.ID, rank: i + 1 }));
-            this.savePriorityOrder();
-          }
-        } catch (error) {
-          console.error('Fetch error:', error);
-          this.showToast('Error loading data', 'error');
-        } finally {
-          this.hideLoading();
-        }
-      },
-
-      mapProjectSchema(oldProject) {
-        const statusMap = {
-          'Not Started': 'Queued',
-          'Planning': 'Queued',
-          'In Progress': 'In-Progress',
-          'In Review': 'In-Progress',
-          'Delayed': 'On-Hold',
-          'On Hold': 'On-Hold',
-          'Complete': 'Complete'
-        };
-
-        const categoryMap = {
-          'Finance': 'Finance',
-          'Faculty': 'HR',
-          'Operations': 'ORs',
-          'Administrative': 'HR',
-          'Strategy': 'Finance',
-          'Analytics': 'BizIQ',
-          'PCC': 'Prostate Cancer Center',
-          'BizIQ': 'BizIQ',
-          'Perioperative': 'ORs',
-          'Clinics': 'Clinics'
-        };
-
-        const aiMap = {
-          'AI Candidate': 'Candidate',
-          'AI Pilot': 'Pilot',
-          'AI Implemented': 'Implemented',
-          'Yes': 'Candidate',
-          'True': 'Candidate',
-          '1': 'Candidate'
-        };
-
-        return {
-          ID: oldProject.ID || oldProject.id || Math.random().toString(36).substr(2, 9),
-          Project: oldProject.Project || '',
-          Owner: oldProject.Owner || '',
-          Stakeholder: oldProject['Key Stakeholder'] || '',
-          Status: statusMap[oldProject.Status] || 'Queued',
-          Domain: categoryMap[oldProject.Category] || 'Finance',
-          DueDate: oldProject['Due Date'] || oldProject.DueDate || '',
-          Leadership: oldProject['Leadership Status'] === 'Priority' || oldProject.Leadership === true,
-          AI: aiMap[oldProject['AI Potential?']] || '',
-          Notes: ((oldProject.Description || '') + (oldProject.Notes ? '\n' + oldProject.Notes : '')).trim(),
-          LastUpdated: oldProject.LastUpdated || new Date().toISOString()
-        };
-      },
-
-      renderDashboard() {
-        this.renderStats();
-        this.renderLeadershipPriorities();
-        this.renderThisWeek();
-        this.renderWorkload();
-        this.renderGoals();
-        this.renderCalendar('calendarView', this.currentMonth);
-        this.renderUpcomingMeetings();
-        this.populateFilterOptions();
-        this.renderProjectsTable();
-      },
-
-      renderStats() {
-        const container = document.getElementById('statsRow');
-        const activeProjects = this.data.projects.filter(p => p.Status !== 'Complete');
-        const queued = activeProjects.filter(p => p.Status === 'Queued').length;
-        const inProgress = activeProjects.filter(p => p.Status === 'In-Progress').length;
-        const onHold = activeProjects.filter(p => p.Status === 'On-Hold').length;
-        const complete = this.data.projects.filter(p => p.Status === 'Complete').length;
-
-        const stats = [
-          { label: 'Total Active', value: activeProjects.length, filter: 'active' },
-          { label: 'Queued', value: queued, filter: 'Queued' },
-          { label: 'In-Progress', value: inProgress, filter: 'In-Progress' },
-          { label: 'On-Hold', value: onHold, filter: 'On-Hold' },
-          { label: 'Complete', value: complete, filter: 'Complete' }
-        ];
-
-        container.innerHTML = stats.map((stat, i) => `
-          <div class="stat-card" onclick="app.filterByStatus('${stat.filter}')">
-            <div class="stat-label">${stat.label}</div>
-            <div class="stat-number">${stat.value}</div>
-          </div>
-        `).join('');
-      },
-
-      renderLeadershipPriorities() {
-        const container = document.getElementById('prioritiesContainer');
-        const priorities = this.data.projects.filter(p => p.Leadership);
-
-        priorities.sort((a, b) => {
-          const rankA = this.priorityOrder.find(po => po.id === a.ID)?.rank || 999;
-          const rankB = this.priorityOrder.find(po => po.id === b.ID)?.rank || 999;
-          return rankA - rankB;
-        });
-
-        if (priorities.length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No Leadership Priorities</h3><p>Star projects to add them here</p></div>';
-          return;
-        }
-
-        container.innerHTML = priorities.map((project, idx) => {
-          const dueDate = project.DueDate ? new Date(project.DueDate) : null;
-          const dueDateStr = dueDate ? dueDate.toLocaleDateString() : 'No due date';
-
-          return `
-            <div class="priority-card" draggable="true" data-project-id="${project.ID}">
-              <div class="priority-rank">${idx + 1}</div>
-              <div class="priority-info">
-                <div class="priority-name" onclick="app.openDetail('${project.ID}')" style="cursor: pointer;">${project.Project}</div>
-                <div class="priority-meta">
-                  <div class="status-pill ${project.Status.toLowerCase().replace('-', '-')}">${project.Status}</div>
-                  <div class="domain-badge">${project.Domain}</div>
-                  <div class="priority-due">${dueDateStr}</div>
-                </div>
-                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-2);">Owner: ${project.Owner}</div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        this.setupPriorityDragDrop();
-      },
-
-      renderThisWeek() {
-        const container = document.getElementById('weekContainer');
-        const now = new Date();
-        const weekEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-        const weekProjects = this.data.projects.filter(p => {
-          const dueDate = p.DueDate ? new Date(p.DueDate) : null;
-          return dueDate && dueDate >= now && dueDate <= weekEnd && p.Status !== 'Complete';
-        });
-
-        const groupedByOwner = {};
-        weekProjects.forEach(p => {
-          if (!groupedByOwner[p.Owner]) groupedByOwner[p.Owner] = [];
-          groupedByOwner[p.Owner].push(p);
-        });
-
-        if (Object.keys(groupedByOwner).length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No Projects Due This Week</h3></div>';
-          return;
-        }
-
-        container.innerHTML = Object.entries(groupedByOwner).map(([owner, projects]) => `
-          <div class="owner-section">
-            <div class="owner-name">${owner}</div>
-            ${projects.map(p => {
-              const dueDate = new Date(p.DueDate).toLocaleDateString();
-              return `
-                <div class="project-item" onclick="app.openDetail('${p.ID}')">
-                  <div class="project-item-name">${p.Project}</div>
-                  <div class="project-item-due">${dueDate}</div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        `).join('');
-      },
-
-      renderWorkload() {
-        const container = document.getElementById('workloadBars');
-        const now = new Date();
-        const thirtyDaysOut = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-
-        const workloadProjects = this.data.projects.filter(p => {
-          const dueDate = p.DueDate ? new Date(p.DueDate) : null;
-          return dueDate && dueDate >= now && dueDate <= thirtyDaysOut && p.Status !== 'Complete';
-        }).sort((a, b) => new Date(a.DueDate) - new Date(b.DueDate));
-
-        if (workloadProjects.length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No Projects in 30 Days</h3></div>';
-          return;
-        }
-
-        container.innerHTML = workloadProjects.map(p => {
-          const dueDate = new Date(p.DueDate);
-          const daysRemaining = Math.ceil((dueDate - now) / (24 * 60 * 60 * 1000));
-          const percentage = Math.max(0, Math.min(100, (daysRemaining / 30) * 100));
-
-          return `
-            <div class="workload-item">
-              <div class="workload-name">${p.Project}</div>
-              <div class="workload-bar-container">
-                <div class="workload-bar" style="width: ${percentage}%"></div>
-              </div>
-              <div class="workload-label">${daysRemaining} days remaining</div>
-            </div>
-          `;
-        }).join('');
-      },
-
-      renderGoals() {
-        const container = document.getElementById('goalsGrid');
-        if (this.data.goals.length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No Goals</h3><p>Create goals for the team</p></div>';
-          return;
-        }
-
-        container.innerHTML = this.data.goals.map((goal, idx) => {
-          const statusClass = (goal.Status || 'not-started').toLowerCase();
-          const statusText = goal.Status ? goal.Status.replace('-', ' ') : 'Not Started';
-
-          return `
-            <div class="goal-card">
-              <div class="goal-status-ring ${statusClass}">${statusText[0]}</div>
-              <div class="goal-title">${goal.Name || 'Untitled Goal'}</div>
-              <div class="goal-description">${goal.Description || ''}</div>
-              <div class="goal-actions">
-                <button class="goal-btn" onclick="app.updateGoalStatus(${idx}, 'in-progress')">Progress</button>
-                <button class="goal-btn" onclick="app.updateGoalStatus(${idx}, 'complete')">Complete</button>
-              </div>
-            </div>
-          `;
-        }).join('');
-      },
-
-      renderCalendar(elementId, month) {
-        const container = document.getElementById(elementId);
-        if (!container) return;
-
-        const year = month.getFullYear();
-        const monthNum = month.getMonth();
-
-        const firstDay = new Date(year, monthNum, 1);
-        const lastDay = new Date(year, monthNum + 1, 0);
-        const daysInMonth = lastDay.getDate();
-        const startingDayOfWeek = firstDay.getDay();
-
-        let html = '<div class="calendar-grid">';
-
-        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        dayNames.forEach(day => {
-          html += `<div class="calendar-day-header">${day}</div>`;
-        });
-
-        for (let i = 0; i < startingDayOfWeek; i++) {
-          html += '<div class="calendar-day other-month"></div>';
-        }
-
-        const today = new Date();
-        for (let day = 1; day <= daysInMonth; day++) {
-          const date = new Date(year, monthNum, day);
-          const isToday = date.toDateString() === today.toDateString();
-          const hasEvent = this.data.calendarEvents.some(e => {
-            const eDate = new Date(e.Date);
-            return eDate.toDateString() === date.toDateString();
-          });
-
-          const classes = `calendar-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}`;
-          html += `<div class="${classes}" onclick="app.handleCalendarDayClick(new Date(${year}, ${monthNum}, ${day}))">${day}</div>`;
-        }
-
-        const remainingDays = 42 - (startingDayOfWeek + daysInMonth);
-        for (let i = 0; i < remainingDays; i++) {
-          html += '<div class="calendar-day other-month"></div>';
-        }
-
-        html += '</div>';
-        container.innerHTML = html;
-      },
-
-      renderUpcomingMeetings() {
-        const container = document.getElementById('upcomingMeetings');
-        const meetings = this.getMeetingsFromStorage();
-        const sorted = meetings.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 5);
-
-        if (sorted.length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No Upcoming Meetings</h3></div>';
-          return;
-        }
-
-        container.innerHTML = sorted.map(m => `
-          <div class="goal-card" style="padding: 1rem;">
-            <div style="font-weight: 600; color: var(--navy);">${m.title}</div>
-            <div style="font-size: 0.85rem; color: var(--text-2); margin-top: 0.25rem;">${new Date(m.date).toLocaleDateString()} at ${m.time}</div>
-          </div>
-        `).join('');
-      },
-
-      populateFilterOptions() {
-        const domains = ['Finance', 'ORs', 'Clinics', 'HR', 'BizIQ', 'Prostate Cancer Center'];
-        const statuses = ['Queued', 'In-Progress', 'On-Hold', 'Complete'];
-        const owners = [...new Set(this.data.projects.map(p => p.Owner))].filter(o => o);
-
-        document.getElementById('filterDomain').innerHTML = '<option value="">All Domains</option>' +
-          domains.map(d => `<option value="${d}">${d}</option>`).join('');
-
-        document.getElementById('filterStatus').innerHTML = '<option value="">All Status</option>' +
-          statuses.map(s => `<option value="${s}">${s}</option>`).join('');
-
-        document.getElementById('filterOwner').innerHTML = '<option value="">All Owners</option>' +
-          owners.map(o => `<option value="${o}">${o}</option>`).join('');
-      },
-
-      renderProjectsTable() {
-        const tbody = document.getElementById('projectsBody');
-        let filtered = this.data.projects;
-
-        if (this.filters.search) {
-          const search = this.filters.search.toLowerCase();
-          filtered = filtered.filter(p =>
-            p.Project.toLowerCase().includes(search) ||
-            p.Owner.toLowerCase().includes(search) ||
-            p.Notes.toLowerCase().includes(search)
-          );
-        }
-        if (this.filters.domain) {
-          filtered = filtered.filter(p => p.Domain === this.filters.domain);
-        }
-        if (this.filters.status) {
-          filtered = filtered.filter(p => p.Status === this.filters.status);
-        }
-        if (this.filters.owner) {
-          filtered = filtered.filter(p => p.Owner === this.filters.owner);
-        }
-
-        if (filtered.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 2rem; color: var(--text-3);">No projects match your filters</td></tr>';
-          return;
-        }
-
-        tbody.innerHTML = filtered.map(project => {
-          const dueDate = project.DueDate ? new Date(project.DueDate) : null;
-          const now = new Date();
-          const isOverdue = dueDate && dueDate < now && project.Status !== 'Complete';
-          const isDueSoon = dueDate && dueDate < new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000) && !isOverdue && project.Status !== 'Complete';
-
-          const aiIcon = this.getAIIcon(project.AI);
-
-          return `
-            <tr>
-              <td class="cell-star ${project.Leadership ? 'active' : ''}" onclick="app.toggleLeadership('${project.ID}')" title="Leadership flag">★</td>
-              <td class="cell-editable"><span contenteditable="true" onblur="app.updateCell('${project.ID}', 'Project', this.textContent)" onclick="event.stopPropagation()">${project.Project}</span></td>
-              <td>
-                <select class="cell-select" value="${project.Domain}" onchange="app.updateCell('${project.ID}', 'Domain', this.value)">
-                  <option value="Finance">Finance</option>
-                  <option value="ORs">ORs</option>
-                  <option value="Clinics">Clinics</option>
-                  <option value="HR">HR</option>
-                  <option value="BizIQ">BizIQ</option>
-                  <option value="Prostate Cancer Center">Prostate Cancer Center</option>
-                </select>
-              </td>
-              <td class="cell-editable"><span contenteditable="true" onblur="app.updateCell('${project.ID}', 'Owner', this.textContent)" onclick="event.stopPropagation()">${project.Owner}</span></td>
-              <td class="cell-editable"><span contenteditable="true" onblur="app.updateCell('${project.ID}', 'Stakeholder', this.textContent)" onclick="event.stopPropagation()">${project.Stakeholder}</span></td>
-              <td>
-                <select class="cell-select" value="${project.Status}" onchange="app.updateCell('${project.ID}', 'Status', this.value)">
-                  <option value="Queued">Queued</option>
-                  <option value="In-Progress">In-Progress</option>
-                  <option value="On-Hold">On-Hold</option>
-                  <option value="Complete">Complete</option>
-                </select>
-              </td>
-              <td class="cell-due-date ${isOverdue ? 'overdue' : isDueSoon ? 'due-soon' : ''}">
-                <input type="date" class="cell-date" value="${project.DueDate}" onchange="app.updateCell('${project.ID}', 'DueDate', this.value)">
-              </td>
-              <td class="cell-ai" onclick="app.cycleAI('${project.ID}')" title="Click to cycle AI status">${aiIcon}</td>
-              <td class="cell-editable"><span contenteditable="true" onblur="app.updateCell('${project.ID}', 'Notes', this.textContent)" onclick="event.stopPropagation()" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${project.Notes}</span></td>
-              <td><button class="btn-delete" onclick="app.deleteProject('${project.ID}')">Delete</button></td>
-            </tr>
-          `;
-        }).join('');
-      },
-
-      getAIIcon(aiValue) {
-        const icons = {
-          'Candidate': '🔍',
-          'Pilot': '⚡',
-          'Implemented': '✓'
-        };
-        return icons[aiValue] || '○';
-      },
-
-      openDetail(projectId) {
-        const project = this.data.projects.find(p => p.ID === projectId);
-        if (!project) return;
-
-        this.currentDetailProject = project;
-
-        document.getElementById('detailTitle').textContent = project.Project;
-        document.getElementById('detailName').value = project.Project;
-        document.getElementById('detailOwner').value = project.Owner;
-        document.getElementById('detailStakeholder').value = project.Stakeholder;
-        document.getElementById('detailStatus').value = project.Status;
-        document.getElementById('detailDomain').value = project.Domain;
-        document.getElementById('detailDueDate').value = project.DueDate;
-        document.getElementById('detailLeadership').checked = project.Leadership;
-        document.getElementById('detailAI').value = project.AI;
-        document.getElementById('detailNotes').value = project.Notes;
-        document.getElementById('detailID').textContent = project.ID;
-        document.getElementById('detailUpdated').textContent = new Date(project.LastUpdated).toLocaleDateString();
-
-        document.getElementById('detailPanel').classList.add('open');
-      },
-
-      closeDetail() {
-        document.getElementById('detailPanel').classList.remove('open');
-        this.currentDetailProject = null;
-      },
-
-      async saveDetail() {
-        if (!this.currentDetailProject) return;
-
-        const updates = {
-          Project: document.getElementById('detailName').value,
-          Owner: document.getElementById('detailOwner').value,
-          Stakeholder: document.getElementById('detailStakeholder').value,
-          Status: document.getElementById('detailStatus').value,
-          Domain: document.getElementById('detailDomain').value,
-          DueDate: document.getElementById('detailDueDate').value,
-          Leadership: document.getElementById('detailLeadership').checked,
-          AI: document.getElementById('detailAI').value,
-          Notes: document.getElementById('detailNotes').value
-        };
-
-        Object.assign(this.currentDetailProject, updates);
-        this.currentDetailProject.LastUpdated = new Date().toISOString();
-
-        for (const [key, value] of Object.entries(updates)) {
-          await this.updateSheet(this.currentDetailProject.ID, key, value);
-        }
-
-        this.closeDetail();
-        this.renderDashboard();
-        this.showToast('Project updated successfully', 'success');
-      },
-
-      openAddModal() {
-        document.getElementById('addProjectModal').classList.add('active');
-      },
-
-      closeAddModal() {
-        document.getElementById('addProjectModal').classList.remove('active');
-        this.clearAddModalFields();
-      },
-
-      clearAddModalFields() {
-        document.getElementById('modalName').value = '';
-        document.getElementById('modalOwner').value = '';
-        document.getElementById('modalStakeholder').value = '';
-        document.getElementById('modalDomain').value = 'Finance';
-        document.getElementById('modalStatus').value = 'Queued';
-        document.getElementById('modalDueDate').value = '';
-        document.getElementById('modalLeadership').checked = false;
-        document.getElementById('modalAI').value = '';
-        document.getElementById('modalNotes').value = '';
-      },
-
-      async submitAddProject() {
-        const newProject = {
-          Project: document.getElementById('modalName').value,
-          Owner: document.getElementById('modalOwner').value,
-          Stakeholder: document.getElementById('modalStakeholder').value,
-          Domain: document.getElementById('modalDomain').value,
-          Status: document.getElementById('modalStatus').value,
-          DueDate: document.getElementById('modalDueDate').value,
-          Leadership: document.getElementById('modalLeadership').checked,
-          AI: document.getElementById('modalAI').value,
-          Notes: document.getElementById('modalNotes').value,
-          ID: Math.random().toString(36).substr(2, 9),
-          LastUpdated: new Date().toISOString()
-        };
-
-        if (!newProject.Project || !newProject.Owner) {
-          this.showToast('Project name and owner are required', 'error');
-          return;
-        }
-
-        this.data.projects.push(newProject);
-
-        try {
-          await fetch(this.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify({
-              action: 'add',
-              Project: newProject.Project,
-              Owner: newProject.Owner,
-              'Key Stakeholder': newProject.Stakeholder,
-              Category: newProject.Domain,
-              Status: newProject.Status,
-              'Due Date': newProject.DueDate,
-              'Leadership Status': newProject.Leadership ? 'Priority' : 'Standard Work',
-              'AI Potential?': newProject.AI || '',
-              Notes: newProject.Notes
-            })
-          });
-
-          this.closeAddModal();
-          this.renderDashboard();
-          this.showToast('Project added successfully', 'success');
-        } catch (error) {
-          console.error('Error adding project:', error);
-          this.showToast('Error adding project', 'error');
-        }
-      },
-
-      async updateCell(projectId, field, value) {
-        const project = this.data.projects.find(p => p.ID === projectId);
-        if (!project) return;
-
-        project[field] = value;
-        project.LastUpdated = new Date().toISOString();
-
-        await this.updateSheet(projectId, field, value);
-        this.renderProjectsTable();
-        this.renderDashboard();
-      },
-
-      async updateSheet(projectId, field, value) {
-        const project = this.data.projects.find(p => p.ID === projectId);
-        if (!project) return;
-
-        const row = this.projectRowMap[projectId];
-        const fieldMap = {
-          'Project': 'Project',
-          'Owner': 'Owner',
-          'Stakeholder': 'Key Stakeholder',
-          'Status': 'Status',
-          'Domain': 'Category',
-          'DueDate': 'Due Date',
-          'Leadership': 'Leadership Status',
-          'AI': 'AI Potential?',
-          'Notes': 'Notes'
-        };
-
-        const sheetField = fieldMap[field];
-        let sheetValue = value;
-
-        if (field === 'Leadership') {
-          sheetValue = value ? 'Priority' : 'Standard Work';
-        } else if (field === 'Domain') {
-          sheetValue = value;
-        }
-
-        try {
-          await fetch(this.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify({
-              action: 'update',
-              row: row,
-              column: sheetField,
-              value: sheetValue
-            })
-          });
-        } catch (error) {
-          console.error('Sheet update error:', error);
-        }
-      },
-
-      async toggleLeadership(projectId) {
-        const project = this.data.projects.find(p => p.ID === projectId);
-        if (!project) return;
-
-        project.Leadership = !project.Leadership;
-        project.LastUpdated = new Date().toISOString();
-
-        if (project.Leadership && !this.priorityOrder.find(po => po.id === projectId)) {
-          const rank = Math.max(...this.priorityOrder.map(po => po.rank), 0) + 1;
-          this.priorityOrder.push({ id: projectId, rank });
-          this.savePriorityOrder();
-        }
-
-        await this.updateSheet(projectId, 'Leadership', project.Leadership);
-        this.renderDashboard();
-        this.showToast(`Project ${project.Leadership ? 'added to' : 'removed from'} leadership dashboard`, 'success');
-      },
-
-      async cycleAI(projectId) {
-        const project = this.data.projects.find(p => p.ID === projectId);
-        if (!project) return;
-
-        const states = ['', 'Candidate', 'Pilot', 'Implemented'];
-        const currentIndex = states.indexOf(project.AI);
-        project.AI = states[(currentIndex + 1) % states.length];
-        project.LastUpdated = new Date().toISOString();
-
-        await this.updateSheet(projectId, 'AI', project.AI);
-        this.renderProjectsTable();
-      },
-
-      async deleteProject(projectId) {
-        if (!confirm('Are you sure you want to delete this project?')) return;
-
-        const row = this.projectRowMap[projectId];
-        this.data.projects = this.data.projects.filter(p => p.ID !== projectId);
-
-        try {
-          await fetch(this.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify({
-              action: 'delete',
-              row: row
-            })
-          });
-
-          this.renderDashboard();
-          this.showToast('Project deleted successfully', 'success');
-        } catch (error) {
-          console.error('Delete error:', error);
-          this.showToast('Error deleting project', 'error');
-        }
-      },
-
-      filterByStatus(status) {
-        if (status === 'active') {
-          this.filters.status = '';
-        } else {
-          this.filters.status = status;
-        }
-        document.getElementById('filterStatus').value = this.filters.status;
-        this.renderProjectsTable();
-      },
-
-      async updateGoalStatus(index, status) {
-        const goal = this.data.goals[index];
-        if (!goal) return;
-
-        goal.Status = status;
-
-        try {
-          await fetch(this.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify({
-              action: 'goal_update',
-              index,
-              status
-            })
-          });
-
-          this.renderGoals();
-          this.showToast('Goal updated', 'success');
-        } catch (error) {
-          console.error('Goal update error:', error);
-        }
-      },
-
-      calendar: {
-        previousMonth() {
-          app.currentMonth = new Date(app.currentMonth.getFullYear(), app.currentMonth.getMonth() - 1, 1);
-          app.renderCalendar('calendarViewFull', app.currentMonth);
-        },
-        nextMonth() {
-          app.currentMonth = new Date(app.currentMonth.getFullYear(), app.currentMonth.getMonth() + 1, 1);
-          app.renderCalendar('calendarViewFull', app.currentMonth);
-        }
-      },
-
-      handleCalendarDayClick(date) {
-        const events = this.data.calendarEvents.filter(e =>
-          new Date(e.Date).toDateString() === date.toDateString()
-        );
-      },
-
-      getMeetingsFromStorage() {
-        const stored = localStorage.getItem('cc-meetings');
-        return stored ? JSON.parse(stored) : [];
-      },
-
-      getProfessionalshipsFromStorage() {
-        const stored = localStorage.getItem('cc-professorships');
-        return stored ? JSON.parse(stored) : [];
-      },
-
-      setupPriorityDragDrop() {
-        const cards = document.querySelectorAll('.priority-card');
-        let draggedElement = null;
-
-        cards.forEach(card => {
-          card.addEventListener('dragstart', (e) => {
-            draggedElement = card;
-            card.style.opacity = '0.5';
-          });
-
-          card.addEventListener('dragend', (e) => {
-            card.style.opacity = '1';
-          });
-
-          card.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            if (draggedElement === card) return;
-
-            const container = document.getElementById('prioritiesContainer');
-            const allCards = Array.from(container.querySelectorAll('.priority-card'));
-            const draggedIndex = allCards.indexOf(draggedElement);
-            const targetIndex = allCards.indexOf(card);
-
-            if (draggedIndex < targetIndex) {
-              card.parentNode.insertBefore(draggedElement, card.nextSibling);
-            } else {
-              card.parentNode.insertBefore(draggedElement, card);
-            }
-
-            this.updatePriorityOrder();
-          });
-        });
-      },
-
-      updatePriorityOrder() {
-        const cards = document.querySelectorAll('.priority-card');
-        const newOrder = Array.from(cards).map((card, idx) => ({
-          id: card.getAttribute('data-project-id'),
-          rank: idx + 1
-        }));
-
-        this.priorityOrder = newOrder;
-        this.savePriorityOrder();
-      },
-
-      savePriorityOrder() {
-        localStorage.setItem('cc-priority-order', JSON.stringify(this.priorityOrder));
-      },
-
-      showLoading() {
-        document.getElementById('loadingBar').classList.add('active');
-      },
-
-      hideLoading() {
-        document.getElementById('loadingBar').classList.remove('active');
-      },
-
-      showToast(message, type = 'success') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerHTML = `
-          <span>${type === 'success' ? '✓' : '!'}</span>
-          <span>${message}</span>
-        `;
-        container.appendChild(toast);
-
-        setTimeout(() => {
-          toast.remove();
-        }, 3000);
-      },
-
-      setupAutoRefresh() {
-        setInterval(() => {
-          this.fetchData();
-          this.renderDashboard();
-        }, 5 * 60 * 1000);
-      },
-
-      attachEventListeners() {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const tabName = e.target.getAttribute('data-tab');
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            e.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-
-            if (tabName === 'calendar') {
-              app.renderCalendar('calendarViewFull', app.currentMonth);
-              app.renderRecurring();
-              app.renderProfessorships();
-            }
-          });
-        });
-
-        document.getElementById('searchInput').addEventListener('change', (e) => {
-          this.filters.search = e.target.value;
-          this.renderProjectsTable();
-        });
-
-        document.getElementById('filterDomain').addEventListener('change', (e) => {
-          this.filters.domain = e.target.value;
-          this.renderProjectsTable();
-        });
-
-        document.getElementById('filterStatus').addEventListener('change', (e) => {
-          this.filters.status = e.target.value;
-          this.renderProjectsTable();
-        });
-
-        document.getElementById('filterOwner').addEventListener('change', (e) => {
-          this.filters.owner = e.target.value;
-          this.renderProjectsTable();
-        });
-
-        document.getElementById('clearFilters').addEventListener('click', () => {
-          this.filters = { search: '', domain: '', status: '', owner: '' };
-          document.getElementById('searchInput').value = '';
-          document.getElementById('filterDomain').value = '';
-          document.getElementById('filterStatus').value = '';
-          document.getElementById('filterOwner').value = '';
-          this.renderProjectsTable();
-        });
-
-        document.getElementById('addProjectBtn').addEventListener('click', () => {
-          this.openAddModal();
-        });
-
-        document.getElementById('addProjectModal').addEventListener('click', (e) => {
-          if (e.target === document.getElementById('addProjectModal')) {
-            this.closeAddModal();
-          }
-        });
-      }
+</div>
+
+<!-- Detail Panel -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-panel-header">
+    <h3 id="detailTitle">Project Details</h3>
+    <button class="detail-panel-close" onclick="closeDetail()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="detail-panel-body" id="detailBody"></div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const app = {
+  data: {
+    projects: [],
+    calendarEvents: [],
+    goals: [],
+    recurring: []
+  },
+  apiUrl: 'https://script.google.com/macros/s/AKfycbwDdeZBBx63c2Iexsd4Mrbt3lZ1bUjMdIJXlXV1QfRxD171i1GCvyaOmgGRsDxJIYk/exec',
+  projectRowMap: {},
+  currentMonth: new Date(),
+  sortCol: null,
+  sortDir: 'asc',
+
+  async init() {
+    this.showLoading();
+    try {
+      await this.fetchData();
+      this.render();
+      restoreCollapseStates();
+    } catch (e) {
+      console.error('Init error:', e);
+      this.toast('Error loading data', 'error');
+    } finally {
+      this.hideLoading();
+    }
+  },
+
+  async fetchData() {
+    const response = await fetch(this.apiUrl);
+    const result = await response.json();
+
+    this.data.projects = (result.projects || []).map((p, idx) => {
+      const mapped = {
+        ...p,
+        _row: p._row || idx + 2
+      };
+      this.projectRowMap[mapped.ID || mapped.Project] = p._row || idx + 2;
+      return mapped;
+    });
+
+    this.data.calendarEvents = result.calendarEvents || [];
+    this.data.goals = result.goals || [];
+    this.data.recurring = result.recurring || [];
+
+    // Normalize Leadership Status (fix typos/plurals from sheet)
+    const LS_NORMALIZE = {
+      'priorities': 'Priority', 'priority': 'Priority',
+      'standard work': 'Standard Work', 'standardwork': 'Standard Work',
+      'actively managed': 'Standard Work', 'actvely managed': 'Standard Work',
+      'requests': 'Requests', 'request': 'Requests',
+      'biziq': 'BizIQ', 'biz iq': 'BizIQ'
     };
-
-    app.renderRecurring = function() {
-      const container = document.getElementById('recurringCards');
-      if (!container) return;
-
-      if (this.data.recurring.length === 0) {
-        container.innerHTML = '<div class="empty-state"><h3>No Recurring Obligations</h3></div>';
-        return;
+    this.data.projects.forEach(p => {
+      if (p['Leadership Status']) {
+        const raw = p['Leadership Status'].trim();
+        const key = raw.toLowerCase();
+        if (LS_NORMALIZE[key]) p['Leadership Status'] = LS_NORMALIZE[key];
       }
+    });
+  },
 
-      container.innerHTML = this.data.recurring.map(r => `
-        <div class="recurring-card">
-          <div>
-            <div class="recurring-name">${r.Name || 'Untitled'}</div>
-            <div class="recurring-freq">${r.Frequency || 'Weekly'}</div>
-          </div>
-          <div style="color: var(--gold);">${r.Complete ? '✓' : '○'}</div>
-        </div>
-      `).join('');
+  render() {
+    this.renderSpotlight();
+    this.renderCalendar();
+    this.renderGoals();
+    this.renderActionItems();
+    this.renderProjects();
+    this.renderKanban();
+    this.populateOwnerFilter();
+  },
 
-      const heatmap = document.getElementById('recurringHeatmap');
-      if (heatmap) {
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        heatmap.innerHTML = days.map(day => {
-          const intensity = Math.random() > 0.6 ? 'high' : Math.random() > 0.3 ? 'medium' : 'low';
-          return `<div class="heatmap-day ${intensity}">${day[0]}</div>`;
-        }).join('');
-      }
-    };
+  renderSpotlight() {
+    const keyIds = this.getKeyProjectIds();
+    const keyProjects = keyIds.map(id => this.data.projects.find(p => p.ID === id)).filter(Boolean);
+    const grid = document.getElementById('spotlightGrid');
+    const countEl = document.getElementById('spotlightCount');
+    if (countEl) countEl.textContent = keyProjects.length;
 
-    app.renderProfessorships = function() {
-      const container = document.getElementById('profList');
-      if (!container) return;
-
-      if (this.data.professorships.length === 0) {
-        container.innerHTML = '<div class="empty-state"><h3>No Professorships</h3></div>';
-        return;
-      }
-
-      container.innerHTML = this.data.professorships.map(p => `
-        <div class="prof-item">
-          <div>
-            <div class="prof-name">${p.name}</div>
-            <div class="prof-role">${p.role || 'Professor'}</div>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    function toggleSection(element) {
-      const toggle = element.querySelector('.section-toggle');
-      const content = element.nextElementSibling;
-
-      toggle.classList.toggle('collapsed');
-      content.classList.toggle('collapsed');
-
-      const sections = localStorage.getItem('cc-sections') || '{}';
-      const state = JSON.parse(sections);
-      state[element.querySelector('h2').textContent] = toggle.classList.contains('collapsed');
-      localStorage.setItem('cc-sections', JSON.stringify(state));
+    if (keyProjects.length === 0) {
+      grid.innerHTML = '<div class="key-empty">No priority projects. Set Leadership Status to "Priority" in the sheet to feature projects here.</div>';
+      return;
     }
 
-    window.addEventListener('load', () => {
-      const sections = JSON.parse(localStorage.getItem('cc-sections') || '{}');
-      document.querySelectorAll('.section-heading').forEach(heading => {
-        const title = heading.querySelector('h2').textContent;
-        if (sections[title]) {
-          heading.querySelector('.section-toggle').classList.add('collapsed');
-          heading.nextElementSibling.classList.add('collapsed');
-        }
-      });
+    const today = new Date(); today.setHours(0,0,0,0);
+    const soonMs = 7 * 24 * 60 * 60 * 1000;
 
-      app.init();
+    grid.innerHTML = keyProjects.map((p, idx) => {
+      const owner = p['Owner'] || '';
+      const status = p['Status'] || '';
+      const category = p['Category'] || '';
+      const pct = parseInt(p['% Complete'] || '0', 10) || 0;
+
+      // Status pill class
+      let sCls = '';
+      if (status === 'In Progress') sCls = 's-prog';
+      else if (status === 'Planning') sCls = 's-plan';
+      else if (status === 'In Review') sCls = 's-review';
+      else if (status === 'Delayed') sCls = 's-delayed';
+      else if (status === 'On Hold') sCls = 's-hold';
+      else if (status === 'Complete') sCls = 's-complete';
+
+      // Due date pill
+      const dueRaw = p['Due Date'] ? String(p['Due Date']).slice(0,10) : '';
+      const dueDate = dueRaw ? new Date(dueRaw) : null;
+      const dueFmt = dueDate ? dueDate.toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
+      const isOverdue = dueDate && dueDate < today && status !== 'Complete';
+      const isDueSoon = dueDate && !isOverdue && (dueDate - today) <= soonMs && status !== 'Complete';
+      let dueCls = 'pill-due';
+      if (isOverdue) dueCls += ' overdue';
+      else if (isDueSoon) dueCls += ' due-soon';
+
+      // Build pills
+      const ownerPill = owner ? `<span class="key-pill pill-owner"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>${esc(owner)}</span>` : '';
+      const statusPill = status ? `<span class="key-pill pill-status ${sCls}">${esc(status)}</span>` : '';
+      const catPill = category ? `<span class="key-pill pill-category">${esc(category)}</span>` : '';
+      const duePill = dueFmt ? `<span class="key-pill ${dueCls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${isOverdue ? 'Overdue · ' : ''}${dueFmt}</span>` : '';
+
+      return `<div class="key-card" draggable="true" data-spot-id="${p.ID}"
+          ondragstart="app.spotDragStart(event)" ondragend="app.spotDragEnd(event)"
+          ondragover="app.spotDragOver(event)" ondrop="app.spotDrop(event)" ondragleave="app.spotDragLeave(event)"
+          onclick="app.openDetail('${p.ID}')">
+        <div class="key-card-top">
+          <div class="key-rank">${idx + 1}</div>
+          <div class="key-name">${esc(p['Project']||p['Project Name']||'')}</div>
+        </div>
+        <div class="key-pills">
+          ${ownerPill}${statusPill}${catPill}${duePill}
+        </div>
+        ${pct > 0 ? `<div class="key-progress"><div class="key-progress-fill" style="width:${pct}%"></div></div>` : ''}
+      </div>`;
+    }).join('');
+  },
+
+  getKeyProjectIds() {
+    const priorityIds = this.data.projects
+      .filter(p => p['Leadership Status'] === 'Priority')
+      .map(p => p.ID);
+    try {
+      const saved = JSON.parse(localStorage.getItem('uro_keyProjects') || '[]');
+      const ordered = saved.filter(id => priorityIds.includes(id));
+      priorityIds.forEach(id => { if (!ordered.includes(id)) ordered.push(id); });
+      return ordered;
+    } catch {
+      return priorityIds;
+    }
+  },
+
+  spotDragStart(e) {
+    const card = e.target.closest('.key-card');
+    if (!card) return;
+    this._spotDragId = card.getAttribute('data-spot-id');
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  },
+
+  spotDragEnd(e) {
+    this._spotDragId = null;
+    document.querySelectorAll('.key-card').forEach(c => {
+      c.classList.remove('dragging', 'drag-over');
     });
-  </script>
+  },
+
+  spotDragOver(e) {
+    e.preventDefault();
+    const card = e.target.closest('.key-card');
+    if (!card || card.getAttribute('data-spot-id') === this._spotDragId) return;
+    document.querySelectorAll('.key-card.drag-over').forEach(c => c.classList.remove('drag-over'));
+    card.classList.add('drag-over');
+  },
+
+  spotDragLeave(e) {
+    const card = e.target.closest('.key-card');
+    if (card) card.classList.remove('drag-over');
+  },
+
+  spotDrop(e) {
+    e.preventDefault();
+    const targetCard = e.target.closest('.key-card');
+    if (!targetCard) return;
+    const targetId = targetCard.getAttribute('data-spot-id');
+    const dragId = this._spotDragId;
+    if (!dragId || dragId === targetId) return;
+
+    let keys = this.getKeyProjectIds();
+    const fromIdx = keys.indexOf(dragId);
+    const toIdx = keys.indexOf(targetId);
+    if (fromIdx < 0 || toIdx < 0) return;
+
+    keys.splice(fromIdx, 1);
+    keys.splice(toIdx, 0, dragId);
+    localStorage.setItem('uro_keyProjects', JSON.stringify(keys));
+    this.renderSpotlight();
+  },
+
+  renderCalendar() {
+    const year = this.currentMonth.getFullYear();
+    const month = this.currentMonth.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDow = firstDay.getDay();
+
+    const grid = document.getElementById('calendarGrid');
+    let html = '<div style="font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 1rem;">'
+      + firstDay.toLocaleDateString('en-US', {month:'long', year:'numeric'}) + '</div>';
+    html += '<div class="calendar-grid">';
+
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+      html += `<div class="calendar-day-header">${d}</div>`;
+    });
+
+    for (let i = 0; i < startDow; i++) {
+      html += '<div class="calendar-day other-month"></div>';
+    }
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(year, month, d);
+      const isToday = date.getTime() === today.getTime();
+      const hasEvent = this.data.calendarEvents.some(e => {
+        const edate = new Date(String(e.date).slice(0,10));
+        return edate.getTime() === date.getTime();
+      });
+      html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}">${d}</div>`;
+    }
+
+    const remaining = 42 - (startDow + daysInMonth);
+    for (let i = 0; i < remaining; i++) {
+      html += '<div class="calendar-day other-month"></div>';
+    }
+
+    html += '</div>';
+    grid.innerHTML = html;
+  },
+
+  prevMonth() {
+    this.currentMonth.setMonth(this.currentMonth.getMonth() - 1);
+    this.renderCalendar();
+  },
+
+  nextMonth() {
+    this.currentMonth.setMonth(this.currentMonth.getMonth() + 1);
+    this.renderCalendar();
+  },
+
+  renderGoals() {
+    const grid = document.getElementById('goalsGrid');
+    const goals = this.data.goals || [];
+
+    if (goals.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No goals added yet</div>';
+      return;
+    }
+
+    grid.innerHTML = goals.map(g => {
+      const status = g.Status || 'not-started';
+      return `<div class="goal-card" onclick="app.cycleGoalStatus('${esc(g.ID || g.Title)}')">
+        <div class="goal-status-ring ${status.toLowerCase().replace(' ', '-')}">${status === 'complete' ? '✓' : status === 'in-progress' ? '●' : '○'}</div>
+        <div class="goal-title">${esc(g.Title || '')}</div>
+        <div class="goal-description">${esc(g.Description || '')}</div>
+      </div>`;
+    }).join('');
+  },
+
+  renderActionItems() {
+    const container = document.getElementById('actionItems');
+    const overdue = this.data.projects.filter(p => {
+      if (p['Status'] === 'Complete' || !p['Due Date']) return false;
+      const due = new Date(String(p['Due Date']).slice(0,10));
+      const today = new Date(); today.setHours(0,0,0,0);
+      return due < today;
+    });
+
+    if (overdue.length === 0) {
+      container.innerHTML = '<div class="empty-state">All caught up!</div>';
+      return;
+    }
+
+    container.innerHTML = overdue.map(p => {
+      const due = new Date(String(p['Due Date']).slice(0,10)).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      return `<div class="action-card" onclick="app.openDetail('${p.ID}')">
+        <div class="action-title">${esc(p['Project']||p['Project Name']||'')}</div>
+        <div class="action-meta">
+          <span>Overdue since ${due}</span>
+          <span>${esc(p['Owner']||'—')}</span>
+        </div>
+      </div>`;
+    }).join('');
+  },
+
+  renderProjects() {
+    const tbody = document.getElementById('projectsBody');
+    let projects = this.data.projects;
+
+    const statusFilter = document.getElementById('filterStatus')?.value || '';
+    const priorityFilter = document.getElementById('filterPriority')?.value || '';
+    const ownerFilter = document.getElementById('filterOwner')?.value || '';
+    const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase();
+
+    if (statusFilter) projects = projects.filter(p => p['Status'] === statusFilter);
+    if (priorityFilter) projects = projects.filter(p => p['Priority'] === priorityFilter);
+    if (ownerFilter) projects = projects.filter(p => p['Owner'] === ownerFilter);
+    if (searchVal) {
+      projects = projects.filter(p => {
+        const name = (p['Project Name'] || p['Project'] || '').toLowerCase();
+        const owner = (p['Owner'] || '').toLowerCase();
+        const notes = (p['Notes'] || p['Description'] || '').toLowerCase();
+        return name.includes(searchVal) || owner.includes(searchVal) || notes.includes(searchVal);
+      });
+    }
+
+    tbody.innerHTML = projects.map(p => {
+      const isPriority = p['Leadership Status'] === 'Priority';
+      const due = p['Due Date'] ? new Date(String(p['Due Date']).slice(0,10)).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—';
+      const aiVal = (p['AI Potential?'] || '').toString().toLowerCase();
+      const hasAI = aiVal === 'yes' || aiVal === 'true' || aiVal === '1' || aiVal.includes('ai');
+
+      return `<tr onclick="app.openDetail('${p.ID}')">
+        <td style="cursor: pointer; padding: 0.5rem;" onclick="event.stopPropagation(); app.toggleKeyProject('${p.ID}')">
+          <span class="cell-star ${isPriority ? 'active' : ''}">★</span>
+        </td>
+        <td><strong>${esc(p['Project Name']||'')}</strong></td>
+        <td><select class="pill-select" data-type="status" data-value="${esc(p['Status']||'')}" onchange="event.stopPropagation(); app.updateCell(${p._row}, 'Status', this.value)">
+          ${['Not Started','Planning','In Progress','In Review','Delayed','On Hold','Complete'].map(o=>`<option ${p['Status']===o?'selected':''}>${o}</option>`).join('')}
+        </select></td>
+        <td><select class="pill-select" data-type="priority" data-value="${esc(p['Priority']||'')}" onchange="event.stopPropagation(); app.updateCell(${p._row}, 'Priority', this.value)">
+          ${['Critical','Urgent','Important','Medium','Low','Non-Urgent','High'].map(o=>`<option ${p['Priority']===o?'selected':''}>${o}</option>`).join('')}
+        </select></td>
+        <td>${esc(p['Owner']||'—')}</td>
+        <td>${due}</td>
+        <td style="text-align: center;">${hasAI ? '✦' : '○'}</td>
+      </tr>`;
+    }).join('');
+  },
+
+  renderKanban() {
+    const statuses = ['Not Started', 'Planning', 'In Progress', 'In Review', 'Complete'];
+    const board = document.getElementById('kanbanBoard');
+
+    board.innerHTML = statuses.map(status => {
+      const cards = this.data.projects.filter(p => p['Status'] === status);
+      return `<div class="kanban-col">
+        <div class="kanban-col-header">
+          ${status}
+          <span class="kanban-col-count">${cards.length}</span>
+        </div>
+        <div class="kanban-cards">
+          ${cards.map(p => `
+            <div class="kanban-card" onclick="app.openDetail('${p.ID}')">
+              <div class="kanban-card-title">${esc(p['Project Name']||'')}</div>
+              <div class="kanban-card-meta">${esc(p['Owner']||'—')}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  },
+
+  populateOwnerFilter() {
+    const select = document.getElementById('filterOwner');
+    const owners = [...new Set(this.data.projects.map(p => p['Owner']).filter(Boolean))].sort();
+    select.innerHTML = '<option value="">All Owners</option>' + owners.map(o => `<option>${esc(o)}</option>`).join('');
+  },
+
+  async toggleKeyProject(id) {
+    const p = this.data.projects.find(x => x['ID'] === id);
+    if (!p) return;
+    const isPriority = p['Leadership Status'] === 'Priority';
+    const newVal = isPriority ? 'Standard Work' : 'Priority';
+    p['Leadership Status'] = newVal;
+
+    let keys = [];
+    try { keys = JSON.parse(localStorage.getItem('uro_keyProjects') || '[]'); } catch {}
+    if (isPriority) {
+      keys = keys.filter(k => k !== id);
+    } else {
+      if (!keys.includes(id)) keys.push(id);
+    }
+    localStorage.setItem('uro_keyProjects', JSON.stringify(keys));
+
+    this.renderSpotlight();
+    this.renderProjects();
+
+    await this.updateCell(p._row, 'Leadership Status', newVal);
+  },
+
+  async updateCell(row, col, value) {
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        body: JSON.stringify({action: 'update', row, column: col, value})
+      });
+      const result = await response.json();
+      if (result.success) {
+        this.toast(col + ' updated', 'success');
+        await this.fetchData();
+        this.render();
+      }
+    } catch (e) {
+      console.error('Update error:', e);
+      this.toast('Error updating project', 'error');
+    }
+  },
+
+  async addProject() {
+    const name = document.getElementById('newProjectName')?.value || '';
+    const owner = document.getElementById('newOwner')?.value || '';
+    const status = document.getElementById('newStatus')?.value || 'Not Started';
+    const priority = document.getElementById('newPriority')?.value || 'Medium';
+    const category = document.getElementById('newCategory')?.value || '';
+    const startDate = document.getElementById('newStartDate')?.value || '';
+    const dueDate = document.getElementById('newDueDate')?.value || '';
+    const desc = document.getElementById('newDescription')?.value || '';
+
+    if (!name.trim()) {
+      this.toast('Project name required', 'error');
+      return;
+    }
+
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'add',
+          'Project Name': name,
+          'Owner': owner,
+          'Status': status,
+          'Priority': priority,
+          'Category': category,
+          'Start Date': startDate,
+          'Due Date': dueDate,
+          'Description': desc
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        this.toast('Project created', 'success');
+        closeAddModal();
+        await this.fetchData();
+        this.render();
+      }
+    } catch (e) {
+      console.error('Add error:', e);
+      this.toast('Error creating project', 'error');
+    }
+  },
+
+  openDetail(id) {
+    const p = this.data.projects.find(x => x['ID'] === id);
+    if (!p) return;
+
+    document.getElementById('detailTitle').textContent = p['Project'] || p['Project Name'] || 'Project';
+    document.getElementById('detailBody').innerHTML = `
+      <div class="detail-field">
+        <div class="detail-field-label">Status</div>
+        <select class="detail-edit-select" onchange="app.updateCell(${p._row}, 'Status', this.value)">
+          ${['Not Started','Planning','In Progress','In Review','Delayed','On Hold','Complete'].map(o=>`<option ${p['Status']===o?'selected':''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Priority</div>
+        <select class="detail-edit-select" onchange="app.updateCell(${p._row}, 'Priority', this.value)">
+          ${['Critical','Urgent','Important','Medium','Low','Non-Urgent','High'].map(o=>`<option ${p['Priority']===o?'selected':''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Owner</div>
+        <div class="detail-field-value">${esc(p['Owner']||'—')}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Category</div>
+        <div class="detail-field-value">${esc(p['Category']||'—')}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Leadership Status</div>
+        <select class="detail-edit-select" onchange="app.updateCell(${p._row}, 'Leadership Status', this.value)">
+          <option value="">—</option>
+          ${['Priority','Standard Work','Requests','BizIQ'].map(o=>`<option ${p['Leadership Status']===o?'selected':''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">% Complete</div>
+        <input type="text" class="detail-edit-input" value="${p['% Complete']||'0'}" onchange="app.updateCell(${p._row}, '% Complete', this.value)">
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Due Date</div>
+        <input type="date" class="detail-edit-input" value="${p['Due Date']?.toString().slice(0,10)||''}" onchange="app.updateCell(${p._row}, 'Due Date', this.value)">
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">Description</div>
+        <textarea class="detail-edit-textarea" onchange="app.updateCell(${p._row}, 'Description', this.value)">${esc(p['Description']||'')}</textarea>
+      </div>
+    `;
+
+    document.getElementById('detailOverlay').classList.add('active');
+    document.getElementById('detailPanel').classList.add('active');
+  },
+
+  sortTable(col) {
+    if (this.sortCol === col) {
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortCol = col;
+      this.sortDir = 'asc';
+    }
+    this.data.projects.sort((a, b) => {
+      let aVal = a[col] || '';
+      let bVal = b[col] || '';
+      if (col === 'Due Date') {
+        aVal = new Date(aVal).getTime() || 0;
+        bVal = new Date(bVal).getTime() || 0;
+      }
+      return this.sortDir === 'asc' ?
+        (typeof aVal === 'string' ? aVal.localeCompare(bVal) : aVal - bVal) :
+        (typeof aVal === 'string' ? bVal.localeCompare(aVal) : bVal - aVal);
+    });
+    this.renderProjects();
+  },
+
+  showMetricProjects(type) {
+    let projects = [];
+    if (type === 'total') projects = this.data.projects.filter(p => p['Status'] !== 'Complete');
+    else if (type === 'priority') projects = this.data.projects.filter(p => p['Leadership Status'] === 'Priority');
+    else if (type === 'standard') projects = this.data.projects.filter(p => p['Leadership Status'] === 'Standard Work');
+    else if (type === 'requests') projects = this.data.projects.filter(p => p['Leadership Status'] === 'Requests');
+
+    let msg = `${projects.length} ${type} projects`;
+    this.toast(msg, 'success');
+  },
+
+  toggleSection(id) {
+    const body = document.getElementById(id);
+    const toggle = document.getElementById(id.replace('Body', 'Toggle'));
+    if (!body) return;
+    const isCollapsed = body.classList.toggle('collapsed');
+    if (toggle) toggle.classList.toggle('collapsed', isCollapsed);
+    try { localStorage.setItem('collapse_' + id, isCollapsed ? '1' : '0'); } catch(e) {}
+  },
+
+  showLoading() {
+    document.getElementById('loadingBar').classList.add('active');
+  },
+
+  hideLoading() {
+    document.getElementById('loadingBar').classList.remove('active');
+  },
+
+  toast(msg, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('visible'), 10);
+    setTimeout(() => {
+      toast.classList.remove('visible');
+      setTimeout(() => toast.remove(), 350);
+    }, 3000);
+  },
+
+  cycleGoalStatus(id) {
+    const goal = this.data.goals.find(g => g.ID === id || g.Title === id);
+    if (!goal) return;
+    const statuses = ['not-started', 'in-progress', 'complete'];
+    const current = goal.Status || 'not-started';
+    const idx = statuses.indexOf(current.toLowerCase());
+    goal.Status = statuses[(idx + 1) % statuses.length];
+    this.renderGoals();
+    this.toast('Goal status updated', 'success');
+  }
+};
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(tab + '-tab').classList.add('active');
+  event.target.classList.add('active');
+}
+
+function openAddModal() {
+  document.getElementById('addModalOverlay').classList.add('active');
+}
+
+function closeAddModal() {
+  document.getElementById('addModalOverlay').classList.remove('active');
+  document.getElementById('newProjectName').value = '';
+  document.getElementById('newOwner').value = '';
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.getElementById('detailPanel').classList.remove('active');
+}
+
+function esc(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function restoreCollapseStates() {
+  const defaultOpen = ['spotlightBody'];
+  document.querySelectorAll('[id$="Body"]').forEach(body => {
+    try {
+      const saved = localStorage.getItem('collapse_' + body.id);
+      const shouldBeOpen = defaultOpen.includes(body.id);
+      if ((shouldBeOpen && saved === '1') || (!shouldBeOpen && saved !== '0')) {
+        body.classList.add('collapsed');
+        const toggle = document.getElementById(body.id.replace('Body', 'Toggle'));
+        if (toggle) toggle.classList.add('collapsed');
+      }
+    } catch(e) {}
+  });
+}
+
+// Event Listeners
+document.getElementById('searchInput')?.addEventListener('input', () => app.renderProjects());
+document.getElementById('filterStatus')?.addEventListener('change', () => app.renderProjects());
+document.getElementById('filterPriority')?.addEventListener('change', () => app.renderProjects());
+document.getElementById('filterOwner')?.addEventListener('change', () => app.renderProjects());
+document.getElementById('addModalOverlay')?.addEventListener('click', (e) => {
+  if (e.target === document.getElementById('addModalOverlay')) closeAddModal();
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => app.init());
+</script>
+
 </body>
 </html>
