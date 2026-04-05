@@ -868,14 +868,14 @@ body {
 
   <!-- ── PROTOTYPES ── -->
   <div class="tools-group" id="groupPrototypes">
-    <button class="tools-group-header group-toggle" data-group="groupPrototypes" aria-expanded="true">
+    <button class="tools-group-header group-toggle" data-group="groupPrototypes" aria-expanded="false">
       <span class="tools-group-dot" style="background:var(--amber);"></span>
       <span class="tools-group-label" style="color:var(--amber);">Prototypes</span>
       <span class="tools-group-line"></span>
       <span class="tools-group-count">5</span>
       <svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
-    <div class="group-body" id="bodyPrototypes">
+    <div class="group-body" id="bodyPrototypes" style="max-height:0;opacity:0;overflow:hidden;">
     <div class="proto-notice">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4"/><path d="M12 16h.01"/><circle cx="12" cy="12" r="10"/></svg>
       These tools are in active development. Data is still being verified — in some cases, placeholder data is used. Do not rely on these figures for operational decisions.
@@ -907,14 +907,14 @@ body {
 
   <!-- ── QUICK LINKS ── -->
   <div class="tools-group" id="groupQuickLinks">
-    <button class="tools-group-header group-toggle" data-group="groupQuickLinks" aria-expanded="true">
+    <button class="tools-group-header group-toggle" data-group="groupQuickLinks" aria-expanded="false">
       <span class="tools-group-dot" style="background:var(--indigo);"></span>
       <span class="tools-group-label" style="color:var(--indigo);">Quick Links</span>
       <span class="tools-group-line"></span>
       <span class="tools-group-count">19</span>
       <svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
-    <div class="group-body" id="bodyQuickLinks">
+    <div class="group-body" id="bodyQuickLinks" style="max-height:0;opacity:0;overflow:hidden;">
     <div class="qlink-grid">
       <a class="qlink" href="https://michart.med.umich.edu/" target="_blank" rel="noopener"><span class="qlink-dot qlink-dot--live"></span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>MiChart</a>
       <a class="qlink" href="https://wolverineaccess.umich.edu/" target="_blank" rel="noopener"><span class="qlink-dot qlink-dot--live"></span><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Wolverine Access</a>
@@ -990,8 +990,8 @@ body {
     var groupId = btn.getAttribute('data-group');
     var body = document.getElementById('body' + groupId.replace('group', ''));
 
-    // Set initial max-height so transition works
-    if (body) { body.style.maxHeight = body.scrollHeight + 40 + 'px'; }
+    // Set initial max-height so transition works (only for expanded groups)
+    if (body && btn.getAttribute('aria-expanded') === 'true') { body.style.maxHeight = body.scrollHeight + 40 + 'px'; }
 
     btn.addEventListener('click', function() {
       var expanded = btn.getAttribute('aria-expanded') === 'true';
